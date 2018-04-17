@@ -1,0 +1,23 @@
+{
+  "name": "capstoneproject",
+  "version": "1.0.0",
+  "description": "This is our lovely capstone project.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lachlanwillis/capstoneproject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lachlanwillis/capstoneproject/issues"
+  },
+  "homepage": "https://github.com/lachlanwillis/capstoneproject#readme",
+  "devDependencies": {
+    "@types/node": "^9.6.5",
+    "typescript": "^2.8.1"
+  }
+}
