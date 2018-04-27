@@ -1,0 +1,3 @@
+[submodule "util/manual-classifier"]
+	path = util/manual-classifier
+	url = https://github.com/bennetthardwick/darknet-manual-classifier
