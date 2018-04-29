@@ -3,7 +3,7 @@
 
 - Node
 - NPM
-- Angular CLI (ng)
+- Angular CLI (ng) (`npm install -g @angular/cli`)
 - Typescript (tsc)
 
 ## Installing the App
@@ -38,5 +38,25 @@ Note: Currently the tests pass no matter what. TODO: Tests.
 
 ## Contributing
 We should follow the [Git Flow methodology](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
+
+## Creating a new component
+1. Create a new component using the Angular CLI.
+```
+ng generate component <component-name>
+OR
+ng g c <component-name>
+```
+2. Add a route for that component in the `app.module.ts` file
+```typescript
+const routes: Route = [
+    { path: '<your-url>', component: 'your-component' }
+]
+```
+3. You can also add a link inside the nav component if you want
+```html
+<a routerLink="/your-url">Your Component</a>
+```
+
+4. Edit the HTML and CSS inside of your component folder and prosper.
 
 THENKS!
