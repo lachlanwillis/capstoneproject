@@ -16,3 +16,11 @@ body {
 .header {
     text-align: center;
 }
+
+.tab-content {
+    padding: 10px 15px;
+}
+
+.image-list mat-form-field {
+    width: 100%;
+}

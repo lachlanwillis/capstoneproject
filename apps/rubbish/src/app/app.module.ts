@@ -10,10 +10,12 @@ import { ExampleComponent } from './example/example.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
+import { ModeratorportalComponent } from './moderatorportal/moderatorportal.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'example', component: ExampleComponent }
+  { path: 'example', component: ExampleComponent },
+  { path: 'moderatorportal', component: ModeratorportalComponent }
 ]
 
 
@@ -23,7 +25,8 @@ const routes: Routes = [
     ExampleComponent,
     HomeComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
+    ModeratorportalComponent
   ],
   imports: [
     BrowserModule,
