@@ -9,13 +9,15 @@ import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { UserUploadComponent } from './user-upload/user-upload.component';
 import { FooterComponent } from './footer/footer.component';
+import { ModeratorportalComponent } from './moderatorportal/moderatorportal.component';
 
 import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'example', component: ExampleComponent },
-  { path: 'uploader', component: UserUploadComponent }
+  { path: 'uploader', component: UserUploadComponent },
+  { path: 'moderatorportal', component: ModeratorportalComponent }
 ]
 
 
@@ -27,6 +29,8 @@ const routes: Routes = [
     NavComponent,
     UserUploadComponent,
     FooterComponent,
+    FooterComponent,
+    ModeratorportalComponent
   ],
   imports: [
     BrowserModule,
