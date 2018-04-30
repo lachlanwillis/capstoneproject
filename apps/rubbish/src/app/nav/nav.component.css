@@ -1,0 +1,10 @@
+/* Nav Component CSS file */
+
+app-nav {
+  position: fixed;
+  top: 0px;
+}
+
+mat-toolbar span {
+  margin-right: 10px;
+}

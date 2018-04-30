@@ -1,13 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-
+import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { ExampleComponent } from './example/example.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { UserUploadComponent } from './user-upload/user-upload.component';
+import { FooterComponent } from './footer/footer.component';
+
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,12 +25,15 @@ const routes: Routes = [
     ExampleComponent,
     HomeComponent,
     NavComponent,
-    UserUploadComponent
+    UserUploadComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
