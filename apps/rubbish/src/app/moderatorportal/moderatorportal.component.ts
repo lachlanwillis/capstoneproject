@@ -14,6 +14,11 @@ export class ModeratorportalComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  constructor() { }
+
+  ngOnInit() {
+  }
+
   /**
    * Set the paginator after the view init since this component will
    * be able to query its view for the initialized paginator.
@@ -27,11 +32,6 @@ export class ModeratorportalComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
-  }
-
-  constructor() { }
-
-  ngOnInit() {
   }
 
 }
