@@ -5,6 +5,7 @@
 - NPM
 - Angular CLI (ng) (`npm install -g @angular/cli`)
 - Typescript (tsc)
+- MongoDB
 
 ## Installing the App
 To install the application, go to each directory that contains a section of the app and issue the command:
