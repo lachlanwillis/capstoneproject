@@ -1,0 +1,7 @@
+<h1>File Uploader</h1>
+Title:
+<input type="text" name="title" (change)="changeTitleValue($event)"> <br /><br />
+Description: <br />
+<textarea rows="4" cols="50" name="description" (blur)="changeDescriptionValue($event)"></textarea><br /><br />
+<input type="file" (change)="onFileSelected($event)">
+<button type="button" (click)="onUploadFile()">Upload File</button>
