@@ -27,8 +27,10 @@ export class UserUploadComponent implements OnInit {
 
   onUploadFile() {
     const fd = new FormData();
-    fd.append(this.currentTitle, this.currentFile, this.currentDescription);
-    
+    fd.append('image', this.currentFile, this.currentFile.name);
+    fd.set("title", this.currentTitle);
+    fd.set("description", this.currentDescription);
+
     this.http.post('/api/upload-image', fd).subscribe(res => {
       console.log(res);
     });
