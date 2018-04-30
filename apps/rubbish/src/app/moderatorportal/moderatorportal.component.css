@@ -1,0 +1,20 @@
+/* Modetatorportal Component CSS file */
+
+.delete-btn {
+  background-color: red;
+  color: #fff;
+}
+
+.mat-column-title .mat-cell, .mat-column-url .mat-cell {
+  padding-right: 10px;
+}
+
+.mat-column-title, .mat-column-url {
+  flex: 35%;
+  padding-right: 10px;
+}
+
+.mat-column-delete {
+  width: 30%;
+  text-align: center;
+}
