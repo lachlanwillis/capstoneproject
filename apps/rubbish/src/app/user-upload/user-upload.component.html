@@ -1,7 +1,23 @@
-<h1>File Uploader</h1>
-Title:
-<input type="text" name="title" (change)="changeTitleValue($event)"> <br /><br />
-Description: <br />
-<textarea rows="4" cols="50" name="description" (blur)="changeDescriptionValue($event)"></textarea><br /><br />
-<input type="file" (change)="onFileSelected($event)">
-<button type="button" (click)="onUploadFile()">Upload File</button>
+<form #imageUploadForm>
+  <mat-form-field>
+    <input matInput name="title" placeholder="Image Title" [formControl]="titleFormControl" (change)="changeTitleValue($event)">
+    <mat-error *ngIf="titleFormControl.hasError('required')">
+      An image title is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput name="description" placeholder="Description" [formControl]="descFormControl" rows="5" (blur)="changeDescriptionValue($event)"></textarea>
+    <mat-error *ngIf="descFormControl.hasError('required')">
+      A description is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <div id="image-upload">
+    <button mat-raised-button color="primary" (click)="fileInput.click()">Choose Image</button>
+    <span>Some text</span>
+  </div>
+  <button mat-raised-button class="submit-btn" color="primary" (click)="onUploadFile()">Upload File</button>
+
+  <input style="display: none;" #fileInput name="image" type="file" (change)="onFileSelected($event)">
+</form>

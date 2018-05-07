@@ -11,13 +11,16 @@ import { UserUploadComponent } from './user-upload/user-upload.component';
 import { FooterComponent } from './footer/footer.component';
 import { ModeratorportalComponent } from './moderatorportal/moderatorportal.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './header/header.component';
+import { UserportalComponent } from './userportal/userportal.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, data: { title: 'Waterway Litter' } },
   { path: 'example', component: ExampleComponent },
-  { path: 'uploader', component: UserUploadComponent },
-  { path: 'moderatorportal', component: ModeratorportalComponent }
+  { path: 'userportal', component: UserportalComponent, data: { title: 'User Portal' } },
+  { path: 'moderatorportal', component: ModeratorportalComponent, data: { title: 'Moderator Portal' } }
 ]
 
 
@@ -30,14 +33,18 @@ const routes: Routes = [
     UserUploadComponent,
     FooterComponent,
     FooterComponent,
-    ModeratorportalComponent
+    ModeratorportalComponent,
+    HeaderComponent,
+    UserportalComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

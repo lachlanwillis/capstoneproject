@@ -1,1 +1,5 @@
 /* Main App CSS file */
+.content {
+  width: 75%;
+  margin: 0 12.5%;
+}
