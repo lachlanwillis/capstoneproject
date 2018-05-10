@@ -45,4 +45,5 @@ function isValidSting(string: string): boolean {
 
 export const GetImageHandler: RequestHandler = (req: Request, res: Response): void => {
     Image.find({}).then(images => res.json(images)).catch(err => res.status(500).send(err)); // TODO: include a limit later.
+    
 }

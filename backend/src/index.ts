@@ -14,5 +14,6 @@ export const app: Application = express();
 
 app.use(bodyParser.json());
 app.use(Router);
+app.use(express.static('assets'));
 
 app.get('/*', (req, res) => res.send('Hey!'));

@@ -59,5 +59,7 @@ typings/
 
 package-lock.json
 
+public/
+assets/
 tmp/
 dist/
