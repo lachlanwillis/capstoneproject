@@ -7,6 +7,7 @@ export interface ImageModel extends Document {
   encoding?: string;
   mimetype?: string;
   size?: number;
+  fileName: string;
 }
 
 export const ImageSchema: Schema = new Schema({
@@ -15,7 +16,8 @@ export const ImageSchema: Schema = new Schema({
   description: String,
   encoding: String,
   mimetype: String,
-  size: Number
+  size: Number,
+  fileName: String
 });
 
 export const Image: IModel<ImageModel> = Model<ImageModel>("Image", ImageSchema);
