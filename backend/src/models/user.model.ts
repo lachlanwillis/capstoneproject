@@ -40,7 +40,7 @@ UserSchema.pre('save', function(next: any) {
 
 });
 
-UserSchema.methods.verifyPassword = (password:string, callback:any) => {
+UserSchema.methods.verifyPassword = function(password:string, callback:any) {
 	bcrypt.compare(password, this.password, (err:any, isMatch:boolean) => {
 		if (err) return callback(err);
 		else {
