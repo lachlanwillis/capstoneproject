@@ -1,9 +1,12 @@
 import { Document, Schema, Model, model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
-export interface UserModel extends Document {
+export interface UserInfo {
 	username: string;
 	password: string;
+}
+
+export interface UserModel extends Document, UserInfo {
 	last_login: Date;
 	verifyPassword(password:string, callback:any):any;
 }
@@ -15,8 +18,8 @@ export var UserSchema: Schema = new Schema({
 });
 
 UserSchema.pre('save', function(next: any) {
-	let user = this;
-
+	let user = this as UserModel;
+ 
 	if (!user.isModified('password')) return next();
 	else {
 		bcrypt.genSalt(5, (err:any, salt:string) => {
