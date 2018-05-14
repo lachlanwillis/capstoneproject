@@ -14,7 +14,7 @@ export var UserSchema: Schema = new Schema({
 	last_login: { type: Date, default: Date.now }
 });
 
-UserSchema.pre('save', (next:any) => {
+UserSchema.pre('save', function(next: any) {
 	let user = this;
 
 	if (!user.isModified('password')) return next();
@@ -46,4 +46,4 @@ UserSchema.methods.verifyPassword = (password:string, callback:any) => {
 	})
 }
 
-export const User: Model<UserModel> = model<UserModel>("Entry", UserSchema);
+export const User: Model<UserModel> = model<UserModel>("User", UserSchema);
