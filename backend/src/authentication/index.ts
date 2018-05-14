@@ -7,6 +7,8 @@ import { User, UserModel } from '../models/user.model';
 export var authentication = passport;
 
 authentication.use(new Strategy((username, password, done) => {
+
+
     User.findOne({ username: username })
         .then(user => {
             if (!user) return done(null, false);
@@ -17,7 +19,7 @@ authentication.use(new Strategy((username, password, done) => {
                     else {
                         user.last_login = new Date();
                         user.save();
-                        return done(null, user);
+                        return done(null, { ...user, id: user._id });
                     }
                 })
             }

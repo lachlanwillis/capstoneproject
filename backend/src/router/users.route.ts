@@ -2,6 +2,7 @@ import { Request, Response, RequestHandler } from 'express';
 import { UserInfo, User } from '../models/user.model';
 import { authentication } from '../authentication';
 import { isValidSting } from '../utils';
+import * as bcrypt from 'bcrypt';
 
 /**
  * The handler that manages user sign ups. Creates an entry in the database for a user and
@@ -13,22 +14,27 @@ export const HandleUserSignup: RequestHandler = (req: Request, res: Response) =>
            username: req.body.username, 
            password: req.body.password 
         }
-    )) res.status(400).json({ error: true, message: 'information is invalid'}); 
+    )) res.status(400).json({ error: true, success: false, message: 'information is invalid'}); 
     else {
         verifyUniqueUsername(req.body.username)
             .then(unique => {
                 if (unique) {
-                    (new User({
-                        username: req.body.username,
-                        password: req.body.password
-                    })).save()
-                    .then(user => res.json(user))
-                    .catch(err => res.json({
-                        error: true,
-                        message: 'an unexpected error occurred',
-                        errorDump: err
-                    }));
-                } else res.status(400).json({ error: true, message: 'username is taken' });
+                    bcrypt.hash(req.body.password, 10)
+                        .then(hash => {
+                            (new User({
+                                username: req.body.username,
+                                password: hash
+                            })).save()
+                            .then(user => res.json({ success: true }))
+                            .catch(err => res.json({
+                                error: true,
+                                success: false,
+                                message: 'an unexpected error occurred',
+                                errorDump: err
+                            }));
+                        })
+
+                } else res.status(400).json({ success: false, error: true, message: 'username is taken' });
             });
     }
 }

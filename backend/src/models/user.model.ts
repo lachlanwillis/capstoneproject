@@ -17,36 +17,11 @@ export var UserSchema: Schema = new Schema({
 	last_login: { type: Date, default: Date.now }
 });
 
-UserSchema.pre('save', function(next: any) {
-	let user = this as UserModel;
- 
-	if (!user.isModified('password')) return next();
-	else {
-		bcrypt.genSalt(5, (err:any, salt:string) => {
-			if (err) return next(err);
-			else {
-				bcrypt.hash(user.password, salt, (err:any, hash:string) => {
-					if (err) return next(err);
-					else {
-						user.password = hash;
-						return next();
-					}
-				});
-			}
-		});
-	}
-
-	return next();
-
-});
-
 UserSchema.methods.verifyPassword = function(password:string, callback:any) {
-	bcrypt.compare(password, this.password, (err:any, isMatch:boolean) => {
-		if (err) return callback(err);
-		else {
-			return callback(null, isMatch);
-		} 
-	})
+		bcrypt.compare(password, this.password)
+			.then(match => {
+				callback(null, match);
+			}).catch(err => callback(err, false));
 }
 
 export const User: Model<UserModel> = model<UserModel>("User", UserSchema);

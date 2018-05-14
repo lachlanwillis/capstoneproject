@@ -14,8 +14,9 @@ export const Router: IRouter = IRouter();
 Router
 
 	// AUTH ROUTES // 
-	.post('/api/login', authentication.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }))
+	.post('/api/login', authentication.authenticate('local'), (req, res) => res.json({ success: !!req.user }))
 	.post('/api/signup', HandleUserSignup)
+	.get('/api/auth/ping', (req, res) => res.json({ auth: !!req.user }))
 	.get('/api/logout', HandleUserLogout)
 
 	// IMAGE ROUTES // 

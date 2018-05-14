@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<app-header [title]="title"></app-header>
+<app-header [title]="title" *ngIf="!hide"></app-header>
 <div class="content">
   <router-outlet></router-outlet>
 </div>
