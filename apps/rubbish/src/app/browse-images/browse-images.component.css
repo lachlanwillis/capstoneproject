@@ -1,0 +1,22 @@
+/* Browse image css */
+
+.image-row {
+  width: 100%;
+}
+
+.image-single {
+  width: 24%;
+  height: 25%;
+  overflow: hidden;
+
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+
+  box-sizing: border-box;
+  padding-bottom: 25px;
+}
+
+.image-single img {
+  max-width: 100%;
+}

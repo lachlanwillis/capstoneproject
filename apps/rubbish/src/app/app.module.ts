@@ -17,6 +17,7 @@ import { HeaderComponent } from './header/header.component';
 import { UserportalComponent } from './userportal/userportal.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
+import { BrowseImagesComponent } from './browse-images/browse-images.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter' } },
@@ -39,7 +40,8 @@ const routes: Routes = [
     ModeratorportalComponent,
     HeaderComponent,
     UserportalComponent,
-    AuthComponent
+    AuthComponent,
+    BrowseImagesComponent
   ],
   imports: [
     BrowserModule,
