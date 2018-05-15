@@ -1,10 +1,5 @@
 <div class="image-row">
-  <div class="image-single"><img src="http://via.placeholder.com/500x500" alt="rubbishtemp" /></div>
-  <div class="image-single"><img src="http://via.placeholder.com/500x500" alt="rubbishtemp" /></div>
-  <div class="image-single"><img src="http://via.placeholder.com/500x500" alt="rubbishtemp" /></div>
-  <div class="image-single"><img src="http://via.placeholder.com/500x500" alt="rubbishtemp" /></div>
-  <div class="image-single"><img src="http://via.placeholder.com/500x500" alt="rubbishtemp" /></div>
-  <div class="image-single"><img src="http://via.placeholder.com/500x500" alt="rubbishtemp" /></div>
-  <div class="image-single"><img src="http://via.placeholder.com/500x500" alt="rubbishtemp" /></div>
-  <div class="image-single"><img src="http://via.placeholder.com/500x500" alt="rubbishtemp" /></div>
+  <div class="image-single" *ngFor="let image of images">
+    <img [src]="'/assets/' + image.fileName" alt="rubbishtemp">
+  </div>
 </div>

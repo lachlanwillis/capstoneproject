@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-browse-images',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrowseImagesComponent implements OnInit {
 
-  constructor() { }
+  images: any[] = [];
+
+  constructor(private readonly http: HttpClient) { }
 
   ngOnInit() {
+    this.http.get<any[]>('/api/display-image')
+      .pipe(take(1), map(res => res.filter(a => !!a.fileName)))
+      .subscribe(res => this.images = res);
   }
 
 }
