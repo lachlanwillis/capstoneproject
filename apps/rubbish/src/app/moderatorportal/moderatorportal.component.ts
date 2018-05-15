@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-moderatorportal',
@@ -9,12 +10,15 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 export class ModeratorportalComponent implements OnInit {
 
   displayedColumns = ['title', 'url', 'delete'];
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+  elementData = [];
+  dataSource = new MatTableDataSource<Element>(this.elementData);
+
+  
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -26,12 +30,20 @@ export class ModeratorportalComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.http.get('/api/display-image').subscribe((images: any[] ) =>
+      this.dataSource = new MatTableDataSource<any>(images.map(i => { return { title: i.title, url: i.location }})));
   }
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  
+  onDeleteClicked(row) {
+    //Call delete backend using row.title
   }
 
 }

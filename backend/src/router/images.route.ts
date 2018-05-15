@@ -21,7 +21,8 @@ export const UploadImageHandler: RequestHandler = (req: Request, res: Response):
         location: req.file.path,
         encoding: req.file.encoding,
         mimetype: req.file.mimetype,
-        size: req.file.size
+        size: req.file.size,
+        fileName: req.file.filename
       })).save()
          .then(() => {
            res.json({ message: "Image created successfully." });
@@ -32,3 +33,6 @@ export const UploadImageHandler: RequestHandler = (req: Request, res: Response):
   }
 }
 
+export const GetImageHandler: RequestHandler = (req: Request, res: Response): void => {
+    Image.find({}).then(images => res.json(images)).catch(err => res.status(500).send(err)); // TODO: include a limit later.
+}
