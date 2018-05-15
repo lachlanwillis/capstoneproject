@@ -8,3 +8,7 @@ app-nav {
 mat-toolbar span {
   margin-right: 10px;
 }
+
+.example-spacer {
+  flex: 1 1 auto;
+}
