@@ -1,0 +1,26 @@
+<div class="center content">
+  <h1>{{ (login) ? "Login" : "Signup" }}</h1>
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="full-width">
+        <input name="username" matInput placeholder="username" [formControl]="loginFormControl" >
+        <mat-error *ngIf="loginFormControl.hasError('required')">
+          Please enter a valid username
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input name="password" matInput placeholder="password" type="password" [formControl]="passwordFormControl" />
+        <mat-error *ngIf="loginFormControl.hasError('required')">
+          Please enter a valid password
+        </mat-error>
+      </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">{{ (login) ? "Login" : "Signup" }}</button>
+
+  </form>
+
+  <br />
+  <br />
+  <button mat-button (click)="login = !login">
+    {{ (login) ? "Don't have an account? Signup." : "Have an account? Login." }}
+  </button>
+</div>

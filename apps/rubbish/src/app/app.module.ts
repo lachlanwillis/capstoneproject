@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { ExampleComponent } from './example/example.component';
 import { HomeComponent } from './home/home.component';
@@ -15,12 +15,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { UserportalComponent } from './userportal/userportal.component';
+import { AuthComponent } from './auth/auth.component';
+import { AuthService } from './auth/auth.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter' } },
   { path: 'example', component: ExampleComponent },
   { path: 'userportal', component: UserportalComponent, data: { title: 'User Portal' } },
-  { path: 'moderatorportal', component: ModeratorportalComponent, data: { title: 'Moderator Portal' } }
+  { path: 'moderatorportal', component: ModeratorportalComponent, data: { title: 'Moderator Portal' } },
+  { path: 'login', component: AuthComponent, data: { title: 'Login', hide: true } }
 ]
 
 
@@ -35,7 +38,8 @@ const routes: Routes = [
     FooterComponent,
     ModeratorportalComponent,
     HeaderComponent,
-    UserportalComponent
+    UserportalComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

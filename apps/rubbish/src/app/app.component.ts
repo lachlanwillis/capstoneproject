@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 export class AppComponent { 
 
   title: string;
+  hide: boolean;
 
   constructor(
     private readonly route: ActivatedRoute, 
@@ -16,6 +17,7 @@ export class AppComponent {
     this.router.events.subscribe(data =>{
       if (data instanceof RoutesRecognized) {
         this.title = data.state.root.firstChild.data.title;
+        this.hide = data.state.root.firstChild.data.hide;
        }
     });
   }
