@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class ModeratorportalComponent implements OnInit {
 
   displayedColumns = ['title', 'url', 'delete'];
-  elementData;
+  elementData = [];
   dataSource = new MatTableDataSource<Element>(this.elementData);
 
   
@@ -28,18 +28,11 @@ export class ModeratorportalComponent implements OnInit {
    * be able to query its view for the initialized paginator.
    */
   ngAfterViewInit() {
-    var imageData;
-    this.http.get('/api/display-image').subscribe(res => {
-      imageData = res
-      console.log(imageData);
-    });
-    
-    for (let i of imageData) {
-      this.dataSource.data.push({ title: i.fileName, url: i.location });
-      
-    }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.http.get('/api/display-image').subscribe((images: any[] ) =>
+      this.dataSource = new MatTableDataSource<any>(images.map(i => { return { title: i.title, url: i.location }})));
   }
 
   applyFilter(filterValue: string) {
