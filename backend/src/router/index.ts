@@ -1,15 +1,16 @@
 import { Router as IRouter } from 'express';
 import * as multer from 'multer';
 
-import { UploadImageHandler } from './images.route';
+import { UploadImageHandler, GetImageHandler } from './images.route';
 import { HandleUserSignup, HandleUserLogout } from './users.route';
 import { authentication } from '../authentication';
 
 // This is just a work in progress. We need to decide where we will be
 // storing all the image files that get uploaded.
-const upload = multer({ dest: 'tmp/'});
+const upload = multer({ dest: 'assets/'});
 
 export const Router: IRouter = IRouter();
+
 
 Router
 
@@ -20,4 +21,5 @@ Router
 	.get('/api/logout', HandleUserLogout)
 
 	// IMAGE ROUTES // 
-	.post('/api/upload-image', upload.single('image'), UploadImageHandler);
+	.post('/api/upload-image', upload.single('image'), UploadImageHandler)
+	.get('/api/display-image', GetImageHandler);

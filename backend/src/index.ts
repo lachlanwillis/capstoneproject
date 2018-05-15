@@ -1,5 +1,6 @@
 
 import * as express from 'express';
+import * as path from 'path';
 import * as session from 'express-session';
 import * as bodyParser from 'body-parser';
 import { Application } from 'express';
@@ -25,5 +26,6 @@ app.use(session({
 app.use(authentication.initialize());
 app.use(authentication.session());
 app.use(Router);
+app.use('/assets', express.static(path.join(__dirname, '..', 'assets')));
 
 app.get('/*', (req, res) => res.send('Hey!'));
