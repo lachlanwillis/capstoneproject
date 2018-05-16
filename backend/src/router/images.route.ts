@@ -3,6 +3,7 @@ import * as multer from 'multer';
 
 import { Image, ImageModel } from '../models';
 import { isValidSting } from '../utils';
+
 /**
  *  The handler for the image upload. Creates an entry in the database for an 
  *  image that has been uploaded.
@@ -22,7 +23,8 @@ export const UploadImageHandler: RequestHandler = (req: Request, res: Response):
         encoding: req.file.encoding,
         mimetype: req.file.mimetype,
         size: req.file.size,
-        fileName: req.file.filename
+        fileName: req.file.filename,
+        userId: req.user.id
       })).save()
          .then(() => {
            res.json({ message: "Image created successfully." });
@@ -33,6 +35,26 @@ export const UploadImageHandler: RequestHandler = (req: Request, res: Response):
   }
 }
 
+/**
+ * The handler for getting images. Sends a list of all images when requested. 
+ */
 export const GetImageHandler: RequestHandler = (req: Request, res: Response): void => {
-    Image.find({}).then(images => res.json(images)).catch(err => res.status(500).send(err)); // TODO: include a limit later.
+  Image.find({ deleted: false })
+       .then(images => res.json(images)).catch(err => res.status(500).send(err)); // TODO: include a limit later.
+}
+
+/**
+ * The handler for deleting images. Removes an image by an id. 
+ */
+export const DeleteImageHandler: RequestHandler = (req: Request, res: Response): void => {
+  if (!req.params.id) res.status(500).json({ error: true, message: 'Malformed request.' });
+  else
+    Image.findById(req.params.id)
+        .then(image => { 
+          image.deleted = true;
+          image.save()
+            .then(() => res.json({ success: true, error: false, message: 'Image deleted successfully.'}))
+            .catch(err => res.status(500).json({ success: false, error: true, message: err }));
+        })
+        .catch(err => res.status(500).json({ success: true, error: true, message: err }));
 }
