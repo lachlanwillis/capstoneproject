@@ -3,6 +3,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as session from 'express-session';
 import * as bodyParser from 'body-parser';
+import * as morgan from 'morgan';
 import { Application } from 'express';
 import { connect } from 'mongoose';
 
@@ -16,6 +17,7 @@ connect('mongodb://localhost/rubbish');
 
 export const app: Application = express();
 
+app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(session({
   secret: 'keyboard cat',
