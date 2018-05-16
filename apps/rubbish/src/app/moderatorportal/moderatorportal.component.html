@@ -39,7 +39,7 @@
                 <!-- Delete Column -->
                 <ng-container matColumnDef="delete">
                   <mat-header-cell *matHeaderCellDef> Delete? </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> <button class="delete-btn" mat-icon-button (click)="onDeleteClicked(row)"><i class="material-icons">delete</i></button> </mat-cell>
+                  <mat-cell *matCellDef="let element"> <button class="delete-btn" mat-icon-button (click)="onDeleteClicked(element)"><i class="material-icons">delete</i></button> </mat-cell>
                 </ng-container>
             
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

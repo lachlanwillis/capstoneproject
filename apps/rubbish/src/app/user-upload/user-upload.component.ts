@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ImageService } from '../images/image.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
@@ -17,9 +18,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./user-upload.component.scss']
 })
 
-export class UserUploadComponent implements OnInit {
+export class UserUploadComponent {
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly image: ImageService) { }
   currentTitle: string = null;
   currentDescription = null;
   currentFile = null;
@@ -47,19 +48,17 @@ export class UserUploadComponent implements OnInit {
   }
 
   onUploadFile() {
+
+    console.log('clicked');
+
     const fd = new FormData();
     fd.append('image', this.currentFile, this.currentFile.name);
     fd.set("title", this.currentTitle);
     fd.set("description", this.currentDescription);
 
-    this.http.post('/api/upload-image', fd).subscribe(res => {
-      console.log(res);
-    });
-  }
+    this.image.uploadImage(fd)
+      .subscribe(res => console.log(res));
 
-
-
-  ngOnInit() {
   }
 
 }
