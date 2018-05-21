@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 export interface UserInfo {
 	username: string;
 	password: string;
+	admin?: boolean;
 }
 
 export interface UserModel extends Document, UserInfo {
@@ -14,6 +15,7 @@ export interface UserModel extends Document, UserInfo {
 export var UserSchema: Schema = new Schema({
 	username: String,
 	password: String,
+	admin: { type: Boolean, default: false },
 	last_login: { type: Date, default: Date.now }
 });
 

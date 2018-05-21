@@ -2,9 +2,9 @@
   <mat-toolbar color="primary">
     <span>Waterway Litter</span>
     <button routerLink="/" mat-button>Home</button>
-    <button routerLink="/userportal" mat-button>User Portal</button>
-    <button routerLink="/moderatorportal" mat-button>Admin Portal</button>
+    <button *ngIf="loggedIn" routerLink="/userportal" mat-button>User Portal</button>
+    <button *ngIf="admin" routerLink="/moderatorportal" mat-button>Admin Portal</button>
     <span class="example-spacer"></span>
-    <button routerLink="/login" mat-button><mat-icon>account_circle</mat-icon> Login</button>
+    <button *ngIf="!loggedIn" routerLink="/login" mat-button><mat-icon>account_circle</mat-icon> Login</button>
   </mat-toolbar>
 </nav>

@@ -17,7 +17,8 @@
     <button mat-raised-button color="primary" (click)="fileInput.click()">Choose Image</button>
     <span>Some text</span>
   </div>
-  <button mat-raised-button class="submit-btn" color="primary" (click)="onUploadFile()">Upload File</button>
+
+  <button mat-raised-button class="submit-btn" color="primary" (click)="onUploadFile()" >Upload File</button>
 
   <input style="display: none;" #fileInput name="image" type="file" (change)="onFileSelected($event)">
 </form>

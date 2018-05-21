@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
+import { ImageService } from '../images/image.service';
 
 @Component({
   selector: 'app-moderatorportal',
@@ -18,7 +19,7 @@ export class ModeratorportalComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private http: HttpClient) { }
+  constructor(private image: ImageService) { }
 
   ngOnInit() {
   }
@@ -28,11 +29,12 @@ export class ModeratorportalComponent implements OnInit {
    * be able to query its view for the initialized paginator.
    */
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.fetchImages();
+  }
 
-    this.http.get('/api/display-image').subscribe((images: any[] ) =>
-      this.dataSource = new MatTableDataSource<any>(images.map(i => { return { title: i.title, url: i.location }})));
+  fetchImages() {
+    this.image.getImages().subscribe((images: any[] ) =>
+      this.dataSource = new MatTableDataSource<any>(images.map(i => { return { title: i.title, id: i._id, url: i.location }})));
   }
 
   applyFilter(filterValue: string) {
@@ -43,7 +45,12 @@ export class ModeratorportalComponent implements OnInit {
 
   
   onDeleteClicked(row) {
-    //Call delete backend using row.title
+    this.image.deleteImage(row.id)
+      .subscribe((value: any) => {
+        if (value.success) {
+          this.fetchImages();
+        }
+      });
   }
 
 }
@@ -52,7 +59,3 @@ export interface Element {
   title: string;
   url: string;
 }
-
-const ELEMENT_DATA: Element[] = [
-  {title: 'Waterway-Wilston-Bottle', url: '/images/wilston-waterway-bottle.jpg'},
-];

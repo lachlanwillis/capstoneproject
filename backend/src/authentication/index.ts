@@ -7,8 +7,6 @@ import { User, UserModel } from '../models/user.model';
 export var authentication = passport;
 
 authentication.use(new Strategy((username, password, done) => {
-
-
     User.findOne({ username: username })
         .then(user => {
             if (!user) return done(null, false);
