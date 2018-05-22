@@ -25,7 +25,7 @@ export class AuthComponent {
               private readonly router: Router,
               private readonly snack: MatSnackBar) { }
 
-  onSubmit(form: any) {
+  onSubmit() {
 
     const username = this.loginFormControl.value;
     const password = this.passwordFormControl.value;
