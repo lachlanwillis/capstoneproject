@@ -24,6 +24,7 @@ export class UserUploadComponent {
   currentTitle: string = null;
   currentDescription = null;
   currentFile = null;
+  localImage: any[];
 
   titleFormControl = new FormControl('', [
     Validators.required,
@@ -37,6 +38,11 @@ export class UserUploadComponent {
 
   onFileSelected(event) {
     this.currentFile = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.localImage = event.target.result;
+    }
+    reader.readAsDataURL(this.currentFile);
   }
 
   changeTitleValue(event) {
