@@ -1,5 +1,5 @@
 <div class="image-row">
   <div class="image-single" *ngFor="let image of images">
-    <img [src]="'/assets/' + image.fileName" alt="rubbishtemp">
+    <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
   </div>
 </div>
