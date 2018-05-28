@@ -3,7 +3,7 @@ import * as multer from 'multer';
 
 import { Image, ImageModel } from '../models';
 import { isValidSting } from '../utils';
-
+import { detector } from '..'; 
 /**
  *  The handler for the image upload. Creates an entry in the database for an 
  *  image that has been uploaded.
@@ -26,7 +26,8 @@ export const UploadImageHandler: RequestHandler = (req: Request, res: Response):
         fileName: req.file.filename,
         userId: req.user.id
       })).save()
-         .then(() => {
+         .then(image => {
+           detector.addDetection(image.id, image.location);
            res.json({ message: "Image created successfully." });
          }).catch(() => {
            res.json({ message: "An unexpected error occurred." });

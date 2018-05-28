@@ -20,6 +20,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AdminGuard } from './auth/admin.guard';
 import { BrowseImagesComponent } from './browse-images/browse-images.component';
 import { ImageService } from './images/image.service';
+import { ImageComponent } from './image/image.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter' } },
@@ -51,7 +52,8 @@ const routes: Routes = [
     HeaderComponent,
     UserportalComponent,
     AuthComponent,
-    BrowseImagesComponent
+    BrowseImagesComponent,
+    ImageComponent
   ],
   imports: [
     BrowserModule,

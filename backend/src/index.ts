@@ -9,6 +9,7 @@ import { connect } from 'mongoose';
 
 import { Router } from './router';
 import { authentication } from './authentication';
+  import { detectorGenerator, Detector } from './detector';
 
 // Connect to the database. This shouldn't be here. 
 // In future when we deploy we should get rid of this,
@@ -16,6 +17,7 @@ import { authentication } from './authentication';
 connect('mongodb://localhost/rubbish');
 
 export const app: Application = express();
+export const detector = detectorGenerator();
 
 app.use(morgan('tiny'));
 app.use(bodyParser.json());

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
 import { ImageService } from '../images/image.service';
+import { Image } from '../image/image';
 
 @Component({
   selector: 'app-browse-images',
@@ -10,7 +11,7 @@ import { ImageService } from '../images/image.service';
 })
 export class BrowseImagesComponent implements OnInit {
 
-  images: any[] = [];
+  images: Image[] = [];
 
   constructor(private readonly image: ImageService) { }
 
