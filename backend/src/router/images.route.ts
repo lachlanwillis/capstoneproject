@@ -44,6 +44,16 @@ export const GetImageHandler: RequestHandler = (req: Request, res: Response): vo
        .then(images => res.json(images)).catch(err => res.status(500).send(err)); // TODO: include a limit later.
 }
 
+export const GetMyImagesHandler: RequestHandler = (req: Request, res: Response): void => {
+  Image.find({ deleted: false, userId: req.user.id })
+       .then(images => res.json(images)).catch(err => res.status(500).send(err));
+}
+
+export const DeleteMyImageHandler: RequestHandler = (req: Request, res: Response): void => {
+  Image.findOne({ id: req.body.id, userId: req.user.id })
+       .then(image => { image.deleted = true; image.save()}).catch(err => res.status(500).send(err));
+}
+
 /**
  * The handler for deleting images. Removes an image by an id. 
  */

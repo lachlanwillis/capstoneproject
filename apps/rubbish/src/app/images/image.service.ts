@@ -21,6 +21,16 @@ export class ImageService {
       .pipe(take(1), map(res => res.filter(a => !!a.fileName)))
   }
 
+  getMyImages(filter?: string) {
+    return this.http.get<any[]>('/api/my-images')
+      .pipe(take(1), map(res => res.filter(a => !!a.fileName)));
+  }
+
+  deleteMyImage(id: string) {
+    return this.http.delete(`/api/my-image/${id}`)
+      .pipe(take(1));
+  }
+
   deleteImage(id: string) {
     return this.http.delete(`${DELETE_IMAGE_URL}/${id}`)
       .pipe(take(1));
