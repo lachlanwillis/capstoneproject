@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
 import { ImageService } from '../images/image.service';
@@ -10,13 +10,15 @@ import { ImageService } from '../images/image.service';
 })
 export class BrowseImagesComponent implements OnInit {
 
+  @Input() mine: boolean;
+
   images: any[] = [];
 
   constructor(private readonly image: ImageService) { }
 
   ngOnInit() {
-    this.image.getImages()
-      .subscribe(res => this.images = res);
+    (this.mine ? this.image.getMyImages() : this.image.getImages())
+       .subscribe(res => this.images = res);
   }
 
 }
