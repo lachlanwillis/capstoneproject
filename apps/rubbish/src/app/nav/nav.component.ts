@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -16,7 +17,8 @@ export class NavComponent implements OnDestroy {
   loggedSub = new Subscription();
   adminSub = new Subscription();
 
-  constructor(public readonly auth: AuthService) {
+  constructor(public readonly auth: AuthService,
+              private readonly router: Router) {
 
     this.auth.isLoggedIn()
       .pipe(take(1))
@@ -33,6 +35,12 @@ export class NavComponent implements OnDestroy {
         this.adminSub = this.auth.isAdmin()
           .subscribe(value => this.admin = value);
       });
+
+    }
+
+    logout() {
+      this.auth.logout()
+        .subscribe(() => this.router.navigateByUrl('/'));
     }
 
     ngOnDestroy() {
