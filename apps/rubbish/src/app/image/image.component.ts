@@ -7,7 +7,8 @@ import {
   ElementRef, 
   AfterViewInit, 
   OnInit,
-  OnDestroy
+  OnDestroy,
+  Output
 } from '@angular/core';
 
 import { Detection } from './image';
@@ -23,6 +24,10 @@ export class ImageComponent implements OnChanges, OnInit, AfterViewInit, OnDestr
 
   @Input() src: string;
   @Input() dets: Detection[];
+
+  @Output() get tags(): string[] {
+    return this.dets.map(det => det.name);
+  }
 
   @ViewChild('overlay') private overlay: ElementRef;
   @ViewChild('image') private image: ElementRef;
