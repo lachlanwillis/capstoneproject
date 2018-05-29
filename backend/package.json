@@ -27,7 +27,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-strategy": "^1.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "rxjs": "^6.2.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
