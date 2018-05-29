@@ -31,5 +31,5 @@ app.use(authentication.initialize());
 app.use(authentication.session());
 app.use(Router);
 app.use('/assets', express.static(path.join(__dirname, '..', 'assets')));
-
-app.get('/*', (req, res) => res.send('Hey!'));
+app.use('/', express.static(path.join(__dirname, '..', 'assets')));
+app.get('/*', (req, res) => res.send(path.join(__dirname, '..', 'assets', 'index.html')));
