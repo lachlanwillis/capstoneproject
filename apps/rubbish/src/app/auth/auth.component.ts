@@ -33,13 +33,13 @@ export class AuthComponent {
     if (this.login) {
       this.auth.login(username, password)
         .subscribe(success => { 
-          if (success) { this.snack.open('Login successful!'); this.router.navigateByUrl('/'); } 
+          if (success) { this.snack.open('Login successful!', "Sweet!", { duration: 3000 }); this.router.navigateByUrl('/'); } 
           else this.snack.open('Incorrect login details');
         }, () => this.snack.open('An unexpected errorr occurred. Your login details may not be correct.'));
     } else {
       this.auth.signup(username, password)
         .subscribe(success => {
-          if (success) { this.snack.open('Signup successful!'); this.router.navigateByUrl('/'); }
+          if (success) { this.snack.open('Signup successful!', "Sweet!", { duration: 3000 }); this.router.navigateByUrl('/'); }
           else this.snack.open('An unexpected error occurred. Your username may not be valid.');
         }, () => this.snack.open('An unexpected error occurred.'));
     }

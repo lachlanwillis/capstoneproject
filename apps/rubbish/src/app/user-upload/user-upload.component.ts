@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ImageService } from '../images/image.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { Router } from '@angular/router';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,7 +21,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class UserUploadComponent {
 
-  constructor(private readonly image: ImageService) { }
+  constructor(private readonly image: ImageService, 
+              private readonly router: Router) { }
   currentTitle: string = null;
   currentDescription = null;
   currentFile = null;
@@ -63,7 +65,9 @@ export class UserUploadComponent {
     fd.set("description", this.currentDescription);
 
     this.image.uploadImage(fd)
-      .subscribe(res => console.log(res));
+      .subscribe(res => {
+        this.router.navigateByUrl('/');
+      });
 
   }
 

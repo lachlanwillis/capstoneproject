@@ -6,31 +6,35 @@ import {
   OnChanges, 
   ElementRef, 
   AfterViewInit, 
-  OnInit
+  OnInit,
+  OnDestroy
 } from '@angular/core';
 
 import { Detection } from './image';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'image',
   templateUrl: './image.component.html',
   styleUrls: ['./image.component.scss']
 })
-export class ImageComponent implements OnChanges, OnInit, AfterViewInit {
+export class ImageComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
 
   @Input() src: string;
   @Input() dets: Detection[];
 
   @ViewChild('overlay') private overlay: ElementRef;
   @ViewChild('image') private image: ElementRef;
-  @ViewChild('container') private container: ElementRef;
 
   private multiplier = 1;
+  private timeoutSub = new Subscription();
 
   constructor() { }
 
   ngOnInit() {
     this.drawBoxes();
+    this.timeoutSub = Observable.timer(100).subscribe(() => this.drawBoxes());
   }
 
   ngAfterViewInit() {
@@ -41,18 +45,24 @@ export class ImageComponent implements OnChanges, OnInit, AfterViewInit {
     this.drawBoxes();
   }
 
+  ngOnDestroy() {
+    this.timeoutSub.unsubscribe();
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.drawBoxes();
   }
 
   private drawBoxes() {
-    let container = this.container.nativeElement as HTMLDivElement;
     let canvas = this.overlay.nativeElement as HTMLCanvasElement;
     let image = this.image.nativeElement as HTMLImageElement;
 
-    canvas.height = container.clientHeight * this.multiplier;
-    canvas.width = container.clientWidth * this.multiplier;
+    canvas.height = image.clientHeight * this.multiplier;
+    canvas.width = image.clientWidth * this.multiplier;
+
+    canvas.style.height = `${image.clientHeight}px`;
+    canvas.style.width = `${image.clientWidth}px`;
 
     let height = canvas.height,
         width = canvas.width,
@@ -71,7 +81,7 @@ export class ImageComponent implements OnChanges, OnInit, AfterViewInit {
             w = det.box.w * widthRatio,
             h = det.box.h * heightRatio;
         ctx.lineWidth = 5 * widthRatio;
-        ctx.strokeRect(x, y, w, h);            
+        ctx.strokeRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));            
       });
     }
   }

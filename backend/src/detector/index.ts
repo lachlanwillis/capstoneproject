@@ -10,7 +10,7 @@ export function detectorGenerator() {
         .subscribe(det => {
             Image.findById(det.id)
                 .then(image => {
-                    console.log('saving the stuff', det.detections);
+                    console.log(image.id+":", "detection completed.")
                     image.detections = det.detections;
                     image.save();
                 });

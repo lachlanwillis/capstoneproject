@@ -42,7 +42,6 @@ export class Detector {
                 this.darknet.detectAsync(x[0].image)
                     .then(dets => {
                         this.completion$.next();
-                        console.log('detection finished');
                         this.detection$.next({
                             id: x[0].id,
                             detections: dets
@@ -52,6 +51,7 @@ export class Detector {
     }
 
     addDetection(id: string, path: string) {
+        console.log(id+":", "detection started.");
         this.images$.next({
             id: id,
             image: path

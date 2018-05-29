@@ -6,5 +6,6 @@
     <button *ngIf="admin" routerLink="/moderatorportal" mat-button>Admin Portal</button>
     <span class="example-spacer"></span>
     <button *ngIf="!loggedIn" routerLink="/login" mat-button><mat-icon>account_circle</mat-icon> Login</button>
+    <button *ngIf="loggedIn" (click)="logout()" mat-button><mat-icon>account_circle</mat-icon> Logout</button>
   </mat-toolbar>
 </nav>
