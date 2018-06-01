@@ -14,8 +14,6 @@ export class ModeratorportalComponent implements OnInit {
   elementData = [];
   dataSource = new MatTableDataSource<Element>(this.elementData);
 
-  
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -43,7 +41,6 @@ export class ModeratorportalComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  
   onDeleteClicked(row) {
     this.image.deleteImage(row.id)
       .subscribe((value: any) => {
@@ -52,7 +49,6 @@ export class ModeratorportalComponent implements OnInit {
         }
       });
   }
-
 }
 
 export interface Element {
