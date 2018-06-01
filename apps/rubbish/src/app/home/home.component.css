@@ -6,6 +6,7 @@
   text-align: center;
   padding: 150px 0;
   position: relative;
+  margin-top: 56px;
 }
 
 .home-header-container {
@@ -26,4 +27,10 @@
 .image-cta {
   font-weight: 700;
   margin-top: 35px;
+}
+
+@media only screen and (max-width: 768px) {
+  .home-header-image {
+    height: 500px;
+  }
 }

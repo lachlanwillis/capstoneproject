@@ -9,23 +9,91 @@ mat-toolbar span {
   margin-right: 10px;
 }
 
-.example-spacer {
-  flex: 1 1 auto;
-}
-
-nav .row {
-  background-color: #007bff;
-}
-
-nav mat-toolbar {
-  background-color: transparent;
-}
-
-nav * {
+.navbar * {
   color: #fff;
   font-weight: 700;
 }
 
+nav {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 .nav-title {
   text-transform: uppercase;
+}
+
+.pull-right {
+  position: absolute;
+  right: 0px;
+}
+
+.nav-list {
+  position: relative;
+  width: 100%;
+}
+
+.nav-link:hover {
+  background-color: #006ee5;
+  border-radius: 5px;
+  color: rgba(255,255,255,1) !important;
+}
+
+.navbar-toggler, .navbar-toggler:active, .navbar-toggler:focus, .navbar-toggler:hover {
+  border: none;
+}
+
+.top-bar {
+  position: relative;
+}
+
+.top-bar button {
+  position: absolute;
+  right: 0px;
+  height: 40px;
+}
+
+.login-btns {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .pull-right {
+    position: relative;
+  }
+
+  .mobile-hide {
+    display: none;
+  }
+
+  .nav-item a {
+    width: 100%;
+    color: #333;
+  }
+
+  .nav-item {
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+    background-color: #fff;
+    text-align: center;
+  }
+
+  .nav-link:hover {
+    background-color: #333;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .navbar {
+    padding: 0px;
+  }
+
+  .top-bar {
+    width: 100%;
+    padding: 8px 30px;
+  }
+
+  .top-bar button {
+    margin-right: 22px;
+  }
 }

@@ -16,9 +16,9 @@
   <div id="image-upload">
     <button class="btn btn-primary file-btn" (click)="fileInput.click()">Choose Image</button>
   </div>
-  <div align="center">
+  <div align="center" *ngIf="localImage" class="image-preview">
     <br />
-    <img [src]="localImage" *ngIf="localImage">
+    <img [src]="localImage">
   </div>
   <button class="btn btn-primary submit-btn" (click)="onUploadFile()">Upload File</button>
 

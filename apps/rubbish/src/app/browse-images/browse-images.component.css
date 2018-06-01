@@ -1,8 +1,8 @@
 /* Browse image css */
 
-.image-single {
-  width: 24%;
-  height: 25%;
+/* .image-single {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 
   display: inline-flex;
@@ -15,4 +15,12 @@
 
 .image-single img {
   max-width: 100%;
+} */
+
+.image-container {
+  
+}
+
+.image-desc {
+  
 }

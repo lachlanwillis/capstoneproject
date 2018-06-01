@@ -25,3 +25,28 @@ mat-form-field {
 img {
   max-width: 75%;
 }
+
+
+@media only screen and (max-width: 768px) {
+  .submit-btn {
+    width: 100%;
+    margin: 0;
+  }
+
+  #image-upload {
+    margin: 0 0 25px 0;
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+
+  .image-preview {
+    margin-bottom: 50px;
+  }
+
+  mat-form-field {
+    margin: 0 0 10px 0;
+    width: 100%;
+  }
+}

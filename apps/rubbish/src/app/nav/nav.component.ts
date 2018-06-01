@@ -14,6 +14,8 @@ export class NavComponent implements OnDestroy {
   loggedIn = false;
   admin = false;
 
+  isNavbarCollapsed = true;
+
   loggedSub = new Subscription();
   adminSub = new Subscription();
 
