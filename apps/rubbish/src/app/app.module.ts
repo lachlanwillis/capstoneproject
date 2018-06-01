@@ -22,6 +22,7 @@ import { BrowseImagesComponent } from './browse-images/browse-images.component';
 import { ImageService } from './images/image.service';
 import { ImageComponent } from './image/image.component';
 import { BrowsePublicComponent } from './browse-public/browse-public.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter', home: true } },
@@ -69,7 +70,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule.forRoot(),
   ],
   providers: [
     AuthService,
