@@ -8,6 +8,10 @@
     font-family: Lato, sans-serif;
 }
 
+p {
+    font-size: 16px;
+}
+
 body {
     background-color: #fff;
     color: #111;
@@ -65,4 +69,22 @@ body {
 
 .image-list mat-form-field {
     width: 100%;
+}
+
+.mat-tab-label, .mat-header-cell, div[class^=".mat-paginator-"], .mat-tab-label-active, .mat-input-placeholder-wrapper {
+    font-weight: 700;
+    color: #111;
+}
+
+.mat-tab-label .mat-tab-label-content {
+    color: #666;
+}
+
+.mat-tab-label-active .mat-tab-label-content {
+    color: black !important;
+}
+
+.mat-error, .mat-header-cell, div[class^="mat-paginator"] {
+    font-size: 14px;
+    color: #111;
 }
