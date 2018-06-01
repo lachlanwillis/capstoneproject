@@ -1,5 +1,14 @@
-<div class="image-row">
-  <div class="image-single" *ngFor="let image of images">
-    <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-md-3" *ngFor="let image of images">
+        <div class="img-fluid">
+          <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- <div class="image-single" *ngFor="let image of images">
+    <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
+  </div> -->
 </div>

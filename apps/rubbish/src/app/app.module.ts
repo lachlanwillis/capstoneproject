@@ -21,23 +21,29 @@ import { AdminGuard } from './auth/admin.guard';
 import { BrowseImagesComponent } from './browse-images/browse-images.component';
 import { ImageService } from './images/image.service';
 import { ImageComponent } from './image/image.component';
+import { BrowsePublicComponent } from './browse-public/browse-public.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, data: { title: 'Waterway Litter' } },
-  { 
-    path: 'userportal', 
-    component: UserportalComponent, 
+  { path: '', component: HomeComponent, data: { title: 'Waterway Litter', home: true } },
+  {
+    path: 'userportal',
+    component: UserportalComponent,
     data: { title: 'User Portal' },
     canActivate: [ AuthGuard ]
   },
-  { 
-    path: 'moderatorportal', 
-    component: ModeratorportalComponent, 
-    data: { title: 'Moderator Portal' }, 
-    canActivate: [ AdminGuard ] 
+  {
+    path: 'moderatorportal',
+    component: ModeratorportalComponent,
+    data: { title: 'Moderator Portal' },
+    canActivate: [ AdminGuard ]
   },
-  { path: 'login', component: AuthComponent, data: { title: 'Login', hide: true } }
-]
+  {
+    path: 'browse-public',
+    component: BrowsePublicComponent,
+    data: { title: 'Browse Waterways' }
+  },
+  { path: 'login', component: AuthComponent, data: { title: 'Login/Signup', hide: true } }
+];
 
 
 @NgModule({
@@ -53,7 +59,8 @@ const routes: Routes = [
     UserportalComponent,
     AuthComponent,
     BrowseImagesComponent,
-    ImageComponent
+    ImageComponent,
+    BrowsePublicComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +72,7 @@ const routes: Routes = [
     ReactiveFormsModule
   ],
   providers: [
-    AuthService, 
+    AuthService,
     ImageService,
     AuthGuard,
     AdminGuard

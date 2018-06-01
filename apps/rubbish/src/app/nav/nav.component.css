@@ -12,3 +12,20 @@ mat-toolbar span {
 .example-spacer {
   flex: 1 1 auto;
 }
+
+nav .row {
+  background-color: #007bff;
+}
+
+nav mat-toolbar {
+  background-color: transparent;
+}
+
+nav * {
+  color: #fff;
+  font-weight: 700;
+}
+
+.nav-title {
+  text-transform: uppercase;
+}
