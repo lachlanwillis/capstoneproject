@@ -36,12 +36,12 @@ body {
 }
 
 .section {
-    padding: 100px 20%;
+    padding: 100px 10%;
     background-color: #fff;
 }
 
 .section-alt {
-    padding: 100px 20%;
+    padding: 100px 10%;
     background-color: #333;
     color: #fff;
 }
@@ -55,12 +55,6 @@ body {
 
 .section-alt h4 {
     border-bottom: 1px solid #fff;
-}
-
-@media (max-width: 768px) {
-    .section, .section-alt {
-        padding: 50px;
-    }
 }
 
 .tab-content {
@@ -87,4 +81,10 @@ body {
 .mat-error, .mat-header-cell, div[class^="mat-paginator"] {
     font-size: 14px;
     color: #111;
+}
+
+@media only screen and (max-width: 991px) {
+    .section, .section-alt {
+        padding: 25px;
+    }
 }
