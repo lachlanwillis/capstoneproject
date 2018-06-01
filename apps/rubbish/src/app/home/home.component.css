@@ -1,1 +1,29 @@
 /* Home Component CSS file */
+.home-header-image {
+  background: url("assets/images/waterways-header.jpg") 50% 60%;
+  width: 100%;
+  height: 750px;
+  text-align: center;
+  padding: 150px 0;
+  position: relative;
+}
+
+.home-header-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.image-subheader {
+  color: #fff;
+  font-weight: 700;
+  font-size: 30px;
+  font-style: italic;
+  margin-top: 25px;
+}
+
+.image-cta {
+  font-weight: 700;
+  margin-top: 35px;
+}

@@ -1,16 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css'; 
-@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+@import 'https://fonts.googleapis.com/css?family=Lato:300,700';
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import 'https://use.fontawesome.com/releases/v5.0.13/css/all.css';
+
+* {
+    font-family: Lato, sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #111;
+}
 
 body {
     margin: 0;
-    font-family: Roboto, sans-serif;
+}
+
+.home-image-header {
+    color: #fff;
+    font-weight: 700;
+    font-size: 50px;
+    text-transform: uppercase;
+}
+
+.image-header {
+    color: #fff;
+    font-weight: 700;
+    font-size: 30px;
+    text-transform: uppercase;
 }
 
 .section {
-    padding: 10px 15px;
-    border-bottom: 1px #9a9a solid;
+    padding: 100px 20%;
+    background-color: #fff;
+}
+
+.section-alt {
+    padding: 100px 20%;
+    background-color: #333;
+    color: #fff;
+}
+
+.section h4, .section-alt h4 {
+    display: inline-block;
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.section-alt h4 {
+    border-bottom: 1px solid #fff;
+}
+
+@media (max-width: 768px) {
+    .section, .section-alt {
+        padding: 50px;
+    }
 }
 
 .tab-content {

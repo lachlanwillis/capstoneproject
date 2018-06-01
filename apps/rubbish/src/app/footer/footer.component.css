@@ -1,5 +1,38 @@
 /* Footer Component CSS file */
 
 mat-toolbar {
-  font-size: 16px;
+  background-color: transparent
+}
+
+footer .row {
+  text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  padding: 100px 0 20px 0;
+}
+
+.copyright-line {
+  margin: 0;
+  border-top: 2px solid #1A95FF;
+  padding-top: 20px;
+  font-weight: 700;
+}
+
+.footer-logo {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.footer-social {
+  font-size: 40px;
+  margin-bottom: 100px;
+}
+
+.footer-social a {
+  color: #fff;
+  padding: 0 5px;
+}
+
+.footer-social a:hover {
+  color: #cecece;
 }
