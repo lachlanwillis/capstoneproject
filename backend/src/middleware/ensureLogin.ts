@@ -16,4 +16,5 @@ export function ensureAdmin(req, res, next) {
   } else if (!req.user || !req.user.admin) {
     return res.status(401).json({ success: false, error: true, message: 'Unauthorized.'})
   }
+  next();
 }
