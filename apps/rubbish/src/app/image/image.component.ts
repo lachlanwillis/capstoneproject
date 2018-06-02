@@ -42,10 +42,6 @@ export class ImageComponent implements OnChanges, OnInit, AfterViewInit, OnDestr
   constructor() { }
 
   ngOnInit() {
-    // $('.inner-image').each(function() {
-
-    // });
-
     this.assignPortrait();
 
     this.drawBoxes();
@@ -63,11 +59,13 @@ export class ImageComponent implements OnChanges, OnInit, AfterViewInit, OnDestr
   }
 
   ngOnDestroy() {
+    this.assignPortrait();
     this.timeoutSub.unsubscribe();
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
+    this.assignPortrait();
     this.drawBoxes();
   }
 
