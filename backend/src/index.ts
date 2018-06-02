@@ -32,4 +32,4 @@ app.use(authentication.session());
 app.use(Router);
 app.use('/assets', express.static(path.join(__dirname, '..', 'assets')));
 app.use('/', express.static(path.join(__dirname, '..', 'assets')));
-app.get('/*', (req, res) => res.send(path.join(__dirname, '..', 'assets', 'index.html')));
+app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '..', 'assets', 'index.html')));
