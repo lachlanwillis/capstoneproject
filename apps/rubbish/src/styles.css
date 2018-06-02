@@ -8,6 +8,10 @@
     font-family: Lato, sans-serif;
 }
 
+p {
+    font-size: 16px;
+}
+
 body {
     background-color: #fff;
     color: #111;
@@ -32,12 +36,12 @@ body {
 }
 
 .section {
-    padding: 100px 20%;
+    padding: 100px 10%;
     background-color: #fff;
 }
 
 .section-alt {
-    padding: 100px 20%;
+    padding: 100px 10%;
     background-color: #333;
     color: #fff;
 }
@@ -53,16 +57,34 @@ body {
     border-bottom: 1px solid #fff;
 }
 
-@media (max-width: 768px) {
-    .section, .section-alt {
-        padding: 50px;
-    }
-}
-
 .tab-content {
     padding: 10px 15px;
 }
 
 .image-list mat-form-field {
     width: 100%;
+}
+
+.mat-tab-label, .mat-header-cell, div[class^=".mat-paginator-"], .mat-tab-label-active, .mat-input-placeholder-wrapper {
+    font-weight: 700;
+    color: #111;
+}
+
+.mat-tab-label .mat-tab-label-content {
+    color: #666;
+}
+
+.mat-tab-label-active .mat-tab-label-content {
+    color: black !important;
+}
+
+.mat-error, .mat-header-cell, div[class^="mat-paginator"] {
+    font-size: 14px;
+    color: #111;
+}
+
+@media only screen and (max-width: 991px) {
+    .section, .section-alt {
+        padding: 25px;
+    }
 }

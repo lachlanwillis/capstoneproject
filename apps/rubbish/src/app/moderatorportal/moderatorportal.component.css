@@ -18,3 +18,13 @@
   width: 30%;
   text-align: center;
 }
+
+@media only screen and (max-width: 768px) {
+  .mat-column-title {
+    flex: 10%;
+  }
+
+  .mat-row {
+    padding: 0px;
+  }
+}
