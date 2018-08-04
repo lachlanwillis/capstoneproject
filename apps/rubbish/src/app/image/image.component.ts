@@ -13,7 +13,7 @@ import {
 
 import { Detection } from './image';
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 
 declare var $: any;
 
@@ -45,7 +45,7 @@ export class ImageComponent implements OnChanges, OnInit, AfterViewInit, OnDestr
     this.assignPortrait();
 
     this.drawBoxes();
-    this.timeoutSub = Observable.timer(100).subscribe(() => this.drawBoxes());
+    this.timeoutSub = timer(100).subscribe(() => this.drawBoxes());
   }
 
   ngAfterViewInit() {
