@@ -5,19 +5,21 @@ import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent { 
+export class AppComponent {
 
   title: string;
   hide: boolean;
+  home: boolean;
 
   constructor(
-    private readonly route: ActivatedRoute, 
+    private readonly route: ActivatedRoute,
     private readonly router: Router
-  ) { 
-    this.router.events.subscribe(data =>{
+  ) {
+    this.router.events.subscribe(data => {
       if (data instanceof RoutesRecognized) {
         this.title = data.state.root.firstChild.data.title;
         this.hide = data.state.root.firstChild.data.hide;
+        this.home = data.state.root.firstChild.data.home;
        }
     });
   }

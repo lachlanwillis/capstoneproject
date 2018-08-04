@@ -1,5 +1,5 @@
 /* Main App CSS file */
-.content {
-  width: 75%;
-  margin: 0 12.5%;
+app-header {
+  width: 100%;
+  margin-top: 56px;
 }

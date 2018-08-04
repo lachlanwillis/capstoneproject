@@ -1,5 +1,18 @@
-<div class="image-row">
-  <div class="image-single" *ngFor="let image of images">
-    <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="image-cont-row">
+      <div class="small medium large image-container" *ngFor="let image of images | slice:((page-1)*pageSize):(page*pageSize)">
+        <div class="image-single">
+          <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
+        </div>
+      </div>
+    </div>
   </div>
+  <div class="col-sm-12">
+    <hr>
+      <ngb-pagination [collectionSize]="images.length" class="d-flex justify-content-center" [pageSize]="pageSize" [(page)]="page" [boundaryLinks]="true"></ngb-pagination>
+  </div>
+  <!-- <div class="image-single" *ngFor="let image of images">
+    <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
+  </div> -->
 </div>

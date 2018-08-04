@@ -15,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { UserportalComponent } from './userportal/userportal.component';
 import { AuthComponent } from './auth/auth.component';
-import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { AdminGuard } from './auth/admin.guard';
 import { BrowseImagesComponent } from './browse-images/browse-images.component';
@@ -23,6 +22,9 @@ import { ImageService } from './images/image.service';
 import { ImageComponent } from './image/image.component';
 import { BrowsePublicComponent } from './browse-public/browse-public.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+import { AUTH_SERVICE_STUB_PROVIDER } from './auth/auth.service.stub';
+import { IMAGE_SERVICE_STUB_PROVIDER } from './images/image.service.stub';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter', home: true } },
@@ -74,11 +76,11 @@ const routes: Routes = [
     NgbModule.forRoot(),
   ],
   providers: [
-    AuthService,
-    ImageService,
+    AUTH_SERVICE_STUB_PROVIDER,
+    IMAGE_SERVICE_STUB_PROVIDER,
     AuthGuard,
     AdminGuard
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppTestingModule { }

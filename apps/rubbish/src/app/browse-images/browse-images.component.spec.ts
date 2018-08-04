@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BrowseImagesComponent } from './browse-images.component';
+import { AppTestingModule } from '../app.module.testing';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('BrowseImagesComponent', () => {
   let component: BrowseImagesComponent;
@@ -8,7 +10,8 @@ describe('BrowseImagesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BrowseImagesComponent ]
+      imports: [ AppTestingModule ],
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     })
     .compileComponents();
   }));

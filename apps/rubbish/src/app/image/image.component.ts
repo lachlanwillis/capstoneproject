@@ -15,12 +15,16 @@ import { Detection } from './image';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 
+declare var $: any;
+
 @Component({
   selector: 'image',
   templateUrl: './image.component.html',
   styleUrls: ['./image.component.scss']
 })
 export class ImageComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
+
+  portrait = false;
 
   @Input() src: string;
   @Input() dets: Detection[];
@@ -38,25 +42,39 @@ export class ImageComponent implements OnChanges, OnInit, AfterViewInit, OnDestr
   constructor() { }
 
   ngOnInit() {
+    this.assignPortrait();
+
     this.drawBoxes();
     this.timeoutSub = Observable.timer(100).subscribe(() => this.drawBoxes());
   }
 
   ngAfterViewInit() {
+    this.assignPortrait();
     this.drawBoxes();
   }
 
   ngOnChanges() {
+    this.assignPortrait();
     this.drawBoxes();
   }
 
   ngOnDestroy() {
+    this.assignPortrait();
     this.timeoutSub.unsubscribe();
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
+    this.assignPortrait();
     this.drawBoxes();
+  }
+
+  private assignPortrait() {
+    let image = this.image.nativeElement as HTMLImageElement;
+
+    if (image.naturalWidth < image.naturalHeight) {
+      this.portrait = true;
+    }
   }
 
   private drawBoxes() {

@@ -18,7 +18,7 @@ export class ImageService {
 
   getImages(filter?: string) {
     return this.http.get<any[]>('/api/display-image')
-      .pipe(take(1), map(res => res.filter(a => !!a.fileName)))
+      .pipe(take(1), map(res => res.filter(a => !!a.fileName)));
   }
 
   getMyImages(filter?: string) {

@@ -66,7 +66,7 @@ export class UserUploadComponent {
 
     this.image.uploadImage(fd)
       .subscribe(res => {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/browse-public');
       });
 
   }

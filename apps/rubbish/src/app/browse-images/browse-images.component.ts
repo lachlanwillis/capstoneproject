@@ -10,6 +10,8 @@ import { Image } from '../image/image';
   styleUrls: ['./browse-images.component.css']
 })
 export class BrowseImagesComponent implements OnInit {
+  page = 1;
+  pageSize = 12;
 
   @Input() mine: boolean;
 
