@@ -2,8 +2,8 @@ import { Strategy } from 'passport-facebook';
 import { User } from '../models';
 
 export const FacebookAuth = new Strategy({
-    clientID: process.env.FACEBOOK_APP_ID,
-    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    clientID: '653263221696248',
+    clientSecret: '98ac9c74c4364870437422ac17646284',
     callbackURL: 'http://localhost:4200/api/auth/facebook/callback'
 }, (accessToken, refreshToken, profile, callback) => {
     User.findOne({ 'facebook.id' : profile.id })

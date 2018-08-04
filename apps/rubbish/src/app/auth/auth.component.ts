@@ -7,7 +7,7 @@ import {MatSnackBar} from '@angular/material';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent {
 
@@ -43,6 +43,14 @@ export class AuthComponent {
           else this.snack.open('An unexpected error occurred. Your username may not be valid.');
         }, () => this.snack.open('An unexpected error occurred.'));
     }
+  }
+
+  loginToFacebook(): void {
+    window.location.pathname = '/api/auth/facebook';
+  }
+
+  loginToGoogle(): void {
+    window.location.pathname = '/api/auth/google';
   }
 
 }
