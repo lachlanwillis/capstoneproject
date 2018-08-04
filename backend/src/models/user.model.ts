@@ -5,6 +5,8 @@ export interface UserInfo {
 	username: string;
 	password: string;
 	admin?: boolean;
+	facebook?: { id: string, token: string, name: string, email: string };
+	google?: { id: string, token: string, name: string, email: string };
 }
 
 export interface UserModel extends Document, UserInfo {
@@ -16,7 +18,9 @@ export var UserSchema: Schema = new Schema({
 	username: String,
 	password: String,
 	admin: { type: Boolean, default: false },
-	last_login: { type: Date, default: Date.now }
+	last_login: { type: Date, default: Date.now },
+	googleId: String,
+	facebookId: String
 });
 
 UserSchema.methods.verifyPassword = function(password:string, callback:any) {
