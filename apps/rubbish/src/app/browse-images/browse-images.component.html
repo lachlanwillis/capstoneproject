@@ -3,6 +3,11 @@
     <div class="image-cont-row">
       <div class="small medium large image-container" *ngFor="let image of images | slice:((page-1)*pageSize):(page*pageSize)">
         <div class="image-single">
+          <div *ngIf="mine"class="delete-icon-container">
+            <button mat-icon-button color="warn" (click)="deleteMyImage(image)">
+              <mat-icon aria-label="Delete image button">delete</mat-icon>
+            </button>
+          </div>
           <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
         </div>
       </div>
@@ -16,3 +21,14 @@
     <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
   </div> -->
 </div>
+
+<ng-template #deleteImage>
+    <h1 mat-dialog-title>Delete?</h1>
+    <mat-dialog-content>
+      Are you sure you want to delete this image?
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Close</button>
+      <button mat-raised-button color="warn" [mat-dialog-close]="true">Delete</button>
+    </mat-dialog-actions>
+</ng-template>

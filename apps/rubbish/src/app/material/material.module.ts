@@ -10,8 +10,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
 
-let materialModules: any[] = [
+const materialModules: any[] = [
+  MatDialogModule,
   MatMenuModule,
   MatButtonModule,
   MatToolbarModule,
