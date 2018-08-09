@@ -50,8 +50,9 @@ export const GetMyImagesHandler: RequestHandler = (req: Request, res: Response):
 }
 
 export const DeleteMyImageHandler: RequestHandler = (req: Request, res: Response): void => {
-  Image.findOne({ id: req.body.id, userId: req.user.id })
-       .then(image => { image.deleted = true; image.save()}).catch(err => res.status(500).send(err));
+  Image.findOne({ _id: req.params.id, userId: req.user.id })
+       .then(image => { image.deleted = true; image.save(); res.json({ success: true, imessage: 'Image deleted successfully.' })})
+       .catch(err => res.status(500).send(err));
 }
 
 /**

@@ -32,4 +32,4 @@ Router
 	.get('/api/my-images', ensureLoggedIn, GetMyImagesHandler)
 
 	.delete('/api/my-image/:id', ensureLoggedIn, DeleteMyImageHandler)
-	.delete('/api/delete-image/:id', ensureAdmin, DeleteImageHandler)
+	.delete('/api/delete-image/:id', DeleteImageHandler)

@@ -1,0 +1,57 @@
+/* Browse image css */
+
+:host {
+  .delete-icon-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 10px;
+    z-index: 200;
+    opacity: 0;
+    transition: opacity 0.2s;
+    background: rgba(black, 0.3);
+
+    button {
+      outline: none;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+  }
+}
+
+.image-single {
+  height: 100%;
+  position: relative;
+  border: 2px solid #333;
+}
+
+.image-cont-row {
+  text-align: center;
+}
+
+.image-container {
+  height: 300px;
+  width: 300px;
+  padding: 15px;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 330px) {
+  .image-container {
+    width: 100%;
+  }
+}
+
+ngb-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
