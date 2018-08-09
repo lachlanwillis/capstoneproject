@@ -1,5 +1,15 @@
 <div class="center content">
   <h1>{{ (login) ? "Login" : "Signup" }}</h1>
+
+  <button class="loginBtn loginBtn--facebook" (click)="loginToFacebook()">
+    {{ (login) ? "Login" : "Signup" }} with Facebook
+  </button>
+  <button class="loginBtn loginBtn--google" (click)="loginToGoogle()">
+    {{ (login) ? "Login" : "Signup" }} with Google
+  </button>
+
+  <h3>Or</h3>
+
   <form #form="ngForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="full-width">
         <input name="username" matInput placeholder="username" [formControl]="loginFormControl" >
