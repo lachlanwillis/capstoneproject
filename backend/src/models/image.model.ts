@@ -13,6 +13,7 @@ export interface ImageModel extends Document {
   deleted?: boolean;
   userId: string;
   detections?: Detection[];
+  rubbishVisibility?: boolean;
 }
 
 export const ImageSchema: Schema = new Schema({
@@ -36,7 +37,8 @@ export const ImageSchema: Schema = new Schema({
       }
     }
   ],
-  deleted: { type: Boolean, default: false }
+  deleted: { type: Boolean, default: false },
+  rubbishVisibility: {type: Boolean, default: false}
 });
 
 export const Image: IModel<ImageModel> = Model<ImageModel>("Image", ImageSchema);
