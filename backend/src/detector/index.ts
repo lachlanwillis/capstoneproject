@@ -12,6 +12,11 @@ export function detectorGenerator() {
                 .then(image => {
                     console.log(image.id+":", "detection completed.")
                     image.detections = det.detections;
+                    if (det.detections.length <= 0) {
+                        console.log(image.id + ": no rubbish found.");
+                    } else {
+                        image.rubbishVisibility = true;
+                    }
                     image.save();
                 });
         });
