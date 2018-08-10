@@ -50,6 +50,12 @@
   }
 }
 
+mat-dialog-content {
+  mat-form-field {
+    display: block;
+  }
+}
+
 ngb-pagination {
   display: flex;
   align-items: center;
