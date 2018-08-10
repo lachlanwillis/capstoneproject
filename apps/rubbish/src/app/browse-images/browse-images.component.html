@@ -4,6 +4,9 @@
       <div class="small medium large image-container" *ngFor="let image of images | slice:((page-1)*pageSize):(page*pageSize)">
         <div class="image-single">
           <div *ngIf="mine"class="delete-icon-container">
+            <button mat-icon-button color="primary" (click)="editMyImage(image)">
+              <mat-icon aria-label="Edit image button">build</mat-icon>
+            </button>
             <button mat-icon-button color="warn" (click)="deleteMyImage(image)">
               <mat-icon aria-label="Delete image button">delete</mat-icon>
             </button>
@@ -30,5 +33,24 @@
     <mat-dialog-actions>
       <button mat-button mat-dialog-close>Close</button>
       <button mat-raised-button color="warn" [mat-dialog-close]="true">Delete</button>
+    </mat-dialog-actions>
+</ng-template>
+
+<ng-template #updateImage>
+    <h1 mat-dialog-title>Edit Image</h1>
+    <mat-dialog-content>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Title" [(ngModel)]="selectedImage.title">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Description" [(ngModel)]="selectedImage.description">
+          </textarea>
+      </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Close</button>
+      <button mat-raised-button color="primary" [mat-dialog-close]="true">Update</button>
     </mat-dialog-actions>
 </ng-template>
