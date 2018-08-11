@@ -32,7 +32,9 @@ export class ImageService {
   }
 
   acceptFlaggedImages(id: string) {
-    return this.http.delete<any[]>(`api/accept-flagged-images/${id}`)
+    return this.http.put<any[]>(`api/accept-flagged-images`, {
+        id
+      })
       .pipe(take(1));
   }
 

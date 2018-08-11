@@ -97,9 +97,9 @@ export const DeleteImageHandler: RequestHandler = (req: Request, res: Response):
 
 
 export const AcceptFlaggedImageHandler: RequestHandler = (req: Request, res: Response): void => {
-    if (!req.params.id) res.status(500).json({ error: true, message: 'Malformed accept request.' });
+    if (!req.body.id) res.status(500).json({ error: true, message: 'Malformed accept request.' });
     else
-        Image.findById(req.params.id).then(image => {
+        Image.findById(req.body.id).then(image => {
             image.rubbishVisibility = true;
             image.save().then(() => res.json({ success: true, error: false, message: 'Image accepted successfully.' }))
                 .catch(err => res.status(500).json({ success: false, error: true, message: err }));
