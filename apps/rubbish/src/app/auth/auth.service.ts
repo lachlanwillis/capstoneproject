@@ -9,6 +9,7 @@ const LOGIN_URL = `/${API_PREFIX}/login`;
 const LOGOUT_URL = `/${API_PREFIX}/logout`;
 const SIGNUP_URL = `/${API_PREFIX}/signup`;
 const PING_URL = `/${API_PREFIX}/auth/ping`;
+const GET_USER_URL = `/${API_PREFIX}/auth/user`;
 
 // ADMIN URLS //
 const ISADMIN_URL = `/${API_PREFIX}/isadmin`;
@@ -40,6 +41,10 @@ export class AuthService {
 
   deleteUser(id: string) {
 
+  }
+
+  getCurrentUser(): Observable<any> {
+    return this.http.get(GET_USER_URL);
   }
 
   logout(): Observable<any> {

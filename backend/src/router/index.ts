@@ -22,6 +22,7 @@ Router
 	.get('/api/auth/ping', (req, res) => res.json({ auth: !!req.user }))
 	.get('/api/logout', HandleUserLogout)
 	.get('/api/isadmin', IsUserAdmin)
+	.get('/api/auth/user', (req, res) => res.json(req.user))
 
 	.get('/api/auth/facebook', auth.authenticate('facebook', {
 		scope: [ 'public_profile', 'email' ]

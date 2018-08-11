@@ -19,8 +19,18 @@ export var UserSchema: Schema = new Schema({
 	password: String,
 	admin: { type: Boolean, default: false },
 	last_login: { type: Date, default: Date.now },
-	googleId: String,
-	facebookId: String
+	google: {
+		id: String,
+		token: String,
+		name: String,
+		email: String
+	},
+	facebook: {
+		id: String,
+		token: String,
+		name: String,
+		email: String
+	}
 });
 
 UserSchema.methods.verifyPassword = function(password:string, callback:any) {

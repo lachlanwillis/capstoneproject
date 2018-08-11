@@ -23,6 +23,7 @@ import { ImageService } from './images/image.service';
 import { ImageComponent } from './image/image.component';
 import { BrowsePublicComponent } from './browse-public/browse-public.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AccountDataComponent } from './account-data/account-data.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter', home: true } },
@@ -61,7 +62,8 @@ const routes: Routes = [
     AuthComponent,
     BrowseImagesComponent,
     ImageComponent,
-    BrowsePublicComponent
+    BrowsePublicComponent,
+    AccountDataComponent
   ],
   imports: [
     BrowserModule,
