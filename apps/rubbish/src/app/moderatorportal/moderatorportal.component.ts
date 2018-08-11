@@ -69,8 +69,13 @@ export class ModeratorportalComponent implements OnInit {
       });
   }
 
-  onFlaggedAcceptClciked(row) {
-    
+  onFlaggedAcceptClicked(row) {
+    this.flaggedImage.acceptFlaggedImages(row.id)
+      .subscribe((value: any) => {
+        if (value.success) {
+          this.fetchFlaggedImages();
+        }
+      });
   }
 
 

@@ -31,6 +31,11 @@ export class ImageService {
       .pipe(take(1), map(res => res.filter(a => !!a.fileName)));
   }
 
+  acceptFlaggedImages(id: string) {
+    return this.http.delete<any[]>(`api/accept-flagged-images/${id}`)
+      .pipe(take(1));
+  }
+
 
   deleteMyImage(id: string) {
     return this.http.delete(`/api/my-image/${id}`)
