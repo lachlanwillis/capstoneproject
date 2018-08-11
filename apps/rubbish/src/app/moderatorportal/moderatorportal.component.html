@@ -44,6 +44,49 @@
               </div>
             </div>
           </mat-tab>
+
+
+          <mat-tab label="Flagged Images">
+            <div class="tab-content">
+              <p>View images which are pending acceptance from a moderator.</p>
+              <div class="image-list">
+
+                <mat-table #table [dataSource]="flaggedSource" matSort>
+
+                  <!-- Title Column -->
+                  <ng-container matColumnDef="title">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Image Column -->
+                  <ng-container matColumnDef="url">
+                    <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.url}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Delete Column -->
+                  <ng-container matColumnDef="delete">
+                    <mat-header-cell *matHeaderCellDef> Delete? </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> <button class="delete-btn" mat-icon-button (click)="onFlaggedDeleteClicked(element)"><i class="material-icons">delete</i></button> </mat-cell>
+                  </ng-container>
+
+                  <!-- Accept Column -->
+                  <ng-container matColumnDef="accept">
+                    <mat-header-cell *matHeaderCellDef> Accept? </mat-header-cell>
+                    <mat-cell *matCellDef="let element"><button class="accept-btn" mat-icon-button (click)="onFlaggedAcceptClicked(element)"><i class="material-icons">delete</i></button></mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="flaggedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: flaggedColumns;"></mat-row>
+                </mat-table>
+
+                <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>
+
+
+              </div>
+            </div>
+          </mat-tab>
         </mat-tab-group>
       </mat-card-content>
     </mat-card>

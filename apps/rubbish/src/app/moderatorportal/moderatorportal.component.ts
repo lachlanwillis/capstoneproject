@@ -14,10 +14,14 @@ export class ModeratorportalComponent implements OnInit {
   elementData = [];
   dataSource = new MatTableDataSource<Element>(this.elementData);
 
+  flaggedColumns = ['title', 'url', 'delete', 'accept'];
+  flaggedData = [];
+  flaggedSource = new MatTableDataSource<Element>(this.flaggedData);
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private image: ImageService) { }
+  constructor(private image: ImageService, private flaggedImage: ImageService) { }
 
   ngOnInit() {
   }
@@ -28,11 +32,17 @@ export class ModeratorportalComponent implements OnInit {
    */
   ngAfterViewInit() {
     this.fetchImages();
+    this.fetchFlaggedImages();
   }
 
   fetchImages() {
     this.image.getImages().subscribe((images: any[] ) =>
       this.dataSource = new MatTableDataSource<any>(images.map(i => { return { title: i.title, id: i._id, url: i.location }})));
+  }
+
+  fetchFlaggedImages() {
+    this.flaggedImage.getFlaggedImages().subscribe((images: any[]) =>
+      this.flaggedSource = new MatTableDataSource<any>(images.map(i => { return { title: i.title, id: i._id, url: i.location } })));
   }
 
   applyFilter(filterValue: string) {
@@ -49,6 +59,21 @@ export class ModeratorportalComponent implements OnInit {
         }
       });
   }
+
+  onFlaggedDeleteClicked(row) {
+    this.flaggedImage.deleteImage(row.id)
+      .subscribe((value: any) => {
+        if (value.success) {
+          this.fetchFlaggedImages();
+        }
+      });
+  }
+
+  onFlaggedAcceptClciked(row) {
+    
+  }
+
+
 }
 
 export interface Element {
