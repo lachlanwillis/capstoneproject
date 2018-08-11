@@ -68,6 +68,11 @@ export const GetMyImagesHandler: RequestHandler = (req: Request, res: Response):
        .then(images => res.json(images)).catch(err => res.status(500).send(err));
 }
 
+export const GetFlaggedImagesHandler: RequestHandler = (req: Request, res: Response): void => {
+    Image.find({ deleted: false, rubbishVisibility: false }).then(images => res.json(images)).catch(err => res.status(500).send(err));
+}
+
+
 export const DeleteMyImageHandler: RequestHandler = (req: Request, res: Response): void => {
   Image.findOne({ _id: req.params.id, userId: req.user.id })
        .then(image => { image.deleted = true; image.save(); res.json({ success: true, imessage: 'Image deleted successfully.' })})
@@ -88,4 +93,15 @@ export const DeleteImageHandler: RequestHandler = (req: Request, res: Response):
             .catch(err => res.status(500).json({ success: false, error: true, message: err }));
         })
         .catch(err => res.status(500).json({ success: true, error: true, message: err }));
+}
+
+
+export const AcceptFlaggedImageHandler: RequestHandler = (req: Request, res: Response): void => {
+    if (!req.body.id) res.status(500).json({ error: true, message: 'Malformed accept request.' });
+    else
+        Image.findById(req.body.id).then(image => {
+            image.rubbishVisibility = true;
+            image.save().then(() => res.json({ success: true, error: false, message: 'Image accepted successfully.' }))
+                .catch(err => res.status(500).json({ success: false, error: true, message: err }));
+        }).catch(err => res.status(500).json({ success: true, error: true, message: err }));
 }

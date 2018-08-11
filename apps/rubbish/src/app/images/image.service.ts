@@ -18,13 +18,26 @@ export class ImageService {
 
   getImages(filter?: string) {
     return this.http.get<any[]>('/api/display-image')
-      .pipe(take(1), map(res => res.filter(a => !!a.fileName)));
+      .pipe(take(1), map(res => res.filter(a =>!!a.fileName)));
   }
 
   getMyImages(filter?: string) {
     return this.http.get<any[]>('/api/my-images')
       .pipe(take(1), map(res => res.filter(a => !!a.fileName)));
   }
+
+  getFlaggedImages() {
+    return this.http.get<any[]>('/api/flagged-images')
+      .pipe(take(1), map(res => res.filter(a => !!a.fileName)));
+  }
+
+  acceptFlaggedImages(id: string) {
+    return this.http.put<any[]>(`api/accept-flagged-images`, {
+        id
+      })
+      .pipe(take(1));
+  }
+
 
   deleteMyImage(id: string) {
     return this.http.delete(`/api/my-image/${id}`)

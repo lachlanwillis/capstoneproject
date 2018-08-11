@@ -1,7 +1,6 @@
 import { Router as IRouter } from 'express';
 import * as multer from 'multer';
-
-import { UploadImageHandler, GetImageHandler, DeleteImageHandler, GetMyImagesHandler, DeleteMyImageHandler, UpdateMyImageHandler } from './images.route';
+import { UploadImageHandler, GetImageHandler, GetFlaggedImagesHandler, DeleteImageHandler, GetMyImagesHandler, DeleteMyImageHandler, UpdateMyImageHandler, AcceptFlaggedImageHandler } from './images.route';
 import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser } from './users.route';
 import { authentication as auth } from '../authentication';
 import { ensureAdmin, ensureLoggedIn } from '../middleware/ensureLogin';
@@ -48,6 +47,10 @@ Router
 
 	.get('/api/display-image', GetImageHandler)
 	.get('/api/my-images', ensureLoggedIn, GetMyImagesHandler)
+    .get('/api/flagged-images', ensureAdmin, GetFlaggedImagesHandler)
+
+    .put('/api/accept-flagged-images', ensureAdmin, AcceptFlaggedImageHandler)
 
 	.delete('/api/my-image/:id', ensureLoggedIn, DeleteMyImageHandler)
 	.delete('/api/delete-image/:id', DeleteImageHandler)
+
