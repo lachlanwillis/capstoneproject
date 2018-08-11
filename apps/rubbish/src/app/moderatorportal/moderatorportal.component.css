@@ -4,6 +4,10 @@
   background-color: red;
   color: #fff;
 }
+.accept-btn {
+  background-color: greenyellow;
+  color: #fff;
+}
 
 .mat-column-title .mat-cell, .mat-column-url .mat-cell {
   padding-right: 10px;
