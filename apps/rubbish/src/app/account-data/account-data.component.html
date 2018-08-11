@@ -1,3 +1,7 @@
-<p>
-  account-data works!
-</p>
+<mat-form-field>
+    <input matInput name="name" placeholder="Name" [value]="user.name || (user.facebook || {}).name || (user.google || {}).name">
+</mat-form-field>
+<br>
+<mat-form-field>
+    <input matInput name="email" placeholder="Email" [value]="user.email">
+</mat-form-field>
