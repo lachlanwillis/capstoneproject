@@ -16,8 +16,11 @@ export class BrowseImagesComponent implements OnInit {
 
   @Input() mine: boolean;
   @ViewChild('deleteImage') modal: TemplateRef<any>;
+  @ViewChild('updateImage') update: TemplateRef<any>;
 
   images: Image[] = [];
+
+  selectedImage?: Image;
 
   constructor(
     private readonly image: ImageService,
@@ -30,9 +33,6 @@ export class BrowseImagesComponent implements OnInit {
   }
 
   deleteMyImage(image: Image): void {
-
-    console.log('image', image);
-
     this.dialog.open(this.modal)
       .afterClosed()
       .subscribe(result => {
@@ -41,6 +41,27 @@ export class BrowseImagesComponent implements OnInit {
             .subscribe(() => this.ngOnInit());
         }
       });
+  }
+
+  editMyImage(image: Image): void {
+    this.selectedImage = Object.assign({}, image);
+    this.dialog.open(this.update)
+      .afterClosed()
+      .subscribe(result => {
+        if (result === true) {
+          this.updateImage();
+        }
+      });
+  }
+
+  updateImage(): void {
+    this.image.updateMyImage(this.selectedImage._id, {
+      title: this.selectedImage.title,
+      description: this.selectedImage.description
+    }).subscribe(() => {
+      this.selectedImage = undefined;
+      this.ngOnInit()
+    });
   }
 
 }

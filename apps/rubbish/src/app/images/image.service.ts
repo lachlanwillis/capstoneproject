@@ -42,6 +42,13 @@ export class ImageService {
       .pipe(take(1));
   }
 
+  updateMyImage(id: string, changes: { title?: string; description?: string; }) {
+    return this.http.put(`/api/update-my-image`, {
+      ...changes,
+      id
+    }).pipe(take(1));
+  }
+
   deleteImage(id: string) {
     return this.http.delete(`${DELETE_IMAGE_URL}/${id}`)
       .pipe(take(1));

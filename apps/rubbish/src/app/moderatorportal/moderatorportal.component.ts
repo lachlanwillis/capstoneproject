@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { ImageService } from '../images/image.service';
 
@@ -20,8 +20,12 @@ export class ModeratorportalComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('deleteImage') modal: TemplateRef<any>;
 
-  constructor(private image: ImageService, private flaggedImage: ImageService) { }
+  constructor(
+    private readonly image: ImageService,
+    private readonly dialog: MatDialog
+  ) { }
 
   ngOnInit() {
   }
@@ -41,7 +45,7 @@ export class ModeratorportalComponent implements OnInit {
   }
 
   fetchFlaggedImages() {
-    this.flaggedImage.getFlaggedImages().subscribe((images: any[]) =>
+    this.image.getFlaggedImages().subscribe((images: any[]) =>
       this.flaggedSource = new MatTableDataSource<any>(images.map(i => { return { title: i.title, id: i._id, url: i.location } })));
   }
 
@@ -52,16 +56,22 @@ export class ModeratorportalComponent implements OnInit {
   }
 
   onDeleteClicked(row) {
-    this.image.deleteImage(row.id)
-      .subscribe((value: any) => {
-        if (value.success) {
-          this.fetchImages();
+    this.dialog.open(this.modal)
+      .afterClosed()
+      .subscribe(result => {
+        if (result === true) {
+          this.image.deleteImage(row.id)
+            .subscribe((value: any) => {
+              if (value.success) {
+                this.fetchImages();
+              }
+            });
         }
-      });
+      })
   }
 
   onFlaggedDeleteClicked(row) {
-    this.flaggedImage.deleteImage(row.id)
+    this.image.deleteImage(row.id)
       .subscribe((value: any) => {
         if (value.success) {
           this.fetchFlaggedImages();
@@ -70,7 +80,7 @@ export class ModeratorportalComponent implements OnInit {
   }
 
   onFlaggedAcceptClicked(row) {
-    this.flaggedImage.acceptFlaggedImages(row.id)
+    this.image.acceptFlaggedImages(row.id)
       .subscribe((value: any) => {
         if (value.success) {
           this.fetchFlaggedImages();

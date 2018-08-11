@@ -37,6 +37,25 @@ export const UploadImageHandler: RequestHandler = (req: Request, res: Response):
 }
 
 /**
+ * The handler for updating an image
+ */
+export const UpdateMyImageHandler: RequestHandler = (req: Request, res: Response): void => {
+  Image.findOne({ _id: req.body.id, userId: req.user.id })
+    .then(image => {
+      if (!image) {
+        res.status(400).json({ error: true, message: 'No image was found.' });
+      } else {
+        if (req.body.title) image.title = req.body.title;
+        if (req.body.description) image.description = req.body.description;
+        image.save()
+          .then(() => res.json({ success: true, message: 'Image updated successfully' }))
+          .catch(err => res.status(500).json({ error: true, message: err.message }));
+      }
+    })
+    .catch(err => res.status(500).json({ error: true, message: err.message }));
+}
+
+/**
  * The handler for getting images. Sends a list of all images when requested. 
  */
 export const GetImageHandler: RequestHandler = (req: Request, res: Response): void => {
