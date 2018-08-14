@@ -1,12 +1,29 @@
 /* Modetatorportal Component CSS file */
 
 .delete-btn {
-  background-color: red;
+  background-color: #d3434a;
   color: #fff;
 }
+
+.delete-btn:hover {
+  background-color: #b42a30;
+}
+
 .accept-btn {
-  background-color: greenyellow;
+  background-color: #3fc65a;
   color: #fff;
+}
+
+.accept-btn:hover {
+  background-color: #2fa146;
+}
+
+.delete-btn .mat-button-wrapper, .accept-btn .mat-button-wrapper {
+  line-height: 0px;
+}
+
+.delete-btn .material-icons, .accept-btn .material-icons {
+  padding: 5px;
 }
 
 .mat-column-title .mat-cell, .mat-column-url .mat-cell {
