@@ -1,0 +1,54 @@
+<div class="row justify-content-md-center">
+  <div class="col-md-12 section">
+    <h4 class="header">Leaderboards</h4>
+    
+    <mat-card>
+      <mat-card-content>
+        <mat-tab-group>
+          <mat-tab label="Postcode">
+            <!--POSTCODE LEADERBOARD-->
+            <div class="tab-content">
+              <p>Please enter a postcode to view the leaderboards:
+                <mat-form-field>
+                  <input matInput [(ngModel)]="postcode" placeholder="postcode" />
+                </mat-form-field></p>
+            </div>
+          </mat-tab>
+
+
+          <mat-tab label="State">
+            <!--STATE LEADERBOARD-->
+            <div class="tab-content">
+              <p>
+                Please select a state:
+                <mat-form-field>
+                  <mat-select placeholder="Select State">
+                    <mat-option *ngFor="let state of states"[value]="state.value">
+                      {{state.viewValue}}
+                    </mat-option>
+                        
+                  </mat-select>
+                </mat-form-field>
+              </p>
+            </div>
+          </mat-tab>
+
+          
+
+
+
+
+          <mat-tab label="National">
+            <!--ALL OF AUSTRALIA LEADERBOARD-->
+            <div class="tab-content">
+            </div>
+          </mat-tab>
+
+        </mat-tab-group>
+        
+        
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

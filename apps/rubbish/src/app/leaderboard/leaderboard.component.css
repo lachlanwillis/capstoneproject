@@ -1,0 +1,35 @@
+/* Leaderboard Component CSS file */
+
+.delete-btn {
+  background-color: red;
+  color: #fff;
+}
+
+.accept-btn {
+  background-color: greenyellow;
+  color: #fff;
+}
+
+.mat-column-title .mat-cell, .mat-column-url .mat-cell {
+  padding-right: 10px;
+}
+
+.mat-column-title, .mat-column-url {
+  flex: 35%;
+  padding-right: 10px;
+}
+
+.mat-column-delete {
+  width: 30%;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .mat-column-title {
+    flex: 10%;
+  }
+
+  .mat-row {
+    padding: 0px;
+  }
+}
