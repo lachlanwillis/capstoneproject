@@ -26,7 +26,9 @@ export class AppComponent implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit() {
+    const logged = await this.auth.isLoggedIn().toPromise();
+    if (!logged) return;
     navigator.geolocation.getCurrentPosition((position) => {
       this.auth.setPostcode(position).subscribe(() => {});
     });
