@@ -7,6 +7,9 @@ export interface UserInfo {
 	admin?: boolean;
 	facebook?: { id: string, token: string, name: string, email: string };
 	google?: { id: string, token: string, name: string, email: string };
+	points: number;
+	postcode?: number;
+	deleted?: boolean;
 }
 
 export interface UserModel extends Document, UserInfo {
@@ -19,6 +22,9 @@ export var UserSchema: Schema = new Schema({
 	password: String,
 	admin: { type: Boolean, default: false },
 	last_login: { type: Date, default: Date.now },
+	points: { type: Number, default: 0 },
+	deleted: { type: Boolean, default: false },
+	postcode: Number,
 	google: {
 		id: String,
 		token: String,
