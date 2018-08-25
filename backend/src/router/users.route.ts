@@ -97,7 +97,7 @@ export const DemoteUser: RequestHandler = (req: Request, res: Response) => {
  * Verify that the username and password of a user's info is not empty
  * @param info the user info ( username, password, etc. )
  */
-function verifySignupInformation(info: UserInfo): boolean {
+function verifySignupInformation(info: Partial<UserInfo>): boolean {
     return isValidSting(info.username) && isValidSting(info.password); 
 }
 
