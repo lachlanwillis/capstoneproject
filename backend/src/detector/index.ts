@@ -1,5 +1,6 @@
 import { Detector } from './detector';
-import { Image } from '../models';
+import { Image, User } from '../models';
+import { Types } from 'mongoose';
 
 export * from './detector';
 
@@ -16,6 +17,10 @@ export function detectorGenerator() {
                         console.log(image.id + ": no rubbish found.");
                     } else {
                         image.rubbishVisibility = true;
+                        console.log(image.userId + ': updating points by ' + det.detections.length)
+                        User.findByIdAndUpdate(image.userId, { $inc: { points: det.detections.length || 0 }})
+                            .then(() => {})
+                            .catch(() => {});
                     }
                     image.save();
                 });
