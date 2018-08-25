@@ -1,7 +1,7 @@
 import { Router as IRouter } from 'express';
 import * as multer from 'multer';
 import { UploadImageHandler, GetImageHandler, GetFlaggedImagesHandler, DeleteImageHandler, GetMyImagesHandler, DeleteMyImageHandler, UpdateMyImageHandler, AcceptFlaggedImageHandler } from './images.route';
-import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser } from './users.route';
+import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser, SetPostcodeHandler } from './users.route';
 import { GetLeaderboardHandler } from './leaderboard.route';
 import { authentication as auth } from '../authentication';
 import { ensureAdmin, ensureLoggedIn } from '../middleware/ensureLogin';
@@ -40,6 +40,7 @@ Router
 	
 	.post('/api/user/promote', ensureAdmin, PromoteUser)
 	.post('/api/user/demote', ensureAdmin, DemoteUser)
+	.put('/api/user/postcode', ensureLoggedIn, SetPostcodeHandler)
 
 	// IMAGE ROUTES // 
 
@@ -58,4 +59,4 @@ Router
 
 	// LEADERBOARD ROUTES //
 
-	.get('/api/leaderboard/:limit', GetLeaderboardHandler)
+	.get('/api/leaderboard/:location?/:limit?', GetLeaderboardHandler)

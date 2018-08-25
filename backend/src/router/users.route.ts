@@ -91,7 +91,16 @@ export const DemoteUser: RequestHandler = (req: Request, res: Response) => {
                     .catch(err => res.status(500).json({ success: false, error: true, message: err }));
             })
             .catch(err => res.status(500).json({ success: false, error: true, message: err }));
-}
+};
+
+export const SetPostcodeHandler: RequestHandler = (req, res) => {
+    if (!req.body.postbode || isNaN(Number(req.body.postcode))) {
+        return res.status(500).json({ message: 'Malformed request.' });
+    }
+    User.findOneAndUpdate({ id: req.user.body.id }, { $set: { postcode: Number(req.body.postcode) }})
+        .then(() => res.json({ succes: true }))
+        .catch(err => res.status(500).json(err));
+};
 
 /**
  * Verify that the username and password of a user's info is not empty

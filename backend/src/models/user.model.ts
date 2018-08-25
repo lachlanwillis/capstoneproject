@@ -8,6 +8,7 @@ export interface UserInfo {
 	facebook?: { id: string, token: string, name: string, email: string };
 	google?: { id: string, token: string, name: string, email: string };
 	points: number;
+	postcode?: number;
 	deleted?: boolean;
 }
 
@@ -23,6 +24,7 @@ export var UserSchema: Schema = new Schema({
 	last_login: { type: Date, default: Date.now },
 	points: { type: Number, default: 0 },
 	deleted: { type: Boolean, default: false },
+	postcode: Number,
 	google: {
 		id: String,
 		token: String,
