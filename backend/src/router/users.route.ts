@@ -145,13 +145,15 @@ export const SetPostcodeHandler: RequestHandler = (req, res) => {
 
             const components = results[0].address_components;
             const postcode = components.reduce((acc, a) => {
-                if (a.types.includes('postcode')) {
+                if (a.types.includes('postal_code')) {
                     return acc || a.short_name
                 }
             }, undefined); 
 
-            User.findOneAndUpdate({ id: req.user.id }, { $set: { postcode }})
-                .then(() => res.json({ succes: true }))
+            if (!postcode) return res.json({ success: false, message: 'No postcode found.'});
+
+            User.findByIdAndUpdate(req.user.id, { $set: { postcode }})
+                .then(() => res.json({ succes: true, postcode }))
                 .catch(err => res.status(500).json(err));
         });
 };
