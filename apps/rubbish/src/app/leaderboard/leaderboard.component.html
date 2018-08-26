@@ -1,0 +1,110 @@
+<div class="row justify-content-md-center">
+  <div class="col-md-12 section">
+    <h4 class="header">Leaderboards</h4>
+    
+    <mat-card>
+      <mat-card-content>
+        <mat-tab-group>
+
+          <mat-tab label="Postcode">
+            <!--POSTCODE LEADERBOARD-->
+            <div class="tab-content">
+              <p>Please enter a postcode to view the leaderboards:<br /></p>
+              <mat-form-field>
+                <input matInput [(ngModel)]="postcodeText" #postalCode maxlength="4" placeholder="Please enter postcode" />
+                <button mat-flat-button (click)="fetchPostcode()">Select</button>
+
+                <mat-table #table accesskey="leaderboardPostcodeSource" matSort>
+
+                  <!--Name Column-->
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+                  </ng-container>
+
+                  <!--Score Column-->
+                  <ng-container matColumnDef="points">
+                    <mat-header-cell *matHeaderCellDef>Points</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element.points}}</mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="leaderboardDisplayColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: leaderboardDisplayColumns;"></mat-row>
+                </mat-table>
+
+              </mat-form-field>
+            </div>
+          </mat-tab>
+
+
+          <mat-tab label="State">
+            <!--STATE LEADERBOARD-->
+            <div class="tab-content">
+              <p>
+                Please select a state: <br />
+                <mat-form-field>
+                  <mat-select (selectionChange)="fetchState($event)" placeholder="Select State">
+                    <mat-option *ngFor="let state of states" [value]="state.value">
+                      {{state.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </p>
+
+              <mat-table #table accesskey="leaderboardStateSource" matSort>
+
+                <!--Name Column-->
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+                </ng-container>
+
+                <!--Score Column-->
+                <ng-container matColumnDef="points">
+                  <mat-header-cell *matHeaderCellDef>Points</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.points}}</mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="leaderboardDisplayColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: leaderboardDisplayColumns;"></mat-row>
+              </mat-table>
+
+
+            </div>
+          </mat-tab>
+
+
+          <mat-tab label="National">
+            <!--ALL OF AUSTRALIA LEADERBOARD-->
+            <div class="tab-content">
+
+              <mat-table #table accesskey="leaderboardSource" matSort>
+
+                <!--Name Column-->
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+                </ng-container>
+
+                <!--Score Column-->
+                <ng-container matColumnDef="points">
+                  <mat-header-cell *matHeaderCellDef>Points</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.points}}</mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="leaderboardDisplayColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: leaderboardDisplayColumns;"></mat-row>
+              </mat-table>
+
+
+            </div>
+          </mat-tab>
+
+        </mat-tab-group>
+        
+        
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
