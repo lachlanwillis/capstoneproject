@@ -16,7 +16,7 @@ export const HandleUserSignup: RequestHandler = (req: Request, res: Response) =>
            email: req.body.email, 
            password: req.body.password 
         }
-    )) res.status(400).json({ error: true, success: false, message: 'information is invalid'}); 
+    )) res.status(400).json({ error: true, success: false, message: 'Information is invalid'}); 
     else if (stringContainsProfanity(req.body.email))
         res.json({ error: true, success: false, message: 'That email does not meet our guidelines' });
     else {

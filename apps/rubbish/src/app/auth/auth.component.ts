@@ -41,7 +41,7 @@ export class AuthComponent {
         .subscribe(success => {
           if (success) { this.snack.open('Signup successful!', "Sweet!", { duration: 3000 }); this.router.navigateByUrl('/verify'); }
           else this.snack.open('An unexpected error occurred. Your email may not be valid.');
-        }, () => this.snack.open('An unexpected error occurred.'));
+        }, (e) => this.snack.open(e.error.message));
     }
   }
 
