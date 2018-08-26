@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { take, map } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { Router } from '@angular/router';
 
 const API_PREFIX = "api";
 const LOGIN_URL = `/${API_PREFIX}/login`;
@@ -20,20 +21,26 @@ export class AuthService {
 
   private authChange$: Subject<any> = new Subject();
 
-  constructor(private readonly http: HttpClient) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly router: Router
+  ) {
     this.authChange$.next();
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<IAuthSuccess>(LOGIN_URL, { username, password })
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<IAuthSuccess>(LOGIN_URL, { email, password })
       .pipe(map(res => { 
         this.authChange$.next();
+        if (res.redirect) {
+          this.router.navigateByUrl(res.redirect);
+        }
         return res.success;
       }), take(1));
   }
 
-  signup(username: string, password: string): Observable<any> {
-    return this.http.post<IAuthSuccess>(SIGNUP_URL, { username, password })
+  signup(email: string, password: string): Observable<any> {
+    return this.http.post<IAuthSuccess>(SIGNUP_URL, { email, password })
       .pipe(map(res => { 
         this.authChange$.next();
         return res.success;
@@ -79,4 +86,5 @@ export class AuthService {
 
 interface IAuthSuccess {
   success: boolean;
+  redirect?: string;
 }

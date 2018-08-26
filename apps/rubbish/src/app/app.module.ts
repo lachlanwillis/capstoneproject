@@ -25,10 +25,14 @@ import { ImageComponent } from './image/image.component';
 import { BrowsePublicComponent } from './browse-public/browse-public.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AccountDataComponent } from './account-data/account-data.component';
+import { VerifyComponent } from './verify/verify.component';
+import { VerifiedComponent } from './verified/verified.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter', home: true } },
+  { path: 'verify', component: VerifyComponent },
+  { path: 'verified', component: VerifiedComponent },
   {
     path: 'userportal',
     component: UserportalComponent,
@@ -71,6 +75,8 @@ const routes: Routes = [
     ImageComponent,
     BrowsePublicComponent,
     AccountDataComponent,
+    VerifyComponent,
+    VerifiedComponent,
     LeaderboardComponent
   ],
   imports: [

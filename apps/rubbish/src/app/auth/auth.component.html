@@ -12,9 +12,9 @@
 
   <form #form="ngForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="full-width">
-        <input name="username" matInput placeholder="username" [formControl]="loginFormControl" >
+        <input name="email" matInput placeholder="email" [formControl]="loginFormControl" >
         <mat-error *ngIf="loginFormControl.hasError('required')">
-          Please enter a valid username
+          Please enter a valid email
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">

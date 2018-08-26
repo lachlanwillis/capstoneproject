@@ -1,10 +1,9 @@
 import { Request, Response, RequestHandler } from 'express';
 import * as identifyProfanity from 'fuhk';
 import { UserInfo, User } from '../models/user.model';
-import { authentication } from '../authentication';
 import { isValidSting } from '../utils';
-import { ensureLoggedIn } from '../middleware/ensureLogin';
-
+import { sendVerificationEmail } from '../utils/email';
+import { generate } from 'shortid';
 import * as bcrypt from 'bcrypt';
 import * as request from 'request';
 
@@ -18,35 +17,61 @@ const GMAPS_API = 'AIzaSyCOgRBeLRUAUeFdd3tgHMSmOm0k_m9V8fk';
 export const HandleUserSignup: RequestHandler = (req: Request, res: Response) => {
    if (!verifySignupInformation(
        { 
-           username: req.body.username, 
+           email: req.body.email, 
            password: req.body.password 
         }
-    )) res.status(400).json({ error: true, success: false, message: 'information is invalid'}); 
-    else if (stringContainsProfanity(req.body.username))
-        res.json({ error: true, success: false, message: 'That username does not meet our guidelines' });
+    )) res.status(400).json({ error: true, success: false, message: 'Information is invalid'}); 
+    else if (stringContainsProfanity(req.body.email))
+        res.json({ error: true, success: false, message: 'That email does not meet our guidelines' });
     else {
-        verifyUniqueUsername(req.body.username)
+        verifyUniqueEmail(req.body.email)
             .then(unique => {
                 if (unique) {
                     bcrypt.hash(req.body.password, 10)
                         .then(hash => {
+                            const token = generate();
                             (new User({
-                                username: req.body.username,
-                                password: hash
+                                email: req.body.email.toLowerCase(),
+                                name: req.body.email.split('@')[0],
+                                password: hash,
+                                token
                             })).save()
-                            .then(user => res.json({ success: true }))
+                            .then(() => {
+                                res.json({ success: true });
+                                sendVerificationEmail(req.body.email, token);
+                            })
                             .catch(err => res.json({
                                 error: true,
                                 success: false,
-                                message: 'an unexpected error occurred',
+                                message: 'An unexpected error occurred',
                                 errorDump: err
                             }));
                         })
 
-                } else res.status(400).json({ success: false, error: true, message: 'username is taken' });
+                } else res.status(400).json({ success: false, error: true, message: 'Email is taken' });
             });
     }
 }
+
+export const HandleUserLogin: RequestHandler = (req, res) => {
+    if (!req.user) {
+        res.json({ redirect: '/login' });
+    }
+
+    User.findById(req.user.id)
+        .then(user => {
+            if (user.verified) {
+                res.json({ success: true });
+            } else {
+                req.logout();
+                res.json({ redirect: '/verify' });
+            }
+        })
+        .catch(() => {
+            req.logout();
+            res.json({ redirect: '/login' });
+        });
+};
 
 /**
  * The hander for users loging out. 
@@ -131,22 +156,45 @@ export const SetPostcodeHandler: RequestHandler = (req, res) => {
         });
 };
 
+export const VerifyUserHandler: RequestHandler = (req, res) => {
+    const { token } = req.params;
+
+    User.findOneAndUpdate({ token }, { $set: { verified: true } }, { new: true })
+        .then(user => {
+            if (!user) throw new Error('An error occurred.');
+            return res.redirect('/verified');
+        })
+        .catch(() => res.status(500).send('An error occurred.'));
+};
+
+export const DeclineUserHandler: RequestHandler = (req, res) => {
+    const { token } = req.params;
+    User.findOneAndRemove({ token })
+        .then(() => res.send('<script>window.close()</script>')) 
+        .catch(() => res.status(500).send('An error occurred.'));
+};
+
 /**
- * Verify that the username and password of a user's info is not empty
- * @param info the user info ( username, password, etc. )
+ * Verify that the email and password of a user's info is not empty
+ * @param info the user info ( email, password, etc. )
  */
 function verifySignupInformation(info: Partial<UserInfo>): boolean {
-    return isValidSting(info.username) && isValidSting(info.password); 
+    return validateEmail(info.email) && isValidSting(info.password); 
 }
 
 /**
- * Check that someone else in the database doesn't have the same username 
- * @param username a user's username
+ * Check that someone else in the database doesn't have the same email 
+ * @param email a user's email
  */
-function verifyUniqueUsername(username: string): Promise<boolean> {
-    return User.find({ username: username })
+function verifyUniqueEmail(email: string): Promise<boolean> {
+    return User.find({ email: email.toLowerCase() })
         .then(users => users.length <= 0)
         .catch(() => false);
+}
+
+function validateEmail(email): boolean {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }
 
 function stringContainsProfanity(string: string): boolean {
