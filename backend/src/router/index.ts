@@ -1,7 +1,8 @@
 import { Router as IRouter } from 'express';
 import * as multer from 'multer';
 import { UploadImageHandler, GetImageHandler, GetFlaggedImagesHandler, DeleteImageHandler, GetMyImagesHandler, DeleteMyImageHandler, UpdateMyImageHandler, AcceptFlaggedImageHandler } from './images.route';
-import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser, VerifyUserHandler, DeclineUserHandler, HandleUserLogin } from './users.route';
+import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser, SetPostcodeHandler, VerifyUserHandler, DeclineUserHandler, HandleUserLogin } from './users.route';
+import { GetLeaderboardHandler } from './leaderboard.route';
 import { authentication as auth } from '../authentication';
 import { ensureAdmin, ensureLoggedIn } from '../middleware/ensureLogin';
 
@@ -37,9 +38,9 @@ Router
 		failureRedirect: '/login'
 	}), (req, res) => res.redirect('/browse-public'))
 	
-	
 	.post('/api/user/promote', ensureAdmin, PromoteUser)
 	.post('/api/user/demote', ensureAdmin, DemoteUser)
+	.put('/api/user/postcode', ensureLoggedIn, SetPostcodeHandler)
 
 	// IMAGE ROUTES // 
 
@@ -62,3 +63,6 @@ Router
 	.get('/api/verify/:token', VerifyUserHandler)
 
 
+	// LEADERBOARD ROUTES //
+
+	.get('/api/leaderboard/:location?/:limit?', GetLeaderboardHandler)

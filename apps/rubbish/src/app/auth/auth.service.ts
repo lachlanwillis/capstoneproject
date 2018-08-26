@@ -11,6 +11,7 @@ const LOGOUT_URL = `/${API_PREFIX}/logout`;
 const SIGNUP_URL = `/${API_PREFIX}/signup`;
 const PING_URL = `/${API_PREFIX}/auth/ping`;
 const GET_USER_URL = `/${API_PREFIX}/auth/user`;
+const POSTCODE_URL = `/${API_PREFIX}/user/postcode`;
 
 // ADMIN URLS //
 const ISADMIN_URL = `/${API_PREFIX}/isadmin`;
@@ -46,8 +47,9 @@ export class AuthService {
       }), take(1));
   }
 
-  deleteUser(id: string) {
-
+  setPostcode(position: Position): Observable<any> {
+    console.log(position)
+    return this.http.put(POSTCODE_URL, { lat: position.coords.latitude, long: position.coords.longitude });
   }
 
   getCurrentUser(): Observable<any> {

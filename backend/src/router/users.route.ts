@@ -5,6 +5,10 @@ import { isValidSting } from '../utils';
 import { sendVerificationEmail } from '../utils/email';
 import { generate } from 'shortid';
 import * as bcrypt from 'bcrypt';
+import * as request from 'request';
+
+
+const GMAPS_API = 'AIzaSyCOgRBeLRUAUeFdd3tgHMSmOm0k_m9V8fk';
 
 /**
  * The handler that manages user sign ups. Creates an entry in the database for a user and
@@ -116,7 +120,41 @@ export const DemoteUser: RequestHandler = (req: Request, res: Response) => {
                     .catch(err => res.status(500).json({ success: false, error: true, message: err }));
             })
             .catch(err => res.status(500).json({ success: false, error: true, message: err }));
-}
+};
+
+export const SetPostcodeHandler: RequestHandler = (req, res) => {
+    if (!req.body.lat || !req.body.long || isNaN(Number(req.body.lat)) || isNaN(Number(req.body.long))) {
+        return res.status(500).json({ message: 'Malformed request.' });
+    }
+
+    request
+        .get({
+            url: `https://maps.googleapis.com/maps/api/geocode/json?latlng=${req.body.lat},${req.body.long}&location_type=ROOFTOP&result_type=street_address&key=${GMAPS_API}`,
+            json: true
+        },
+        (err, response, body) => {
+            if (err) {
+                return res.status(500).json({ error: true, message: err });
+            }
+
+            const { results } = body;
+
+            if (!results[0] || !results[0].address_components || results[0].address_components.length <= 0) {
+                return res.status(500).json({ error: true, message: 'Malformed response.' })
+            }
+
+            const components = results[0].address_components;
+            const postcode = components.reduce((acc, a) => {
+                if (a.types.includes('postcode')) {
+                    return acc || a.short_name
+                }
+            }, undefined); 
+
+            User.findOneAndUpdate({ id: req.user.id }, { $set: { postcode }})
+                .then(() => res.json({ succes: true }))
+                .catch(err => res.status(500).json(err));
+        });
+};
 
 export const VerifyUserHandler: RequestHandler = (req, res) => {
     const { token } = req.params;

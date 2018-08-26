@@ -1,7 +1,6 @@
 import { Request, Response, RequestHandler } from 'express';
-import * as multer from 'multer';
 
-import { Image, ImageModel } from '../models';
+import { Image } from '../models';
 import { isValidSting } from '../utils';
 import { detector } from '..'; 
 /**

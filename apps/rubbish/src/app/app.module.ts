@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select'
 import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -26,6 +27,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AccountDataComponent } from './account-data/account-data.component';
 import { VerifyComponent } from './verify/verify.component';
 import { VerifiedComponent } from './verified/verified.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter', home: true } },
@@ -48,7 +50,12 @@ const routes: Routes = [
     component: BrowsePublicComponent,
     data: { title: 'Browse Waterways' }
   },
-  { path: 'login', component: AuthComponent, data: { title: 'Login/Signup', hide: true } }
+  { path: 'login', component: AuthComponent, data: { title: 'Login/Signup', hide: true } },
+  {
+    path: 'leaderboard',
+    component: LeaderboardComponent,
+    data: { title: 'Leaderboard' }
+  }
 ];
 
 
@@ -69,7 +76,8 @@ const routes: Routes = [
     BrowsePublicComponent,
     AccountDataComponent,
     VerifyComponent,
-    VerifiedComponent
+    VerifiedComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +88,9 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
+    MatSelectModule
+    
+    
   ],
   providers: [
     AuthService,
