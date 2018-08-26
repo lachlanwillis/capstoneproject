@@ -42,6 +42,7 @@ Router
 	.post('/api/user/demote', ensureAdmin, DemoteUser)
 
 	// IMAGE ROUTES // 
+
 	.post('/api/upload-image', ensureLoggedIn, upload.single('image'), UploadImageHandler)
 
 	.put('/api/update-my-image', ensureLoggedIn, UpdateMyImageHandler)
@@ -54,4 +55,10 @@ Router
 
 	.delete('/api/my-image/:id', ensureLoggedIn, DeleteMyImageHandler)
 	.delete('/api/delete-image/:id', DeleteImageHandler)
+
+	// EMAIL ROUTES //
+
+	.get('/api/verify/decline/:token', )
+	.get('/api/verify/:token', )
+
 
