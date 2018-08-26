@@ -52,25 +52,24 @@ export class LeaderboardComponent implements OnInit {
   }
   // Getting National Leaderboard
   fetchNational() {
-    this.getNationalLeaderboard().subscribe((ladder: any[]) =>
-      this.leaderboardSource = new MatTableDataSource<any>(ladder.map(i => { return { name: i.name, points: i.points } }))
-    );
+    this.getNationalLeaderboard().subscribe((ladder: any[]) => {
+      this.leaderboardSource = new MatTableDataSource<any>(ladder.filter(x => !!x.name))
+    });
   }
 
   // Getting State Leaderboard
   fetchState(event: any) {
     const state = event.value;
     this.getStateLeaderboard(state).subscribe((ladder: any[]) =>
-      this.leaderboardStateSource = new MatTableDataSource<any>(ladder.map(i => { return { name: i.name, points: i.points } }))
+      this.leaderboardStateSource = new MatTableDataSource<any>(ladder.filter(x => !!x.name))
     );
   }
 
   // Getting Postcode Leaderboard
   fetchPostcode() {
-    
     const postcode = this.postcodeText;
     this.getPostCodeLeaderboard(postcode).subscribe((ladder: any[]) =>
-      this.leaderboardPostcodeSource = new MatTableDataSource<any>(ladder.map(i => { return { name: i.name, points: i.points } }))
+      this.leaderboardPostcodeSource = new MatTableDataSource<any>(ladder.filter(x => !!x.name))
     );
   }
 

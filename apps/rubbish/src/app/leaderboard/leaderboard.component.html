@@ -14,7 +14,7 @@
                 <input matInput [(ngModel)]="postcodeText" #postalCode maxlength="4" placeholder="Please enter postcode" />
                 <button mat-flat-button (click)="fetchPostcode()">Select</button>
 
-                <mat-table #table accesskey="leaderboardPostcodeSource" matSort>
+                <mat-table #table [dataSource]="leaderboardPostcodeSource" matSort>
 
                   <!--Name Column-->
                   <ng-container matColumnDef="name">
@@ -51,7 +51,7 @@
                 </mat-form-field>
               </p>
 
-              <mat-table #table accesskey="leaderboardStateSource" matSort>
+              <mat-table #table [dataSource]="leaderboardStateSource" matSort>
 
                 <!--Name Column-->
                 <ng-container matColumnDef="name">
@@ -78,7 +78,7 @@
             <!--ALL OF AUSTRALIA LEADERBOARD-->
             <div class="tab-content">
 
-              <mat-table #table accesskey="leaderboardSource" matSort>
+              <mat-table #table [dataSource]="leaderboardSource" matSort>
 
                 <!--Name Column-->
                 <ng-container matColumnDef="name">
