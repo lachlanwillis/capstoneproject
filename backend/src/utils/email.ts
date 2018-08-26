@@ -22,9 +22,9 @@ export function sendVerificationEmail(to: string, token: string) {
         subject: 'Rubbish App: Please verify your email address.',
         html: `
             Please verify your email address by clicking the link below: <br />
-            <a href="localhost:4200/api/verify/${token}">${token}</a> <br />
+            <a href="http://localhost:4200/api/verify/${token}">${token}</a> <br />
             <br />
-            If you didn't sign up for this website, please <a href="localhost:4200/api/verify/decline/${token}">click here</a>.
+            If you didn't sign up for this website, please <a href="http://localhost:4200/api/verify/decline/${token}">click here</a>.
             `
     };
 

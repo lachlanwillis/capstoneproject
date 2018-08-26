@@ -11,7 +11,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class AuthComponent {
 
-  loginFormControl = new FormControl('username', [
+  loginFormControl = new FormControl('email', [
     Validators.required
   ]);
 
@@ -27,20 +27,20 @@ export class AuthComponent {
 
   onSubmit() {
 
-    const username = this.loginFormControl.value;
+    const email = this.loginFormControl.value;
     const password = this.passwordFormControl.value;
 
     if (this.login) {
-      this.auth.login(username, password)
+      this.auth.login(email, password)
         .subscribe(success => { 
           if (success) { this.snack.open('Login successful!', "Sweet!", { duration: 3000 }); this.router.navigateByUrl('/'); } 
           else this.snack.open('Incorrect login details');
         }, () => this.snack.open('An unexpected errorr occurred. Your login details may not be correct.'));
     } else {
-      this.auth.signup(username, password)
+      this.auth.signup(email, password)
         .subscribe(success => {
-          if (success) { this.snack.open('Signup successful!', "Sweet!", { duration: 3000 }); this.router.navigateByUrl('/'); }
-          else this.snack.open('An unexpected error occurred. Your username may not be valid.');
+          if (success) { this.snack.open('Signup successful!', "Sweet!", { duration: 3000 }); this.router.navigateByUrl('/verify'); }
+          else this.snack.open('An unexpected error occurred. Your email may not be valid.');
         }, () => this.snack.open('An unexpected error occurred.'));
     }
   }

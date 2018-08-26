@@ -1,7 +1,7 @@
 import { Router as IRouter } from 'express';
 import * as multer from 'multer';
 import { UploadImageHandler, GetImageHandler, GetFlaggedImagesHandler, DeleteImageHandler, GetMyImagesHandler, DeleteMyImageHandler, UpdateMyImageHandler, AcceptFlaggedImageHandler } from './images.route';
-import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser } from './users.route';
+import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser, VerifyUserHandler, DeclineUserHandler, HandleUserLogin } from './users.route';
 import { authentication as auth } from '../authentication';
 import { ensureAdmin, ensureLoggedIn } from '../middleware/ensureLogin';
 
@@ -16,7 +16,7 @@ Router
 
 	// AUTH ROUTES // 
 
-	.post('/api/login', auth.authenticate('local'), (req, res) => res.json({ success: !!req.user }))
+	.post('/api/login', auth.authenticate('local'), HandleUserLogin)
 	.post('/api/signup', HandleUserSignup)
 	.get('/api/auth/ping', (req, res) => res.json({ auth: !!req.user }))
 	.get('/api/logout', HandleUserLogout)
@@ -58,7 +58,7 @@ Router
 
 	// EMAIL ROUTES //
 
-	.get('/api/verify/decline/:token', )
-	.get('/api/verify/:token', )
+	.get('/api/verify/decline/:token', DeclineUserHandler)
+	.get('/api/verify/:token', VerifyUserHandler)
 
 
