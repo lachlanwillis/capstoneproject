@@ -22,7 +22,7 @@ export const GetLeaderboardHandler: RequestHandler = (req, res) => {
 
     User.find(
         search,
-        [ 'google', 'facebook', 'points', 'username' ],
+        [ 'google', 'facebook', 'points', 'email' ],
         { 
             limit: Number(req.params.limit) || 20, 
             sort: {
@@ -31,9 +31,9 @@ export const GetLeaderboardHandler: RequestHandler = (req, res) => {
         }
     ) 
     .then(users => {
-        res.json((users || []).map(({ google, facebook, points, username }) => ({
+        res.json((users || []).map(({ google, facebook, points, email }) => ({
             points,
-            name: username || (google ? google.name : '') || (facebook ? facebook.name : '')
+            name: email || (google ? google.name : '') || (facebook ? facebook.name : '')
         })));
     })
     .catch(err => res.status(500).json(err));
