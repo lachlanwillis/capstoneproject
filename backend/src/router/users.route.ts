@@ -2,7 +2,7 @@ import { Request, Response, RequestHandler } from 'express';
 import * as identifyProfanity from 'fuhk';
 import { UserInfo, User } from '../models/user.model';
 import { isValidSting } from '../utils';
-import { sendVerificationEmail } from '../utils/email';
+import { sendVerificationEmail, sendPasswordResetEmail } from '../utils/email';
 import { generate } from 'shortid';
 import * as bcrypt from 'bcrypt';
 import * as request from 'request';
@@ -174,6 +174,36 @@ export const DeclineUserHandler: RequestHandler = (req, res) => {
     User.findOneAndRemove({ token })
         .then(() => res.send('<script>window.close()</script>')) 
         .catch(() => res.status(500).send('An error occurred.'));
+};
+
+export const PasswordEmailHandler: RequestHandler = (req, res) => {
+    if (!req.body.email) {
+        return res.status(500).json({ error: true });
+    }
+    const token = generate();
+    User.findOneAndUpdate({ email: req.body.email }, { $set: { token }})
+        .then(user => {
+            res.json({ success: true });
+            if (user) {
+                sendPasswordResetEmail(req.body.email, token);
+            }
+        })
+        .catch(err => res.status(500).json({ error: true }));
+};
+
+export const ResetPasswordHandler: RequestHandler = (req, res) => {
+    if (!req.body.password || !req.body.token) {
+        return res.status(500).json({ error: true });
+    }
+
+    bcrypt.hash(req.body.password, 10)
+        .then(hash => User.findOneAndUpdate(
+            { token: req.body.token }, 
+            { $set: { password: hash }, $unset: { token: 1 }}
+        ))
+        .then(() => res.json({ success: true }))
+        .catch(err => res.json({ error: true, message: err.message }));
+
 };
 
 /**

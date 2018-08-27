@@ -14,6 +14,21 @@ const transport = createTransport({
     } 
 });
 
+export function sendPasswordResetEmail(to: string, token: string) {
+    const options: SendMailOptions = {
+        to,
+        from: FROM_EMAIL,
+        subject: 'Rubbish App: Please verify your email address.',
+        html: `
+            Please follow the link below to reset your password.<br />
+            <a href="http://localhost:4200/reset/${token}">Reset your password</a> <br />
+            `
+    };
+
+    transport.sendMail(options, error => {
+        if (error) return console.error(error);
+    });
+}
 
 export function sendVerificationEmail(to: string, token: string) {
     const options: SendMailOptions = {
@@ -31,5 +46,4 @@ export function sendVerificationEmail(to: string, token: string) {
     transport.sendMail(options, error => {
         if (error) return console.error(error);
     });
-
 }
