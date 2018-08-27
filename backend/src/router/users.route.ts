@@ -122,6 +122,45 @@ export const DemoteUser: RequestHandler = (req: Request, res: Response) => {
             .catch(err => res.status(500).json({ success: false, error: true, message: err }));
 };
 
+/**
+ * Handler for opting a user out of the leaderboard 
+ * @param req
+ * @param res
+ */
+
+export const OptOutLeaderboard: RequestHandler = (req: Request, res: Response) => {
+    if (!req.body.id) res.status(500).json({ success: false, error: true, message: 'No id' });
+    else {
+        User.findById(req.body.id)
+            .then(user => {
+                user.leaderboardVisible = false;
+                user.save()
+                    .then(() => res.json({ success: true }))
+                    .catch(err => res.json({ success: false, error: true, message: err }))
+            });
+    }
+}
+
+/**
+ * Handler for opting a user back into the leaderboard 
+ * @param req
+ * @param res
+ */
+
+export const OptInLeaderboard: RequestHandler = (req: Request, res: Response) => {
+    if (!req.body.id) res.status(500).json({ success: false, error: true, message: 'No id' });
+    else {
+        User.findById(req.body.id)
+            .then(user => {
+                user.leaderboardVisible = true;
+                user.save()
+                    .then(() => res.json({ success: true }))
+                    .catch(err => res.json({ success: false, error: true, message: err }))
+            });
+    }
+}
+
+
 export const SetPostcodeHandler: RequestHandler = (req, res) => {
     if (!req.body.lat || !req.body.long || isNaN(Number(req.body.lat)) || isNaN(Number(req.body.long))) {
         return res.status(500).json({ message: 'Malformed request.' });
