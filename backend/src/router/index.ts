@@ -1,7 +1,7 @@
 import { Router as IRouter } from 'express';
 import * as multer from 'multer';
 import { UploadImageHandler, GetImageHandler, GetFlaggedImagesHandler, DeleteImageHandler, GetMyImagesHandler, DeleteMyImageHandler, UpdateMyImageHandler, AcceptFlaggedImageHandler } from './images.route';
-import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser, OptOutLeaderboard, OptInLeaderboard, SetPostcodeHandler, VerifyUserHandler, DeclineUserHandler, HandleUserLogin } from './users.route';
+import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser, OptOutLeaderboard, OptInLeaderboard, UpdateUserEmail, UpdateUserName, SetPostcodeHandler, VerifyUserHandler, DeclineUserHandler, HandleUserLogin } from './users.route';
 import { GetLeaderboardHandler } from './leaderboard.route';
 import { authentication as auth } from '../authentication';
 import { ensureAdmin, ensureLoggedIn } from '../middleware/ensureLogin';
@@ -42,6 +42,8 @@ Router
     .post('/api/user/demote', ensureAdmin, DemoteUser)
     .put('/api/user/optout', ensureLoggedIn, OptOutLeaderboard)
     .put('/api/user/optin', ensureLoggedIn, OptInLeaderboard)
+    .put('/api/user/changename', ensureLoggedIn, UpdateUserName)
+    .put('/api/user/changeemail', ensureLoggedIn, UpdateUserEmail)
 	.put('/api/user/postcode', ensureLoggedIn, SetPostcodeHandler)
 
 	// IMAGE ROUTES // 
