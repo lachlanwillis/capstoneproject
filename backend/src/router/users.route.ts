@@ -150,7 +150,6 @@ export const OptOutLeaderboard: RequestHandler = (req: Request, res: Response) =
 export const OptInLeaderboard: RequestHandler = (req: Request, res: Response) => {
     if (!req.user.id) res.status(500).json({ success: false, error: true, message: 'No id' });
     else {
-        console.log("test2");
         User.findById(req.user.id)
             .then(user => {
                 user.leaderboardVisible = true;
@@ -216,6 +215,55 @@ export const DeclineUserHandler: RequestHandler = (req, res) => {
         .catch(() => res.status(500).send('An error occurred.'));
 };
 
+
+
+/**
+ * Updates the user's name
+ * @param req
+ * @param res
+ */
+export const UpdateUserName: RequestHandler = (req, res) => {
+    if (!req.user.id) res.status(500).json({ success: false, error: true, message: 'No id' });
+    else {
+        User.findById(req.user.id)
+            .then(user => {
+                
+                user.name = req.body.name;
+                user.save()
+                    .then(() => res.json({ success: true }))
+                    .catch(err => res.json({ success: false, error: true, message: err }))
+            })
+            .catch(() => res.status(500).send('An error occurred.'));
+    }
+}
+
+
+
+
+export const UpdateUserEmail: RequestHandler = (req, res) => {
+    if (!req.user.id) res.status(500).json({ success: false, error: true, message: 'No id' });
+    else {
+        if (validateEmail(req.body.email)) {
+            console.log(req.body.email);
+            verifyUniqueEmail(req.body.email).then(unique => {
+                if (unique) {
+                    User.findById(req.user.id)
+                        .then(user => {
+                            user.email = req.body.email;
+                            user.save()
+                                .then(() => res.json({ success: true }))
+                                .catch(err => res.json({ success: false, error: true, message: err }))
+                        });
+                }
+            })
+
+        }
+        
+    }
+}
+
+
+
 export const PasswordEmailHandler: RequestHandler = (req, res) => {
     if (!req.body.email) {
         return res.status(500).json({ error: true });
@@ -245,6 +293,7 @@ export const ResetPasswordHandler: RequestHandler = (req, res) => {
         .catch(err => res.json({ error: true, message: err.message }));
 
 };
+
 
 /**
  * Verify that the email and password of a user's info is not empty

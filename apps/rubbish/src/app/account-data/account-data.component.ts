@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
+import {} from '../'
 
 @Component({
   selector: 'app-account-data',
@@ -27,7 +28,9 @@ export class AccountDataComponent implements OnInit {
 
 
   changeName(event) {
+    console.log(event.target.value);
     this.updatedName = event.target.value;
+    console.log(this.updatedName);
   }
 
   changeEmail(event) {
@@ -43,29 +46,29 @@ export class AccountDataComponent implements OnInit {
       console.log(this.user.leaderboardVisible);
 
       this.updateLeaderboardVis(true).subscribe((value: any) => {
-        if (value.success) {
-          this.loadData();
-        }
-        });
+        if (value.success) {}});
     
 
     } else if (!this.user.leaderboardVisible) {
       // Opt out of the leaderboards
       
       this.updateLeaderboardVis(false).subscribe((value: any) => {
-        if (value.success) {
-          this.loadData();
-        }
-      });
+        if (value.success) {}});
 
 
     }
 
-    if (this.updatedName != this.user.name) {
+    if (this.updatedName != this.user.name && this.updatedName) {
       // Update Name
+      
+      this.updateName().subscribe((value: any) => {})
     }
-    if (this.updatedEmail != this.user.email) {
+
+    if (this.updatedEmail != this.user.email && this.updatedEmail) {
       // Update Email
+      this.updateEmail().subscribe((value: any) => { })
+
+
     }
 
 
@@ -79,6 +82,14 @@ export class AccountDataComponent implements OnInit {
     else if (!isVis) {
       return this.http.put<any[]>('/api/user/optout', this.user.id).pipe(take(1));
     }
+  }
+
+  updateName() {
+    return this.http.put<any[]>('/api/user/changename', { name: this.updatedName }).pipe(take(1));
+  }
+
+  updateEmail() {
+    return this.http.put<any[]>('/api/user/changeemail', { email: this.updatedEmail }).pipe(take(1));
   }
 
 
