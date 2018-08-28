@@ -12,7 +12,8 @@ export interface UserInfo {
 	google?: { id: string, token: string, name: string, email: string };
 	points: number;
 	postcode?: number;
-	deleted?: boolean;
+    deleted?: boolean;
+    leaderboardVisible: boolean;
 }
 
 export interface UserModel extends Document, UserInfo {
@@ -42,7 +43,8 @@ export var UserSchema: Schema = new Schema({
 		token: String,
 		name: String,
 		email: String
-	}
+    },
+    leaderboardVisible: {type: Boolean, default: true}
 });
 
 UserSchema.methods.verifyPassword = function(password:string, callback:any) {
