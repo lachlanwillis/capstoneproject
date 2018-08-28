@@ -129,9 +129,9 @@ export const DemoteUser: RequestHandler = (req: Request, res: Response) => {
  */
 
 export const OptOutLeaderboard: RequestHandler = (req: Request, res: Response) => {
-    if (!req.body.id) res.status(500).json({ success: false, error: true, message: 'No id' });
+    if (!req.user.id) res.status(500).json({ success: false, error: true, message: 'No id' });
     else {
-        User.findById(req.body.id)
+        User.findById(req.user.id)
             .then(user => {
                 user.leaderboardVisible = false;
                 user.save()
@@ -148,10 +148,10 @@ export const OptOutLeaderboard: RequestHandler = (req: Request, res: Response) =
  */
 
 export const OptInLeaderboard: RequestHandler = (req: Request, res: Response) => {
-    if (!req.body.id) res.status(500).json({ success: false, error: true, message: 'No id' });
+    if (!req.user.id) res.status(500).json({ success: false, error: true, message: 'No id' });
     else {
         console.log("test2");
-        User.findById(req.body.id)
+        User.findById(req.user.id)
             .then(user => {
                 user.leaderboardVisible = true;
                 user.save()

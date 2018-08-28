@@ -36,7 +36,7 @@ export class AccountDataComponent implements OnInit {
 
 
   updateInformation() {
-    console.log("test1");
+    
     if (this.user.leaderboardVisible) {
       // Opt into the leaderboards
 
@@ -51,7 +51,7 @@ export class AccountDataComponent implements OnInit {
 
     } else if (!this.user.leaderboardVisible) {
       // Opt out of the leaderboards
-      console.log(this.user.leaderboardVisible);
+      
       this.updateLeaderboardVis(false).subscribe((value: any) => {
         if (value.success) {
           this.loadData();
@@ -85,6 +85,7 @@ export class AccountDataComponent implements OnInit {
   loadData () {
     this.auth.getCurrentUser()
       .subscribe(user => this.user = user);
+    console.log(this.user);
   }
 
 }

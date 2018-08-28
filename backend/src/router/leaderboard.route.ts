@@ -21,9 +21,14 @@ export const GetLeaderboardHandler: RequestHandler = (req, res) => {
     }
 
     User.find(
-        search,
-        [ 'google', 'facebook', 'points', 'email' ],
+        {
+            ...search,
+            leaderboardVisible: true
+        },
+        
+        ['google', 'facebook', 'points', 'email'],
         { 
+            
             limit: Number(req.params.limit) || 20, 
             sort: {
                 points: -1
