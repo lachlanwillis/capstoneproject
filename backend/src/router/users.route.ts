@@ -150,6 +150,7 @@ export const OptOutLeaderboard: RequestHandler = (req: Request, res: Response) =
 export const OptInLeaderboard: RequestHandler = (req: Request, res: Response) => {
     if (!req.body.id) res.status(500).json({ success: false, error: true, message: 'No id' });
     else {
+        console.log("test2");
         User.findById(req.body.id)
             .then(user => {
                 user.leaderboardVisible = true;

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-account-data',
@@ -11,9 +13,11 @@ export class AccountDataComponent implements OnInit {
   user?: any;
   updatedName: string;
   updatedEmail: string;
+  userId: string;
 
   constructor(
-    private readonly auth: AuthService
+    private readonly auth: AuthService,
+    private readonly http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -35,11 +39,26 @@ export class AccountDataComponent implements OnInit {
     console.log("test1");
     if (this.user.leaderboardVisible) {
       // Opt into the leaderboards
+
       console.log(this.user.leaderboardVisible);
+
+      this.updateLeaderboardVis(true).subscribe((value: any) => {
+        if (value.success) {
+          this.loadData();
+        }
+        });
+    
 
     } else if (!this.user.leaderboardVisible) {
       // Opt out of the leaderboards
       console.log(this.user.leaderboardVisible);
+      this.updateLeaderboardVis(false).subscribe((value: any) => {
+        if (value.success) {
+          this.loadData();
+        }
+      });
+
+
     }
 
     if (this.updatedName != this.user.name) {
@@ -51,6 +70,17 @@ export class AccountDataComponent implements OnInit {
 
 
   }
+
+
+  updateLeaderboardVis(isVis: boolean) {
+    if (isVis) {
+      return this.http.put<any[]>('/api/user/optin', this.user.id).pipe(take(1));
+    }
+    else if (!isVis) {
+      return this.http.put<any[]>('/api/user/optout', this.user.id).pipe(take(1));
+    }
+  }
+
 
   loadData () {
     this.auth.getCurrentUser()
