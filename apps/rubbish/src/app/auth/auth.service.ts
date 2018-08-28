@@ -12,6 +12,7 @@ const SIGNUP_URL = `/${API_PREFIX}/signup`;
 const PING_URL = `/${API_PREFIX}/auth/ping`;
 const GET_USER_URL = `/${API_PREFIX}/auth/user`;
 const POSTCODE_URL = `/${API_PREFIX}/user/postcode`;
+const PASSWORD_RESET = `/${API_PREFIX}/password/reset`;
 
 // ADMIN URLS //
 const ISADMIN_URL = `/${API_PREFIX}/isadmin`;
@@ -41,7 +42,7 @@ export class AuthService {
 
   signup(email: string, password: string): Observable<any> {
     return this.http.post<IAuthSuccess>(SIGNUP_URL, { email, password })
-      .pipe(map(res => { 
+      .pipe(map(res => {
         this.authChange$.next();
         return res.success;
       }), take(1));
@@ -80,6 +81,16 @@ export class AuthService {
 
   loginChanged() {
     return this.authChange$.asObservable();
+  }
+
+  resetPassword(email: string): Observable<void> {
+    return this.http.post(PASSWORD_RESET, { email })
+      .pipe(take(1), map(() => undefined));
+  }
+
+  sendPasswordReset(token: string, password: string): Observable<boolean> {
+    return this.http.put<IAuthSuccess>(PASSWORD_RESET, { token, password })
+      .pipe(map(x => !!x.success));
   }
 
 }

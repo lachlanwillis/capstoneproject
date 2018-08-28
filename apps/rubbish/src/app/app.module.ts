@@ -29,9 +29,13 @@ import { AccountDataComponent } from './account-data/account-data.component';
 import { VerifyComponent } from './verify/verify.component';
 import { VerifiedComponent } from './verified/verified.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter', home: true } },
+  { path: 'forgot', component: ForgotPasswordComponent },
+  { path: 'reset/:token', component: PasswordResetComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'verified', component: VerifiedComponent },
   {
@@ -78,7 +82,9 @@ const routes: Routes = [
     AccountDataComponent,
     VerifyComponent,
     VerifiedComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    ForgotPasswordComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

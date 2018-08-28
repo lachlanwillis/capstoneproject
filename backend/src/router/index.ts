@@ -1,7 +1,8 @@
 import { Router as IRouter } from 'express';
 import * as multer from 'multer';
 import { UploadImageHandler, GetImageHandler, GetFlaggedImagesHandler, DeleteImageHandler, GetMyImagesHandler, DeleteMyImageHandler, UpdateMyImageHandler, AcceptFlaggedImageHandler } from './images.route';
-import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser, OptOutLeaderboard, OptInLeaderboard, UpdateUserEmail, UpdateUserName, SetPostcodeHandler, VerifyUserHandler, DeclineUserHandler, HandleUserLogin } from './users.route';
+import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser, SetPostcodeHandler, VerifyUserHandler, DeclineUserHandler, HandleUserLogin, ResetPasswordHandler, PasswordEmailHandler, OptOutLeaderboard, OptInLeaderboard, UpdateUserName, UpdateUserEmail } from './users.route';
+
 import { GetLeaderboardHandler } from './leaderboard.route';
 import { authentication as auth } from '../authentication';
 import { ensureAdmin, ensureLoggedIn } from '../middleware/ensureLogin';
@@ -34,12 +35,14 @@ Router
 	.get('/api/auth/google', auth.authenticate('google', {
 		scope: [ 'profile', 'email' ]
 	}))
+
 	.get('/api/auth/google/callback', auth.authenticate('google', {
 		failureRedirect: '/login'
 	}), (req, res) => res.redirect('/browse-public'))
 	
 	.post('/api/user/promote', ensureAdmin, PromoteUser)
-    .post('/api/user/demote', ensureAdmin, DemoteUser)
+	.post('/api/user/demote', ensureAdmin, DemoteUser)
+
     .put('/api/user/optout', ensureLoggedIn, OptOutLeaderboard)
     .put('/api/user/optin', ensureLoggedIn, OptInLeaderboard)
     .put('/api/user/changename', ensureLoggedIn, UpdateUserName)
@@ -65,6 +68,9 @@ Router
 
 	.get('/api/verify/decline/:token', DeclineUserHandler)
 	.get('/api/verify/:token', VerifyUserHandler)
+
+	.post('/api/password/reset', PasswordEmailHandler)
+	.put('/api/password/reset', ResetPasswordHandler)
 
 
 	// LEADERBOARD ROUTES //
