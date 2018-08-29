@@ -1,8 +1,9 @@
 import { Router as IRouter } from 'express';
 import * as multer from 'multer';
 import { UploadImageHandler, GetImageHandler, GetFlaggedImagesHandler, DeleteImageHandler, GetMyImagesHandler, DeleteMyImageHandler, UpdateMyImageHandler, AcceptFlaggedImageHandler } from './images.route';
-import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser } from './users.route';
 import { GetMyMessagesHandler, DeleteMyMessageHandler } from './messages.route';
+import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser, SetPostcodeHandler, VerifyUserHandler, DeclineUserHandler, HandleUserLogin, ResetPasswordHandler, PasswordEmailHandler, OptOutLeaderboard, OptInLeaderboard, UpdateUserName, UpdateUserEmail } from './users.route';
+import { GetLeaderboardHandler } from './leaderboard.route';
 import { authentication as auth } from '../authentication';
 import { ensureAdmin, ensureLoggedIn } from '../middleware/ensureLogin';
 
@@ -16,12 +17,12 @@ export const Router: IRouter = IRouter();
 Router
 
 	// AUTH ROUTES // 
-
-	.post('/api/login', auth.authenticate('local'), (req, res) => res.json({ success: !!req.user }))
+	.post('/api/login', auth.authenticate('local'), HandleUserLogin)
 	.post('/api/signup', HandleUserSignup)
 	.get('/api/auth/ping', (req, res) => res.json({ auth: !!req.user }))
 	.get('/api/logout', HandleUserLogout)
 	.get('/api/isadmin', IsUserAdmin)
+	.get('/api/auth/user', (req, res) => res.json(req.user))
 
 	.get('/api/auth/facebook', auth.authenticate('facebook', {
 		scope: [ 'public_profile', 'email' ]
@@ -33,13 +34,19 @@ Router
 	.get('/api/auth/google', auth.authenticate('google', {
 		scope: [ 'profile', 'email' ]
 	}))
+
 	.get('/api/auth/google/callback', auth.authenticate('google', {
 		failureRedirect: '/login'
 	}), (req, res) => res.redirect('/browse-public'))
 	
-	
 	.post('/api/user/promote', ensureAdmin, PromoteUser)
 	.post('/api/user/demote', ensureAdmin, DemoteUser)
+
+    .put('/api/user/optout', ensureLoggedIn, OptOutLeaderboard)
+    .put('/api/user/optin', ensureLoggedIn, OptInLeaderboard)
+    .put('/api/user/changename', ensureLoggedIn, UpdateUserName)
+    .put('/api/user/changeemail', ensureLoggedIn, UpdateUserEmail)
+	.put('/api/user/postcode', ensureLoggedIn, SetPostcodeHandler)
 
 	// IMAGE ROUTES // 
 	.post('/api/upload-image', ensureLoggedIn, upload.single('image'), UploadImageHandler)
@@ -59,3 +66,13 @@ Router
 	.get('/api/my-messages', ensureLoggedIn, GetMyMessagesHandler)
 	.delete('/api/my-message/:id', ensureLoggedIn, DeleteMyMessageHandler)
 
+	// EMAIL ROUTES //
+	.get('/api/verify/decline/:token', DeclineUserHandler)
+	.get('/api/verify/:token', VerifyUserHandler)
+
+	.post('/api/password/reset', PasswordEmailHandler)
+	.put('/api/password/reset', ResetPasswordHandler)
+
+
+	// LEADERBOARD ROUTES //
+	.get('/api/leaderboard/:location?/:limit?', GetLeaderboardHandler)

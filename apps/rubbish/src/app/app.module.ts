@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -24,9 +26,19 @@ import { ImageComponent } from './image/image.component';
 import { BrowsePublicComponent } from './browse-public/browse-public.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MessageHubComponent } from './message-hub/message-hub.component';
+import { AccountDataComponent } from './account-data/account-data.component';
+import { VerifyComponent } from './verify/verify.component';
+import { VerifiedComponent } from './verified/verified.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter', home: true } },
+  { path: 'forgot', component: ForgotPasswordComponent },
+  { path: 'reset/:token', component: PasswordResetComponent },
+  { path: 'verify', component: VerifyComponent },
+  { path: 'verified', component: VerifiedComponent },
   {
     path: 'userportal',
     component: UserportalComponent,
@@ -45,7 +57,12 @@ const routes: Routes = [
     data: { title: 'Browse Waterways' }
   },
   { path: 'message-test', component: MessageHubComponent },
-  { path: 'login', component: AuthComponent, data: { title: 'Login/Signup', hide: true } }
+  { path: 'login', component: AuthComponent, data: { title: 'Login/Signup', hide: true } },
+  {
+    path: 'leaderboard',
+    component: LeaderboardComponent,
+    data: { title: 'Leaderboard' }
+  }
 ];
 
 
@@ -65,6 +82,12 @@ const routes: Routes = [
     ImageComponent,
     BrowsePublicComponent,
     MessageHubComponent
+    AccountDataComponent,
+    VerifyComponent,
+    VerifiedComponent,
+    LeaderboardComponent,
+    ForgotPasswordComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +98,10 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
+    MatSelectModule,
+    MatCheckboxModule
+    
+    
   ],
   providers: [
     AuthService,

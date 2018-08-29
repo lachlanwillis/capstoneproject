@@ -3,12 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { take, map } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { Router } from '@angular/router';
 
 const API_PREFIX = "api";
 const LOGIN_URL = `/${API_PREFIX}/login`;
 const LOGOUT_URL = `/${API_PREFIX}/logout`;
 const SIGNUP_URL = `/${API_PREFIX}/signup`;
 const PING_URL = `/${API_PREFIX}/auth/ping`;
+const GET_USER_URL = `/${API_PREFIX}/auth/user`;
+const POSTCODE_URL = `/${API_PREFIX}/user/postcode`;
+const PASSWORD_RESET = `/${API_PREFIX}/password/reset`;
 
 // ADMIN URLS //
 const ISADMIN_URL = `/${API_PREFIX}/isadmin`;
@@ -18,28 +22,39 @@ export class AuthService {
 
   private authChange$: Subject<any> = new Subject();
 
-  constructor(private readonly http: HttpClient) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly router: Router
+  ) {
     this.authChange$.next();
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<IAuthSuccess>(LOGIN_URL, { username, password })
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<IAuthSuccess>(LOGIN_URL, { email, password })
       .pipe(map(res => { 
+        this.authChange$.next();
+        if (res.redirect) {
+          this.router.navigateByUrl(res.redirect);
+        }
+        return res.success;
+      }), take(1));
+  }
+
+  signup(email: string, password: string): Observable<any> {
+    return this.http.post<IAuthSuccess>(SIGNUP_URL, { email, password })
+      .pipe(map(res => {
         this.authChange$.next();
         return res.success;
       }), take(1));
   }
 
-  signup(username: string, password: string): Observable<any> {
-    return this.http.post<IAuthSuccess>(SIGNUP_URL, { username, password })
-      .pipe(map(res => { 
-        this.authChange$.next();
-        return res.success;
-      }), take(1));
+  setPostcode(position: Position): Observable<any> {
+    console.log(position)
+    return this.http.put(POSTCODE_URL, { lat: position.coords.latitude, long: position.coords.longitude });
   }
 
-  deleteUser(id: string) {
-
+  getCurrentUser(): Observable<any> {
+    return this.http.get(GET_USER_URL);
   }
 
   logout(): Observable<any> {
@@ -68,8 +83,19 @@ export class AuthService {
     return this.authChange$.asObservable();
   }
 
+  resetPassword(email: string): Observable<void> {
+    return this.http.post(PASSWORD_RESET, { email })
+      .pipe(take(1), map(() => undefined));
+  }
+
+  sendPasswordReset(token: string, password: string): Observable<boolean> {
+    return this.http.put<IAuthSuccess>(PASSWORD_RESET, { token, password })
+      .pipe(map(x => !!x.success));
+  }
+
 }
 
 interface IAuthSuccess {
   success: boolean;
+  redirect?: string;
 }
