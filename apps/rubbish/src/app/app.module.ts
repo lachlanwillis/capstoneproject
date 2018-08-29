@@ -81,7 +81,7 @@ const routes: Routes = [
     BrowseImagesComponent,
     ImageComponent,
     BrowsePublicComponent,
-    MessageHubComponent
+    MessageHubComponent,
     AccountDataComponent,
     VerifyComponent,
     VerifiedComponent,
