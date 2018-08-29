@@ -1,5 +1,10 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, TemplateRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+
+import { HttpClient } from '@angular/common/http';
+import { map, take } from 'rxjs/operators';
+import { MessagesService } from '../messages/messages.service';
+import { MessageElement } from './message';
 
 @Component({
   selector: 'app-message-hub',
@@ -9,12 +14,18 @@ import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/m
 export class MessageHubComponent implements OnInit {
 
   displayedColumns: string[] = ['message', 'datestamp', 'clear'];
-  dataSource = new MatTableDataSource<MessageElement>(ELEMENT_DATA);
 
+  elementData = [];
+  dataSource = new MatTableDataSource<MessageElement>(this.elementData);
+
+  @Input() mine: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  messages: MessageElement[] = [];
+
   constructor(
+    private readonly message: MessagesService,
     private readonly dialog: MatDialog
   ) { }
 
@@ -22,16 +33,27 @@ export class MessageHubComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-}
+  ngAfterViewInit() {
+    this.fetchMyMessages();
+  }
 
-export interface MessageElement {
-  id: number;
-  message: string;
-  datestamp: string;
-}
+  fetchMyMessages() {
+    this.message.getMyMessages().subscribe((messages: any[] ) =>
+      this.dataSource = new MatTableDataSource<any>(messages.map(i => { return { id: i._id, message: i.message, datestamp: i.datestamp }})));
+  }
 
-const ELEMENT_DATA: MessageElement[] = [
-  {id: 1, message: 'You have successfully uploaded a rubbish image.', datestamp: "12:32:02 12-05-2018"},
-  {id: 2, message: 'Your image titled "test-image" was flagged as the CNN found no trace or rubbish.', datestamp: "12:32:02 12-05-2018"},
-  {id: 3, message: 'Your image titled "test-image" was liked by "johnny boi".', datestamp: "12:32:02 12-05-2018"},
-];
+  onClearClicked(row) {
+    this.message.clearMessage(row.id)
+      .subscribe((value: any) => {
+        if (value.success) {
+          this.fetchMyMessages();
+        }
+      });
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+}

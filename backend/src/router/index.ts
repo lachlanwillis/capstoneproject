@@ -2,7 +2,7 @@ import { Router as IRouter } from 'express';
 import * as multer from 'multer';
 import { UploadImageHandler, GetImageHandler, GetFlaggedImagesHandler, DeleteImageHandler, GetMyImagesHandler, DeleteMyImageHandler, UpdateMyImageHandler, AcceptFlaggedImageHandler } from './images.route';
 import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser } from './users.route';
-import { GetMyMessagesHandler } from './messages.route';
+import { GetMyMessagesHandler, DeleteMyMessageHandler } from './messages.route';
 import { authentication as auth } from '../authentication';
 import { ensureAdmin, ensureLoggedIn } from '../middleware/ensureLogin';
 
@@ -57,4 +57,5 @@ Router
 
 	// MESSAGE ROUTES //
 	.get('/api/my-messages', ensureLoggedIn, GetMyMessagesHandler)
+	.delete('/api/my-message/:id', ensureLoggedIn, DeleteMyMessageHandler)
 

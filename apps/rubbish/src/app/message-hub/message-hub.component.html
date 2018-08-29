@@ -15,7 +15,7 @@
     <!-- Clear BTN Column -->
     <ng-container matColumnDef="clear">
       <mat-header-cell *matHeaderCellDef> Clear? </mat-header-cell>
-      <mat-cell *matCellDef="let element"> <button class="delete-btn" mat-icon-button (click)="onDeleteClicked(element)"><i class="material-icons">clear</i></button> </mat-cell>
+      <mat-cell *matCellDef="let element"> <button class="delete-btn" mat-icon-button (click)="onClearClicked(element)"><i class="material-icons">clear</i></button> </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
