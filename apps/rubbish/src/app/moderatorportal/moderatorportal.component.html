@@ -74,7 +74,7 @@
                   <!-- Accept Column -->
                   <ng-container matColumnDef="accept">
                     <mat-header-cell *matHeaderCellDef> Accept? </mat-header-cell>
-                    <mat-cell *matCellDef="let element"><button class="accept-btn" mat-icon-button (click)="onFlaggedAcceptClicked(element)"><i class="material-icons">delete</i></button></mat-cell>
+                    <mat-cell *matCellDef="let element"><button class="accept-btn" mat-icon-button (click)="onFlaggedAcceptClicked(element)"><i class="material-icons">check_circle</i></button></mat-cell>
                   </ng-container>
 
                   <mat-header-row *matHeaderRowDef="flaggedColumns"></mat-header-row>

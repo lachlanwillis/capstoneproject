@@ -85,3 +85,18 @@ body {
         padding: 25px;
     }
 }
+
+.mat-icon-button {
+  height: auto !important;
+  width: auto !important;
+  line-height: 0px !important;
+  transition: all 0.2s !important;
+
+  .mat-button-wrapper {
+    line-height: 0px !important;
+  }
+
+  .material-icons {
+    padding: 5px !important;
+  }
+}

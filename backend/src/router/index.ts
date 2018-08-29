@@ -1,8 +1,8 @@
 import { Router as IRouter } from 'express';
 import * as multer from 'multer';
 import { UploadImageHandler, GetImageHandler, GetFlaggedImagesHandler, DeleteImageHandler, GetMyImagesHandler, DeleteMyImageHandler, UpdateMyImageHandler, AcceptFlaggedImageHandler } from './images.route';
+import { GetMyMessagesHandler, DeleteMyMessageHandler } from './messages.route';
 import { HandleUserSignup, HandleUserLogout, IsUserAdmin, PromoteUser, DemoteUser, SetPostcodeHandler, VerifyUserHandler, DeclineUserHandler, HandleUserLogin, ResetPasswordHandler, PasswordEmailHandler, OptOutLeaderboard, OptInLeaderboard, UpdateUserName, UpdateUserEmail } from './users.route';
-
 import { GetLeaderboardHandler } from './leaderboard.route';
 import { authentication as auth } from '../authentication';
 import { ensureAdmin, ensureLoggedIn } from '../middleware/ensureLogin';
@@ -17,7 +17,6 @@ export const Router: IRouter = IRouter();
 Router
 
 	// AUTH ROUTES // 
-
 	.post('/api/login', auth.authenticate('local'), HandleUserLogin)
 	.post('/api/signup', HandleUserSignup)
 	.get('/api/auth/ping', (req, res) => res.json({ auth: !!req.user }))
@@ -50,7 +49,6 @@ Router
 	.put('/api/user/postcode', ensureLoggedIn, SetPostcodeHandler)
 
 	// IMAGE ROUTES // 
-
 	.post('/api/upload-image', ensureLoggedIn, upload.single('image'), UploadImageHandler)
 
 	.put('/api/update-my-image', ensureLoggedIn, UpdateMyImageHandler)
@@ -64,8 +62,11 @@ Router
 	.delete('/api/my-image/:id', ensureLoggedIn, DeleteMyImageHandler)
 	.delete('/api/delete-image/:id', DeleteImageHandler)
 
-	// EMAIL ROUTES //
+	// MESSAGE ROUTES //
+	.get('/api/my-messages', ensureLoggedIn, GetMyMessagesHandler)
+	.delete('/api/my-message/:id', ensureLoggedIn, DeleteMyMessageHandler)
 
+	// EMAIL ROUTES //
 	.get('/api/verify/decline/:token', DeclineUserHandler)
 	.get('/api/verify/:token', VerifyUserHandler)
 
@@ -74,5 +75,4 @@ Router
 
 
 	// LEADERBOARD ROUTES //
-
 	.get('/api/leaderboard/:location?/:limit?', GetLeaderboardHandler)

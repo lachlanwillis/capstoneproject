@@ -4,11 +4,11 @@
       <div class="small medium large image-container" *ngFor="let image of images | slice:((page-1)*pageSize):(page*pageSize)">
         <div class="image-single">
           <div *ngIf="mine"class="delete-icon-container">
-            <button mat-icon-button color="primary" (click)="editMyImage(image)">
-              <mat-icon aria-label="Edit image button">build</mat-icon>
+            <button mat-icon-button class="edit-btn" (click)="editMyImage(image)">
+              <i class="material-icons">settings</i>
             </button>
-            <button mat-icon-button color="warn" (click)="deleteMyImage(image)">
-              <mat-icon aria-label="Delete image button">delete</mat-icon>
+            <button mat-icon-button class="delete-btn" (click)="deleteMyImage(image)">
+              <i class="material-icons">delete</i>
             </button>
           </div>
           <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>

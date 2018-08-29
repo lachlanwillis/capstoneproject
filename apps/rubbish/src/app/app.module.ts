@@ -25,6 +25,7 @@ import { ImageService } from './images/image.service';
 import { ImageComponent } from './image/image.component';
 import { BrowsePublicComponent } from './browse-public/browse-public.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MessageHubComponent } from './message-hub/message-hub.component';
 import { AccountDataComponent } from './account-data/account-data.component';
 import { VerifyComponent } from './verify/verify.component';
 import { VerifiedComponent } from './verified/verified.component';
@@ -55,6 +56,7 @@ const routes: Routes = [
     component: BrowsePublicComponent,
     data: { title: 'Browse Waterways' }
   },
+  { path: 'message-test', component: MessageHubComponent },
   { path: 'login', component: AuthComponent, data: { title: 'Login/Signup', hide: true } },
   {
     path: 'leaderboard',
@@ -79,6 +81,7 @@ const routes: Routes = [
     BrowseImagesComponent,
     ImageComponent,
     BrowsePublicComponent,
+    MessageHubComponent
     AccountDataComponent,
     VerifyComponent,
     VerifiedComponent,

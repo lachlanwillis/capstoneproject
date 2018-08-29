@@ -1,0 +1,24 @@
+<div>
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <!-- Message Column -->
+    <ng-container matColumnDef="message">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Message </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.message}} </mat-cell>
+    </ng-container>
+
+    <!-- DateStamp Column -->
+    <ng-container matColumnDef="datestamp">
+      <mat-header-cell *matHeaderCellDef> Date Stamp </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.datestamp}} </mat-cell>
+    </ng-container>
+
+    <!-- Clear BTN Column -->
+    <ng-container matColumnDef="clear">
+      <mat-header-cell *matHeaderCellDef> Clear? </mat-header-cell>
+      <mat-cell *matCellDef="let element"> <button class="delete-btn" mat-icon-button (click)="onClearClicked(element)"><i class="material-icons">clear</i></button> </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

@@ -1,0 +1,21 @@
+// Message hub CSS
+.mat-column-clear {
+  flex: 10%;
+}
+
+.mat-column-datestamp {
+  flex: 30%;
+}
+
+.mat-column-message {
+  flex: 60%;
+}
+
+.delete-btn {
+  background-color: #d3434a;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background-color: #b42a30;
+}
