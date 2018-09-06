@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { MessagesService } from '../messages/messages.service';
 import { AuthService } from '../auth/auth.service';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar, MatDialog } from '@angular/material';
+import { UserData } from '../message-hub/message';
 
 
 @Component({
@@ -16,9 +17,6 @@ export class MessageModeratorComponent implements OnInit {
   displayedColumns = ['id', 'name', 'email', 'message'];
   elementData = [];
   dataSource = new MatTableDataSource<UserData>(this.elementData);
-
-  userIdFormControl = new FormControl('userId');
-  messageFormControl = new FormControl('message');
 
   selectedUser? : UserData;
   sentMessage? : string;
@@ -73,23 +71,16 @@ export class MessageModeratorComponent implements OnInit {
       .subscribe(result => {
         if (result === true) {
           console.log("Message: " + this.sentMessage);
-          this.messageUser();
+          this.messageUser(this.selectedUser, this.sentMessage);
         }
       });
   }
 
-  messageUser() {
-    this.messages.messageUser(this.selectedUser.id, this.sentMessage)
+  messageUser(user : UserData, message : string) {
+    this.messages.messageUser(user.id, message)
       .subscribe((value: any) => {
-        if (value.success) {
-          this.snack.open('Message sent to user: ' + this.selectedUser.name);
-        }
+        this.snack.open('Message sent to user: ' + user.name, "Sweet!", { duration: 3000 });
+        this.selectedUser = undefined;
       });
   }
-}
-
-export interface UserData {
-  id: string;
-  name: string;
-  email: string;
 }

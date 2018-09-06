@@ -22,6 +22,6 @@ export class MessagesService {
     return this.http.put<any[]>('/api/message-user', {
       id, message
     })
-    .pipe(take(1));
+      .pipe(take(1));
   }
 }

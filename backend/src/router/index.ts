@@ -23,6 +23,7 @@ Router
 	.get('/api/logout', HandleUserLogout)
 	.get('/api/isadmin', IsUserAdmin)
 	.get('/api/auth/user', (req, res) => res.json(req.user))
+	.get('/api/get-users', GetUsers)
 
 	.get('/api/auth/facebook', auth.authenticate('facebook', {
 		scope: [ 'public_profile', 'email' ]
@@ -38,8 +39,6 @@ Router
 	.get('/api/auth/google/callback', auth.authenticate('google', {
 		failureRedirect: '/login'
 	}), (req, res) => res.redirect('/browse-public'))
-
-	.get('/api/get-users', GetUsers)
 	
 	.post('/api/user/promote', ensureAdmin, PromoteUser)
 	.post('/api/user/demote', ensureAdmin, DemoteUser)

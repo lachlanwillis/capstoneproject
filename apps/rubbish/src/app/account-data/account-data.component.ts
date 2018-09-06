@@ -95,7 +95,6 @@ export class AccountDataComponent implements OnInit {
   loadData () {
     this.auth.getCurrentUser()
       .subscribe(user => this.user = user);
-    console.log(this.user);
   }
 
 }
