@@ -1,3 +1,50 @@
-<p>
-  message-moderator works!
-</p>
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<mat-table #table [dataSource]="dataSource" matSort>
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+  </ng-container>
+
+  <!-- Progress Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="email">
+    <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+  </ng-container>
+
+  <!-- Color Column -->
+  <ng-container matColumnDef="message">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Message </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> <button class="btn btn-primary message-btn" (click)="showMessagePopUp(row)" role="button">Message User</button> </mat-cell>
+  </ng-container>
+
+  <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [length]="dataSource.data.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+
+<ng-template #messageUser>
+  <h1 mat-dialog-title>Message: {{selectedUser.name}}</h1>
+  <mat-dialog-content>
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="Message..." [(ngModel)]="sentMessage">
+        </textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">Send Message</button>
+  </mat-dialog-actions>
+</ng-template>

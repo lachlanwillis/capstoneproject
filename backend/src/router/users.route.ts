@@ -160,7 +160,6 @@ export const OptInLeaderboard: RequestHandler = (req: Request, res: Response) =>
     }
 }
 
-
 export const SetPostcodeHandler: RequestHandler = (req, res) => {
     if (!req.body.lat || !req.body.long || isNaN(Number(req.body.lat)) || isNaN(Number(req.body.long))) {
         return res.status(500).json({ message: 'Malformed request.' });
@@ -215,8 +214,6 @@ export const DeclineUserHandler: RequestHandler = (req, res) => {
         .catch(() => res.status(500).send('An error occurred.'));
 };
 
-
-
 /**
  * Updates the user's name
  * @param req
@@ -236,9 +233,6 @@ export const UpdateUserName: RequestHandler = (req, res) => {
             .catch(() => res.status(500).send('An error occurred.'));
     }
 }
-
-
-
 
 export const UpdateUserEmail: RequestHandler = (req, res) => {
     if (!req.user.id) res.status(500).json({ success: false, error: true, message: 'No id' });
@@ -261,8 +255,6 @@ export const UpdateUserEmail: RequestHandler = (req, res) => {
         
     }
 }
-
-
 
 export const PasswordEmailHandler: RequestHandler = (req, res) => {
     if (!req.body.email) {
@@ -294,6 +286,10 @@ export const ResetPasswordHandler: RequestHandler = (req, res) => {
 
 };
 
+// Return list of users
+export const GetUsers: RequestHandler = (req: Request, res: Response): void => {
+    User.find({}).then(users => res.json(users)).catch(err => res.status(500).send(err));
+}
 
 /**
  * Verify that the email and password of a user's info is not empty

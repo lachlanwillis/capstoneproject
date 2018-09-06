@@ -17,4 +17,11 @@ export class MessagesService {
     return this.http.delete(`/api/my-message/${id}`)
       .pipe(take(1));
   }
+
+  messageUser(id: string, message: string) {
+    return this.http.put<any[]>('/api/message-user', {
+      id, message
+    })
+    .pipe(take(1));
+  }
 }

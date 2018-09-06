@@ -29,6 +29,10 @@ export class AuthService {
     this.authChange$.next();
   }
 
+  getUsers(filter?: string) {
+    return this.http.get<any[]>('/api/get-users');
+  }
+
   login(email: string, password: string): Observable<any> {
     return this.http.post<IAuthSuccess>(LOGIN_URL, { email, password })
       .pipe(map(res => { 
