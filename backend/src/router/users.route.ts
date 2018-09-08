@@ -161,11 +161,14 @@ export const OptInLeaderboard: RequestHandler = (req: Request, res: Response) =>
 }
 
 export const DeleteUserHandler: RequestHandler = (req, res) => {
-    if (!req.body.userId) {
-        return res.status(401).json({ error: true, message: 'Invalid request' });
+
+    console.log(req.body);
+
+    if (!req.body.id) {
+        return res.status(500).json({ error: true, message: 'Invalid request' });
     }
 
-    User.findByIdAndRemove(req.body.userId)
+    User.findByIdAndRemove(req.body.id)
         .then(() => res.json({ success: true }))
         .catch(e => res.status(500).json({ error: true, message: e.message }));
 

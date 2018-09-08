@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
 import { ImageService } from '../images/image.service';
+import { AdminService } from './admin.service';
 
 @Component({
   selector: 'app-moderatorportal',
   templateUrl: './moderatorportal.component.html',
-  styleUrls: ['./moderatorportal.component.css']
+  styleUrls: ['./moderatorportal.component.css'],
+  providers: [ AdminService ]
 })
-export class ModeratorportalComponent implements OnInit {
+export class ModeratorportalComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['title', 'url', 'delete'];
   elementData = [];
@@ -18,22 +19,27 @@ export class ModeratorportalComponent implements OnInit {
   flaggedData = [];
   flaggedSource = new MatTableDataSource<Element>(this.flaggedData);
 
-  userAccountColumns: string[] = ['userid', 'username', 'name', 'email', 'admin', 'resetpass', 'remove'];
-  userAccountSource = new MatTableDataSource<UserAccountElement>(ELEMENT_DATA);
+  userAccountColumns: string[] = ['userid', 'name', 'email', 'admin', 'remove'];
+  userAccountSource = new MatTableDataSource<UserAccountElement>([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator) paginatoruser: MatPaginator;
   @ViewChild(MatPaginator) paginatorflagged: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('deleteImage') modal: TemplateRef<any>;
+  @ViewChild('deleteUser') deleteUserModal: TemplateRef<any>;
 
   constructor(
     private readonly image: ImageService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly admin: AdminService
   ) { }
 
   ngOnInit() {
     this.userAccountSource.paginator = this.paginator;
+
+    this.admin.getUsers().subscribe(user => console.log(user));
+
   }
 
   /**
@@ -42,12 +48,18 @@ export class ModeratorportalComponent implements OnInit {
    */
   ngAfterViewInit() {
     this.fetchImages();
+    this.fetchUsers();
     this.fetchFlaggedImages();
   }
 
   fetchImages() {
     this.image.getImages().subscribe((images: any[] ) =>
       this.dataSource = new MatTableDataSource<any>(images.map(i => { return { title: i.title, id: i._id, url: i.location }})));
+  }
+
+  fetchUsers(): void {
+    this.admin.getUsers()
+      .subscribe(users => (this.userAccountSource = new MatTableDataSource(users.map(user => ({ userid: user._id, ...user })))));
   }
 
   fetchFlaggedImages() {
@@ -73,7 +85,18 @@ export class ModeratorportalComponent implements OnInit {
               }
             });
         }
-      })
+      });
+  }
+
+  onDeleteUserClicked(id: string): void {
+    this.dialog.open(this.deleteUserModal)
+      .afterClosed()
+      .subscribe(result => {
+        if (result === true) {
+          this.admin.deleteUser(id)
+            .subscribe(() => this.fetchUsers());
+        }
+      });
   }
 
   onFlaggedDeleteClicked(row) {

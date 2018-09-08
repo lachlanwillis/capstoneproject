@@ -83,7 +83,7 @@ Router
   .post("/api/user/demote", ensureAdmin, DemoteUser)
 
   .get("/api/users", ensureAdmin, GetUsersHandler)
-  .delete("/api/user", ensureAdmin, DeleteUserHandler)
+  .post("/api/delete-user", ensureAdmin, DeleteUserHandler)
 
   .put("/api/user/optout", ensureLoggedIn, OptOutLeaderboard)
   .put("/api/user/optin", ensureLoggedIn, OptInLeaderboard)

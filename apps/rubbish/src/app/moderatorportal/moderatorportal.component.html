@@ -107,41 +107,35 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header> User ID </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.userid}} </mat-cell>
                   </ng-container>
-              
-                  <!-- DateStamp Column -->
-                  <ng-container matColumnDef="username">
-                    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
-                  </ng-container>
 
-                  <!-- DateStamp Column -->
+                  <!-- Name Column -->
                   <ng-container matColumnDef="name">
                     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
                   </ng-container>
 
-                  <!-- DateStamp Column -->
+                  <!-- Email Column -->
                   <ng-container matColumnDef="email">
                     <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
                   </ng-container>
 
-                  <!-- DateStamp Column -->
+                  <!-- Admin Column -->
                   <ng-container matColumnDef="admin">
                     <mat-header-cell *matHeaderCellDef> Admin? </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.admin}} </mat-cell>
                   </ng-container>
               
                   <!-- Clear BTN Column -->
-                  <ng-container matColumnDef="resetpass">
+                  <!-- <ng-container matColumnDef="resetpass">
                     <mat-header-cell *matHeaderCellDef> Reset Password? </mat-header-cell>
                     <mat-cell *matCellDef="let element"> <button class="reset-btn" mat-icon-button (click)="onDeleteClicked(element)"><i class="material-icons">undo</i></button> </mat-cell>
-                  </ng-container>
+                  </ng-container> -->
 
-                  <!-- Clear BTN Column -->
+                  <!-- Delete BTN Column -->
                   <ng-container matColumnDef="remove">
                     <mat-header-cell *matHeaderCellDef> Remove? </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> <button class="delete-btn" mat-icon-button (click)="onDeleteClicked(element)"><i class="material-icons">clear</i></button> </mat-cell>
+                    <mat-cell *matCellDef="let element"> <button class="delete-btn" mat-icon-button (click)="onDeleteUserClicked(element.userid)"><i class="material-icons">clear</i></button> </mat-cell>
                   </ng-container>
               
                   <mat-header-row *matHeaderRowDef="userAccountColumns"></mat-header-row>
@@ -169,3 +163,15 @@
       <button mat-raised-button color="warn" [mat-dialog-close]="true">Delete</button>
     </mat-dialog-actions>
 </ng-template>
+
+<ng-template #deleteUser>
+    <h1 mat-dialog-title>Delete?</h1>
+    <mat-dialog-content>
+      Are you sure you want to delete this user?
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Close</button>
+      <button mat-raised-button color="warn" [mat-dialog-close]="true">Delete</button>
+    </mat-dialog-actions>
+</ng-template>
+
