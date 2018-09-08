@@ -160,6 +160,23 @@ export const OptInLeaderboard: RequestHandler = (req: Request, res: Response) =>
     }
 }
 
+export const DeleteUserHandler: RequestHandler = (req, res) => {
+    if (!req.body.userId) {
+        return res.status(401).json({ error: true, message: 'Invalid request' });
+    }
+
+    User.findByIdAndRemove(req.body.userId)
+        .then(() => res.json({ success: true }))
+        .catch(e => res.status(500).json({ error: true, message: e.message }));
+
+};
+
+export const GetUsersHandler: RequestHandler = (req, res) => {
+    User.find({}, null, { sort: '-last_login' })
+        .then(users => res.json({ success: true, users }))
+        .catch(e => res.status(500).json({ error: true, message: e.message }));
+};
+
 
 export const SetPostcodeHandler: RequestHandler = (req, res) => {
     if (!req.body.lat || !req.body.long || isNaN(Number(req.body.lat)) || isNaN(Number(req.body.long))) {

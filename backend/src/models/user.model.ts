@@ -28,7 +28,7 @@ export var UserSchema: Schema = new Schema({
 	token: String,
 	verified: { type: Boolean, default: false },
 	admin: { type: Boolean, default: false },
-	last_login: { type: Date, default: Date.now },
+	last_login: { type: Date, default: Date.now() },
 	points: { type: Number, default: 0 },
 	deleted: { type: Boolean, default: false },
 	postcode: Number,
