@@ -18,7 +18,12 @@ export class ModeratorportalComponent implements OnInit {
   flaggedData = [];
   flaggedSource = new MatTableDataSource<Element>(this.flaggedData);
 
+  userAccountColumns: string[] = ['userid', 'username', 'name', 'email', 'admin', 'resetpass', 'remove'];
+  userAccountSource = new MatTableDataSource<UserAccountElement>(ELEMENT_DATA);
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginatoruser: MatPaginator;
+  @ViewChild(MatPaginator) paginatorflagged: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('deleteImage') modal: TemplateRef<any>;
 
@@ -28,6 +33,7 @@ export class ModeratorportalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.userAccountSource.paginator = this.paginator;
   }
 
   /**
@@ -95,3 +101,17 @@ export interface Element {
   title: string;
   url: string;
 }
+
+export interface UserAccountElement {
+  userid: number;
+  username: string;
+  name: string;
+  email: string;
+  admin: boolean;
+}
+
+const ELEMENT_DATA: UserAccountElement[] = [
+  {userid: 1, username: 'jringo', name: 'Johnny Ringo', email: 'johnnyringo@gmail.com', admin: false},
+  {userid: 1, username: 'bshepp', name: 'Ben Sheppard', email: 'bensheppard@gmail.com', admin: false},
+  {userid: 1, username: 'jmoss', name: 'Jen Moss', email: 'jenmoss@gmail.com', admin: false},
+];
