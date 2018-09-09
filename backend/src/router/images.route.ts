@@ -63,7 +63,7 @@ export const GetImageHandler: RequestHandler = (req: Request, res: Response): vo
 }
 
 export const GetMyImagesHandler: RequestHandler = (req: Request, res: Response): void => {
-    Image.find({ deleted: false, rubbishVisibility: true, userId: req.user.id })
+    Image.find({ deleted: false, userId: req.user.id })
        .then(images => res.json(images)).catch(err => res.status(500).send(err));
 }
 

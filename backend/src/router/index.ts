@@ -29,7 +29,8 @@ import {
   UpdateUserEmail,
   DeleteUserHandler,
   GetUsersHandler,
-  GetUsers
+  GetUsers,
+  UpdatePasswordHandler
 } from "./users.route";
 import { GetLeaderboardHandler } from "./leaderboard.route";
 import { authentication as auth } from "../authentication";
@@ -54,6 +55,8 @@ Router
 
   .get("/api/get-users", ensureAdmin, GetUsers)
   .put('/api/message-user', SendMessageHandler)
+
+  .put('/api/user/change-password', UpdatePasswordHandler)
 
   .get(
     "/api/auth/facebook",

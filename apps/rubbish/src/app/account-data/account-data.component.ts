@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-account-data',
@@ -12,12 +14,14 @@ export class AccountDataComponent implements OnInit {
 
   user?: any;
   updatedName: string;
-  updatedEmail: string;
+  updatedEmail?: string;
+  updatedPassword?: string;
   userId: string;
 
   constructor(
     private readonly auth: AuthService,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private readonly snack: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -36,6 +40,10 @@ export class AccountDataComponent implements OnInit {
     this.updatedEmail = event.target.value;
   }
 
+  changePassword(event) {
+    this.updatedPassword = event.target.value;
+  }
+
 
   updateInformation() {
     
@@ -50,29 +58,27 @@ export class AccountDataComponent implements OnInit {
 
     } else if (!this.user.leaderboardVisible) {
       // Opt out of the leaderboards
-      
       this.updateLeaderboardVis(false).subscribe((value: any) => {
         if (value.success) {}});
-
-
     }
 
     if (this.updatedName != this.user.name && this.updatedName) {
       // Update Name
-      
       this.updateName().subscribe((value: any) => {})
     }
 
     if (this.updatedEmail != this.user.email && this.updatedEmail) {
       // Update Email
       this.updateEmail().subscribe((value: any) => { })
+    }
 
-
+    if (this.updatedPassword) {
+      this.updatePassword()
+        .subscribe(() => this.snack.open('Password changed!'));
     }
 
 
   }
-
 
   updateLeaderboardVis(isVis: boolean) {
     if (isVis) {
@@ -89,6 +95,10 @@ export class AccountDataComponent implements OnInit {
 
   updateEmail() {
     return this.http.put<any[]>('/api/user/changeemail', { email: this.updatedEmail }).pipe(take(1));
+  }
+
+  updatePassword(): Observable<any> {
+    return this.http.put<any[]>('/api/user/change-password', { password: this.updatedPassword });
   }
 
 

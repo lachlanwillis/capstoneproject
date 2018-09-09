@@ -292,6 +292,25 @@ export const PasswordEmailHandler: RequestHandler = (req, res) => {
         .catch(err => res.status(500).json({ error: true }));
 };
 
+export const UpdatePasswordHandler: RequestHandler = (req, res) => {
+    if (!(req.user || {}).id) {
+        return res.status(401).json({ error: true });
+    }
+
+    bcrypt.hash(req.body.password, 10)
+        .then(hash => 
+            User.findByIdAndUpdate(
+                req.user.id,
+                { $set: { password: hash }}
+            )
+        )
+        .then(() => res.json({ success: true }))
+        .catch(err => res.json({ error: true, message: err.message }));
+
+}
+
+
+
 export const ResetPasswordHandler: RequestHandler = (req, res) => {
     if (!req.body.password || !req.body.token) {
         return res.status(500).json({ error: true });
