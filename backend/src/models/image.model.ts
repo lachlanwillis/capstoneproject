@@ -1,5 +1,4 @@
 import { Document, Schema, Model as IModel, model as Model } from 'mongoose';
-import { IDetection } from '../detector/detector';
 import { Detection } from 'darknet';
 
 export interface ImageModel extends Document {
@@ -14,6 +13,8 @@ export interface ImageModel extends Document {
   userId: string;
   detections?: Detection[];
   rubbishVisibility?: boolean;
+  name?: string;
+  place?: string;
 }
 
 export const ImageSchema: Schema = new Schema({
@@ -25,6 +26,8 @@ export const ImageSchema: Schema = new Schema({
   size: Number,
   fileName: String,
   userId: String,
+  place: String,
+  name: String,
   detections: [
     { 
       name: String, 

@@ -3,6 +3,8 @@ export interface Image {
     title: string;
     description: string;
     fileName: string;
+    name: string;
+    place: string;
     detections: Detection[];
 }
 

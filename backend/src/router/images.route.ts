@@ -18,12 +18,14 @@ export const UploadImageHandler: RequestHandler = (req: Request, res: Response):
       (new Image({
         title: req.body.title,
         description: req.body.description,
+        place: req.body.location,
         location: req.file.path,
         encoding: req.file.encoding,
         mimetype: req.file.mimetype,
         size: req.file.size,
         fileName: req.file.filename,
-        userId: req.user.id
+        userId: req.user.id,
+        name: (req.user.facebook || {}).name || (req.user.google || {}).name || (req.user.email || '').split('@')[0] || 'Unknown User',
       })).save()
          .then(image => {
            detector.addDetection(image.id, image.location);
