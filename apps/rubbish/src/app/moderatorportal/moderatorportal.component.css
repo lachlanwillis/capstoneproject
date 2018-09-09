@@ -18,6 +18,15 @@
   background-color: #2fa146;
 }
 
+.reset-btn {
+  background-color: #ffa500;
+  color: #fff;
+}
+
+.reset-btn:hover {
+  background-color: #cc8400;
+}
+
 .delete-btn .mat-button-wrapper, .accept-btn .mat-button-wrapper {
   line-height: 0px;
 }

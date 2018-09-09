@@ -23,7 +23,7 @@ export const GetLeaderboardHandler: RequestHandler = (req, res) => {
     User.find(
         {
             ...search,
-            leaderboardVisible: true
+            'leaderboardVisible': { $ne: false }
         },
         
         ['google', 'facebook', 'points', 'email'],
