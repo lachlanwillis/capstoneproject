@@ -10,7 +10,7 @@ import {
   UpdateMyImageHandler,
   AcceptFlaggedImageHandler
 } from "./images.route";
-import { GetMyMessagesHandler, DeleteMyMessageHandler } from "./messages.route";
+import { GetMyMessagesHandler, DeleteMyMessageHandler, SendMessageHandler } from "./messages.route";
 import {
   HandleUserSignup,
   HandleUserLogout,
@@ -28,7 +28,8 @@ import {
   UpdateUserName,
   UpdateUserEmail,
   DeleteUserHandler,
-  GetUsersHandler
+  GetUsersHandler,
+  GetUsers
 } from "./users.route";
 import { GetLeaderboardHandler } from "./leaderboard.route";
 import { authentication as auth } from "../authentication";
@@ -49,6 +50,10 @@ Router
   .get("/api/logout", HandleUserLogout)
   .get("/api/isadmin", IsUserAdmin)
   .get("/api/auth/user", (req, res) => res.json(req.user))
+
+
+  .get("/api/get-users", ensureAdmin, GetUsers)
+  .put('/api/message-user', SendMessageHandler)
 
   .get(
     "/api/auth/facebook",

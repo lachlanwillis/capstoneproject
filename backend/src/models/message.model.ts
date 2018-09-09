@@ -8,7 +8,7 @@ export interface MessageModel extends Document {
 
 export const MessageSchema: Schema = new Schema({
   userId: String,
-  datestamp: { type: Date, default: Date.now },
+  datestamp: { type: Date, default: Date.now() },
   message: String,
 });
 
