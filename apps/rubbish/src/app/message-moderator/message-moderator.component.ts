@@ -48,11 +48,16 @@ export class MessageModeratorComponent implements OnInit {
 
   fetchUsers() {
     this.auth.getUsers().subscribe((users: any[] ) =>
-      this.dataSource = new MatTableDataSource<any>(users.map(i => { return { id: i._id, name: i.name, email: i.email }})));
+      this.dataSource = new MatTableDataSource<any>(users.map(user => ({ 
+        id: user._id, 
+        name: (user.facebook || {}).name || (user.google || {}).name || (user.email || '').split('@')[0] || 'Unknown User',
+        email: user.email || '' 
+      }))));
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
