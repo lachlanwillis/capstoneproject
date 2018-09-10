@@ -5,19 +5,18 @@
     <mat-card>
         <mat-card-content>
           <mat-tab-group>
+            <mat-tab label="My Images">
+              <div class="tab-content">
+                <app-browse-images [mine]="true"></app-browse-images>
+              </div>
+            </mat-tab>
             <mat-tab label="Upload Images">
               <div class="tab-content">
-                  <p>Instructions: Upload an image by using the image uploader module below. Please upload good quality images that are preferrably in jpeg format.
-                  </p>
+                <p>Instructions: Upload an image by using the image uploader module below. Please upload good quality images that are preferrably in jpeg format.</p>
   
                 <div class="upload-image">
                   <app-user-upload></app-user-upload>
                 </div>
-              </div>
-            </mat-tab>
-            <mat-tab label="My Images">
-              <div class="tab-content">
-                <app-browse-images [mine]="true"></app-browse-images>
               </div>
             </mat-tab>
             <mat-tab label="My Messages">
@@ -28,6 +27,11 @@
             <mat-tab label="My Details">
               <div class="tab-content">
                 <app-account-data></app-account-data>
+              </div>
+            </mat-tab>
+            <mat-tab label="My Stats">
+              <div class="tab-content">
+                <app-account-stats></app-account-stats>
               </div>
             </mat-tab>
           </mat-tab-group>

@@ -33,6 +33,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { MessageModeratorComponent } from './message-moderator/message-moderator.component';
+import { AccountStatsComponent } from './account-stats/account-stats.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter', home: true } },
@@ -89,7 +90,8 @@ const routes: Routes = [
     LeaderboardComponent,
     ForgotPasswordComponent,
     PasswordResetComponent,
-    MessageModeratorComponent
+    MessageModeratorComponent,
+    AccountStatsComponent
   ],
   imports: [
     BrowserModule,
