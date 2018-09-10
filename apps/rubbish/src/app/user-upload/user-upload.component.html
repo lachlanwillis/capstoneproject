@@ -1,4 +1,5 @@
 <form #imageUploadForm>
+
   <mat-form-field>
     <input matInput name="title" placeholder="Image Title" [formControl]="titleFormControl" (change)="changeTitleValue($event)">
     <mat-error *ngIf="titleFormControl.hasError('required')">
@@ -11,6 +12,10 @@
     <mat-error *ngIf="descFormControl.hasError('required')">
       A description is <strong>required</strong>
     </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput name="location" placeholder="Location" [formControl]="locationFormControl" (change)="changeLocationValue($event)">
   </mat-form-field>
 
   <div id="image-upload">

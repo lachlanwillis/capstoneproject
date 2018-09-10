@@ -17,6 +17,7 @@ export class BrowseImagesComponent implements OnInit {
   @Input() mine: boolean;
   @ViewChild('deleteImage') modal: TemplateRef<any>;
   @ViewChild('updateImage') update: TemplateRef<any>;
+  @ViewChild('imageDetailView') detail: TemplateRef<any>;
 
   images: Image[] = [];
 
@@ -41,6 +42,13 @@ export class BrowseImagesComponent implements OnInit {
             .subscribe(() => this.ngOnInit());
         }
       });
+  }
+
+  imageClick(image: Image): void {
+    this.selectedImage = image;
+    this.dialog.open(this.detail)
+      .afterClosed()
+      .subscribe(() => {});
   }
 
   editMyImage(image: Image): void {

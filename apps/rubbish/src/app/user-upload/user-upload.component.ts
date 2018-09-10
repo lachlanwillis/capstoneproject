@@ -34,6 +34,7 @@ export class UserUploadComponent {
     ) { }
   currentTitle: string = null;
   currentDescription = null;
+  currentLocation?: string;
   currentFile = null;
   localImage: any[];
 
@@ -43,6 +44,8 @@ export class UserUploadComponent {
   titleFormControl = new FormControl('', [
     Validators.required,
   ]);
+
+  locationFormControl = new FormControl('');
 
   descFormControl = new FormControl('', [
     Validators.required,
@@ -71,11 +74,16 @@ export class UserUploadComponent {
     this.currentDescription = event.target.value;
   }
 
+  changeLocationValue(event): void {
+    this.currentLocation = event.target.value;
+  }
+
   onUploadFile() {
     const fd = new FormData();
     fd.append('image', this.currentFile, this.currentFile.name);
     fd.set("title", this.currentTitle);
     fd.set("description", this.currentDescription);
+    fd.set("location", this.currentLocation || '');
 
     this.image.uploadImage(fd)
       .subscribe(res => {

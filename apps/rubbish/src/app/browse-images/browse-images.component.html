@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="image-cont-row">
-      <div class="small medium large image-container" *ngFor="let image of images | slice:((page-1)*pageSize):(page*pageSize)">
+      <div (click)="!mine && imageClick(image)" class="small medium large image-container" *ngFor="let image of images | slice:((page-1)*pageSize):(page*pageSize)">
         <div class="image-single">
           <div *ngIf="mine"class="delete-icon-container">
             <button mat-icon-button class="edit-btn" (click)="editMyImage(image)">
@@ -53,4 +53,21 @@
       <button mat-button mat-dialog-close>Close</button>
       <button mat-raised-button color="primary" [mat-dialog-close]="true">Update</button>
     </mat-dialog-actions>
+</ng-template>
+
+<ng-template #imageDetailView>
+  <div class="detail-container">
+    <h1 class="title" mat-dialog-title>{{ selectedImage.title }}</h1>
+    <h3>Points: {{ selectedImage.detections.length }}</h3>
+    <p>{{ selectedImage.description }}</p>
+    <p *ngIf="selectedImage.name">
+      <span *ngIf="selectedImage.name">Author: {{ selectedImage.name }}</span>&nbsp;
+      <span *ngIf="selectedImage.place">Location: {{ selectedImage.place }}</span>
+    </p>
+    <img [src]="'/assets/' + selectedImage.fileName" />
+  </div>
+
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
 </ng-template>
