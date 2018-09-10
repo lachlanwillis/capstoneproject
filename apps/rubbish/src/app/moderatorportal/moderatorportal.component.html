@@ -13,35 +13,12 @@
               </p>
   
               <div class="image-list">
-                <mat-form-field>
-                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-                </mat-form-field>
-  
-                <mat-table #table [dataSource]="dataSource" matSort>
-  
-                  <!-- Title Column -->
-                  <ng-container matColumnDef="title">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
-                  </ng-container>
-              
-                  <!-- Image Column -->
-                  <ng-container matColumnDef="url">
-                    <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.url}} </mat-cell>
-                  </ng-container>
-  
-                  <!-- Delete Column -->
-                  <ng-container matColumnDef="delete">
-                    <mat-header-cell *matHeaderCellDef> Delete? </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> <button class="delete-btn" mat-icon-button (click)="onDeleteClicked(element)"><i class="material-icons">delete</i></button> </mat-cell>
-                  </ng-container>
-              
-                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
-  
-                <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>
+
+                <app-delete-image-grid 
+                  [images]="allImages | async"
+                  (delete)="onDeleteClicked($event)"
+                  ></app-delete-image-grid>
+
               </div>
             </div>
           </mat-tab>
