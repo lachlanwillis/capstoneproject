@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { ImageService } from '../images/image.service';
 import { AdminService } from './admin.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-moderatorportal',
@@ -15,9 +16,7 @@ export class ModeratorportalComponent implements OnInit, AfterViewInit {
   elementData = [];
   dataSource = new MatTableDataSource<Element>(this.elementData);
 
-  flaggedColumns = ['title', 'url', 'delete', 'accept'];
-  flaggedData = [];
-  flaggedSource = new MatTableDataSource<Element>(this.flaggedData);
+  flaggedData = new BehaviorSubject([]);
 
   userAccountColumns: string[] = ['userid', 'name', 'email', 'admin', 'remove'];
   userAccountSource = new MatTableDataSource<UserAccountElement>([]);
@@ -32,7 +31,8 @@ export class ModeratorportalComponent implements OnInit, AfterViewInit {
   constructor(
     private readonly image: ImageService,
     private readonly dialog: MatDialog,
-    private readonly admin: AdminService
+    private readonly admin: AdminService,
+    private readonly cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -63,8 +63,13 @@ export class ModeratorportalComponent implements OnInit, AfterViewInit {
   }
 
   fetchFlaggedImages() {
-    this.image.getFlaggedImages().subscribe((images: any[]) =>
-      this.flaggedSource = new MatTableDataSource<any>(images.map(i => { return { title: i.title, id: i._id, url: i.location } })));
+
+    console.log('fetching')
+
+    this.image.getFlaggedImages().subscribe((a) => {
+      this.flaggedData.next(a);
+      this.cd.detectChanges();
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -98,25 +103,6 @@ export class ModeratorportalComponent implements OnInit, AfterViewInit {
         }
       });
   }
-
-  onFlaggedDeleteClicked(row) {
-    this.image.deleteImage(row.id)
-      .subscribe((value: any) => {
-        if (value.success) {
-          this.fetchFlaggedImages();
-        }
-      });
-  }
-
-  onFlaggedAcceptClicked(row) {
-    this.image.acceptFlaggedImages(row.id)
-      .subscribe((value: any) => {
-        if (value.success) {
-          this.fetchFlaggedImages();
-        }
-      });
-  }
-
 
 }
 
