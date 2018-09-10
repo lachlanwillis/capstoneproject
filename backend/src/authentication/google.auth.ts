@@ -16,6 +16,7 @@ export const GoogleAuth = new Strategy({
                     name: profile.displayName,
                     email: (profile.emails) ? (profile.emails[0]) ? profile.emails[0].value : '' : ''
                 };
+                user.verified = true;
                 return user.save()
                     .then(() => user);
             } else {
