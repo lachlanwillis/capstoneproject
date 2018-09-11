@@ -1,0 +1,23 @@
+<div class="col-sm-12">
+    <div class="image-cont-row">
+      <div class="small medium large image-container" *ngFor="let image of images">
+        <div class="image-single">
+          <div *ngIf="true" class="delete-icon-container">
+            <div class="buttons">
+              <button mat-icon-button class="delete-btn" (click)="delete.emit(image)">
+                <i class="material-icons">delete</i>
+              </button>
+            </div>
+            <div class="row">
+              <h3>Title: {{ image.title }}</h3>
+            </div>
+            <div class="row">
+              <p>Author: {{ image.name }} </p>
+              <p>Location: {{ image.place }} </p>
+            </div>
+          </div>
+          <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
+        </div>
+      </div>
+    </div>
+  </div>

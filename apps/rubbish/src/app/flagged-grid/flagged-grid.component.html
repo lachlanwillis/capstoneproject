@@ -1,0 +1,17 @@
+<div class="col-sm-12">
+    <div class="image-cont-row">
+      <div class="small medium large image-container" *ngFor="let image of images">
+        <div class="image-single">
+          <div *ngIf="true" class="delete-icon-container">
+            <button mat-icon-button class="edit-btn" (click)="this.onFlaggedAcceptClicked(image)">
+              <i class="material-icons">check</i>
+            </button>
+            <button mat-icon-button class="delete-btn" (click)="this.onFlaggedDeleteClicked(image)">
+              <i class="material-icons">close</i>
+            </button>
+          </div>
+          <image [src]="'/assets/' + image.fileName" [dets]="image.detections"></image>
+        </div>
+      </div>
+    </div>
+  </div>

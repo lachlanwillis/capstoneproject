@@ -1,0 +1,104 @@
+/* Browse image css */
+
+:host {
+  .delete-icon-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    padding-left: 30px;
+    z-index: 200;
+    opacity: 0;
+    transition: opacity 0.2s;
+    background: rgba(white, 0.9);
+
+    button {
+      outline: none;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+  }
+}
+
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 80vw;
+
+  max-width: 500px;
+
+  img {
+    width: auto;
+    height: auto;
+    max-width: 500px;
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+
+}
+
+.image-single {
+  height: 100%;
+  position: relative;
+  border: 2px solid #333;
+}
+
+.image-cont-row {
+  text-align: center;
+}
+
+.image-container {
+  height: 300px;
+  width: 300px;
+  padding: 15px;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 330px) {
+  .image-container {
+    width: 100%;
+  }
+}
+
+mat-dialog-content {
+  mat-form-field {
+    display: block;
+  }
+}
+
+ngb-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-btn {
+  color: #999;
+  transition: all 0.2s;
+
+  &:hover {
+    color: #282828;
+  }
+}
+
+.delete-btn {
+  color: #d3434a;
+  transition: all 0.2s;
+
+  &:hover {
+    color: #b42a30;
+  }
+}
