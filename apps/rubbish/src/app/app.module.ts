@@ -35,6 +35,8 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 import { MessageModeratorComponent } from './message-moderator/message-moderator.component';
 import { FlaggedGridComponent } from './flagged-grid/flagged-grid.component';
 import { DeleteImageGridComponent } from './delete-image-grid/delete-image-grid.component';
+import { AccountStatsComponent } from './account-stats/account-stats.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'Waterway Litter', home: true } },
@@ -93,7 +95,9 @@ const routes: Routes = [
     PasswordResetComponent,
     MessageModeratorComponent,
     FlaggedGridComponent,
-    DeleteImageGridComponent
+    DeleteImageGridComponent,
+    AccountStatsComponent
+
   ],
   imports: [
     BrowserModule,

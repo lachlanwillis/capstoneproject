@@ -33,3 +33,8 @@
     padding: 0px;
   }
 }
+
+.postcode-btn {
+  display: block;
+  width: 100px;
+}

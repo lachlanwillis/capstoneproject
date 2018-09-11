@@ -6,77 +6,11 @@
       <mat-card-content>
         <mat-tab-group>
 
-          <mat-tab label="Postcode">
-            <!--POSTCODE LEADERBOARD-->
-            <div class="tab-content">
-              <p>Please enter a postcode to view the leaderboards:<br /></p>
-              <mat-form-field>
-                <input matInput [(ngModel)]="postcodeText" #postalCode maxlength="4" placeholder="Please enter postcode" />
-                <button mat-flat-button (click)="fetchPostcode()">Select</button>
-
-                <mat-table #table [dataSource]="leaderboardPostcodeSource" matSort>
-
-                  <!--Name Column-->
-                  <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
-                  </ng-container>
-
-                  <!--Score Column-->
-                  <ng-container matColumnDef="points">
-                    <mat-header-cell *matHeaderCellDef>Points</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element.points}}</mat-cell>
-                  </ng-container>
-
-                  <mat-header-row *matHeaderRowDef="leaderboardDisplayColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: leaderboardDisplayColumns;"></mat-row>
-                </mat-table>
-
-              </mat-form-field>
-            </div>
-          </mat-tab>
-
-
-          <mat-tab label="State">
-            <!--STATE LEADERBOARD-->
-            <div class="tab-content">
-              <p>
-                Please select a state: <br />
-                <mat-form-field>
-                  <mat-select (selectionChange)="fetchState($event)" placeholder="Select State">
-                    <mat-option *ngFor="let state of states" [value]="state.value">
-                      {{state.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </p>
-
-              <mat-table #table [dataSource]="leaderboardStateSource" matSort>
-
-                <!--Name Column-->
-                <ng-container matColumnDef="name">
-                  <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-                  <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
-                </ng-container>
-
-                <!--Score Column-->
-                <ng-container matColumnDef="points">
-                  <mat-header-cell *matHeaderCellDef>Points</mat-header-cell>
-                  <mat-cell *matCellDef="let element">{{element.points}}</mat-cell>
-                </ng-container>
-
-                <mat-header-row *matHeaderRowDef="leaderboardDisplayColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: leaderboardDisplayColumns;"></mat-row>
-              </mat-table>
-
-
-            </div>
-          </mat-tab>
-
-
           <mat-tab label="National">
             <!--ALL OF AUSTRALIA LEADERBOARD-->
             <div class="tab-content">
+              <p>Below is the current national ranking for the Waterway Litter application Get on out there and raise your points!</p>
+              <hr>
 
               <mat-table #table [dataSource]="leaderboardSource" matSort>
 
@@ -95,14 +29,98 @@
                 <mat-header-row *matHeaderRowDef="leaderboardDisplayColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: leaderboardDisplayColumns;"></mat-row>
               </mat-table>
-
-
             </div>
           </mat-tab>
 
+          <mat-tab label="Rank by: State">
+            <!--STATE LEADERBOARD-->
+            <div class="tab-content">
+              <p>Use the input below to rank the leaderboard by state.</p>
+              <p>Please select a state:</p>
+              <mat-form-field>
+                <mat-select (selectionChange)="fetchState($event)" placeholder="Select State">
+                  <mat-option *ngFor="let state of states" [value]="state.value">
+                    {{state.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <hr>
+
+              <mat-table #table [dataSource]="leaderboardStateSource" matSort>
+
+                <!--Name Column-->
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+                </ng-container>
+
+                <!--Score Column-->
+                <ng-container matColumnDef="points">
+                  <mat-header-cell *matHeaderCellDef>Points</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.points}}</mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="leaderboardDisplayColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: leaderboardDisplayColumns;"></mat-row>
+              </mat-table>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Rank by: Postcode">
+            <!--POSTCODE LEADERBOARD-->
+            <div class="tab-content">
+              <p>Use the input below to rank the leaderboard by postcode/suburb.</p>
+              <p>Please enter a postcode to view the leaderboards:</p>
+              <mat-form-field>
+                <input matInput [(ngModel)]="postcodeText" #postalCode maxlength="4" placeholder="Please enter postcode" />
+              </mat-form-field>
+              <button class="btn btn-primary submit-btn postcode-btn" (click)="fetchPostcode()">Select</button>
+              <hr>
+
+              <mat-table #table [dataSource]="leaderboardPostcodeSource" matSort>
+
+                <!--Name Column-->
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+                </ng-container>
+
+                <!--Score Column-->
+                <ng-container matColumnDef="points">
+                  <mat-header-cell *matHeaderCellDef>Points</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{element.points}}</mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="leaderboardDisplayColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: leaderboardDisplayColumns;"></mat-row>
+              </mat-table>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Leaderboard Info">
+            <!--LEADERBOARD INFO-->
+            <div class="tab-content">
+              <p>Hi there,</p>
+              <p>
+                We have created a leaderboard and points ranking system in order to reward you for your efforts of finding rubbish in your local waterways.
+                The leaderboard system has the ability to rank by state, postcode or just list the results nationally.
+              </p>
+              <p>
+                It works by giving you a number of points based on the number of pieces of rubbish our trained neural network finds in your images.
+                By allowing geolocation through the site, we can then use this information to set your postcode so that you can rank your account against other suburbs.
+                Use the tabs at the top of this box to view the current rankings by the Nation, State or Suburb.
+              </p>
+              <p>
+                We have also implemented a levelling up feature, so by reaching a certain number of points you will automatically rank up.
+                So get on out there and start uploading rubbish in your local waterway and start collecting points to rival your friends and family!
+              </p>
+              <p>
+                <i>Note: you can remove yourself from the leaderboard by going to your account settings and opting out.</i>
+              </p>
+              <p>~ The Waterway Litter Team</p>
+            </div>
+          </mat-tab>
         </mat-tab-group>
-        
-        
       </mat-card-content>
     </mat-card>
   </div>
