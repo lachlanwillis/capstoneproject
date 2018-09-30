@@ -3,6 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
+import { MatProgressBarModule } from '@angular/material/progress-bar'
 
 @Component({
   selector: 'app-nav',
@@ -13,6 +14,8 @@ export class NavComponent implements OnDestroy {
 
   loggedIn = false;
   admin = false;
+  currentRank: number;
+  xpNext: number;
 
   isNavbarCollapsed = true;
 
@@ -45,8 +48,35 @@ export class NavComponent implements OnDestroy {
         .subscribe(() => this.router.navigateByUrl('/'));
     }
 
+
+    getCurrentLevel() {
+      if (this.loggedIn == false) {
+        this.auth.getCurrentUser().subscribe(user => {
+          if (user.points < 10) {
+            this.currentRank = 1
+          } else {
+            // This bit determines the user's rank - current: sqrt(points/10)
+            this.currentRank = Math.floor(Math.pow(parseFloat(user.points) / 10.0, 0.5)) + 1;
+          }
+
+          
+          this.xpNext = (((this.currentRank) * (this.currentRank)) * 10) - user.points;
+          console.log(this.xpNext);
+        });
+      }
+      
+    }
+
     ngOnDestroy() {
       this.loggedSub.unsubscribe();
       this.adminSub.unsubscribe();
     }
+
+    ngOnChanges() {
+      this.getCurrentLevel();
+    }
+    ngOnInit() {
+      this.getCurrentLevel();
+    }
+
 }
