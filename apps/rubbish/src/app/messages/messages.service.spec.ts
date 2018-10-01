@@ -1,10 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { MessagesService } from './messages.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MessagesService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       providers: [MessagesService]
     });
   });

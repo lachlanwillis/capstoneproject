@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MessageHubComponent } from './message-hub.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MaterialModule } from '../material/material.module';
+import { MESSAGES_SERVICE_STUB_PROVIDER } from '../messages/messages.service.stub';
 
 describe('MessageHubComponent', () => {
   let component: MessageHubComponent;
@@ -8,7 +11,10 @@ describe('MessageHubComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageHubComponent ]
+      imports: [ MaterialModule ],
+      declarations: [ MessageHubComponent ],
+      providers: [ MESSAGES_SERVICE_STUB_PROVIDER ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));

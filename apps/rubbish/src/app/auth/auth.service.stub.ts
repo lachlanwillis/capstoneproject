@@ -10,6 +10,8 @@ export class AuthStub {
     isLoggedIn = jasmine.createSpy('isLoggedIn').and.callFake(() => of([true]));
     isAdmin = jasmine.createSpy('isAdmin').and.callFake(() => of([true]));
     loginChanged = jasmine.createSpy('loginChanged').and.callFake(() => of());
+    getUsers = jasmine.createSpy('getUsers').and.returnValue(of());
+    getCurrentUser = jasmine.createSpy('getCurrentUser').and.returnValue(of());
 }
 
 export const AUTH_SERVICE_STUB_PROVIDER = {

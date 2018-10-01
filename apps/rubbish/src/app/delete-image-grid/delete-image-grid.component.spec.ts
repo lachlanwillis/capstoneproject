@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeleteImageGridComponent } from './delete-image-grid.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DeleteImageGridComponent', () => {
   let component: DeleteImageGridComponent;
@@ -8,7 +9,8 @@ describe('DeleteImageGridComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteImageGridComponent ]
+      declarations: [ DeleteImageGridComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));
