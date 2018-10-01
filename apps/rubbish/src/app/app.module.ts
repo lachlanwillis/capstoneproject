@@ -36,6 +36,7 @@ import { MessageModeratorComponent } from './message-moderator/message-moderator
 import { FlaggedGridComponent } from './flagged-grid/flagged-grid.component';
 import { DeleteImageGridComponent } from './delete-image-grid/delete-image-grid.component';
 import { AccountStatsComponent } from './account-stats/account-stats.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 const routes: Routes = [
@@ -67,6 +68,15 @@ const routes: Routes = [
     path: 'leaderboard',
     component: LeaderboardComponent,
     data: { title: 'Leaderboard' }
+  },
+  {
+    path: 'statistics',
+    loadChildren: './statistics/statistics.module#StatisticsModule',
+    data: { title: 'Rubbish Statistics'}
+  }, 
+  {
+    path: '**',
+    redirectTo: '/'
   }
 ];
 
@@ -96,8 +106,7 @@ const routes: Routes = [
     MessageModeratorComponent,
     FlaggedGridComponent,
     DeleteImageGridComponent,
-    AccountStatsComponent
-
+    AccountStatsComponent,
   ],
   imports: [
     BrowserModule,

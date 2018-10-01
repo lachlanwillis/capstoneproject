@@ -1,0 +1,22 @@
+
+<div class="numbers">
+  <div class="heading">Pieces of rubbish seen</div> 
+  {{ sumList(pieChartData$ | async) }}
+</div>
+<div class="heading">
+  Distribution
+</div>
+<div class="stats">
+  <canvas *ngIf="(pieChartLabels$ | async).length > 1" baseChart
+          [data]="pieChartData$ | async"
+          [labels]="pieChartLabels$ | async"
+          chartType="pie"
+        ></canvas>
+</div>
+
+<div class="heading">
+  Highest Ranked State
+</div>
+<div class="numbers">
+  {{ findBestRankedState(stateStats$ | async).name }} with {{ findBestRankedState(stateStats$ | async).points }} points
+</div>
