@@ -11,7 +11,7 @@ describe("AccountStatsComponent", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AccountStatsComponent],
-      providers: [IMAGE_SERVICE_STUB_PROVIDER],
+      providers: [IMAGE_SERVICE_STUB_PROVIDER, AUTH_SERVICE_STUB_PROVIDER],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));

@@ -24,6 +24,7 @@ export class StatisticsComponent implements OnInit {
         console.log(Object.keys(x));
         this.pieChartLabels$.next(Object.keys(x));
         this.pieChartData$.next(Object.keys(x).map(a => x[a]));
+        console.log(Object.keys(x));
       });
 
 
@@ -36,6 +37,11 @@ export class StatisticsComponent implements OnInit {
   }
 
   findBestRankedState(states: { [k: string]: number }): { name: string, points: number } {
+
+    if (!states) {
+      return { name: 'QLD', points: 0 };
+    }
+
     return Object.keys(states)
       .reduce((acc, a) => 
         (acc.points < states[a]) ? { name: a, points: states[a] } : acc

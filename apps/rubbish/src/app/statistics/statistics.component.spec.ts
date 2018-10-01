@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StatisticsComponent } from './statistics.component';
+import { STAT_DATA_SERVICE_STUB_PROVIDER } from './stat-data.service.stub';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChartsModule } from 'ng2-charts';
 
 describe('StatisticsComponent', () => {
   let component: StatisticsComponent;
@@ -8,7 +11,9 @@ describe('StatisticsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StatisticsComponent ]
+      declarations: [ StatisticsComponent ],
+      providers: [ STAT_DATA_SERVICE_STUB_PROVIDER ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));
