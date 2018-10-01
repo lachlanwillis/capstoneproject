@@ -1,0 +1,26 @@
+:host {
+
+    display: block;
+    padding-top: 32px;
+    padding-bottom: 64px;
+    
+    .heading {
+        margin-top: 32px;
+        font-size: 22px;
+        font-weight: normal;
+        text-align: center;
+    }
+
+    .numbers {
+        text-align: center;
+        font-weight: bold;
+        font-size: 32px;
+    }
+
+    .stats {
+        margin: 48px auto;
+        margin-top: 12px;
+        max-width: 800px;
+    }
+
+}
