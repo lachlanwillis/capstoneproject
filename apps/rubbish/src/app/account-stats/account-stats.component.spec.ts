@@ -1,16 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { AccountStatsComponent } from "./account-stats.component";
+import { AUTH_SERVICE_STUB_PROVIDER } from "../auth/auth.service.stub";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { IMAGE_SERVICE_STUB_PROVIDER } from "../images/image.service.stub";
 
-import { AccountStatsComponent } from './account-stats.component';
-
-describe('AccountStatsComponent', () => {
+describe("AccountStatsComponent", () => {
   let component: AccountStatsComponent;
   let fixture: ComponentFixture<AccountStatsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccountStatsComponent ]
-    })
-    .compileComponents();
+      declarations: [AccountStatsComponent],
+      providers: [IMAGE_SERVICE_STUB_PROVIDER],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +22,7 @@ describe('AccountStatsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
