@@ -5,11 +5,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './userportal.component.html',
   styleUrls: ['./userportal.component.css']
 })
-export class UserportalComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class UserportalComponent {}

@@ -2,8 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MaterialModule } from './material/material.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -36,6 +34,7 @@ import { MessageModeratorComponent } from './message-moderator/message-moderator
 import { FlaggedGridComponent } from './flagged-grid/flagged-grid.component';
 import { DeleteImageGridComponent } from './delete-image-grid/delete-image-grid.component';
 import { AccountStatsComponent } from './account-stats/account-stats.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 const routes: Routes = [
@@ -67,6 +66,15 @@ const routes: Routes = [
     path: 'leaderboard',
     component: LeaderboardComponent,
     data: { title: 'Leaderboard' }
+  },
+  {
+    path: 'statistics',
+    loadChildren: './statistics/statistics.module#StatisticsModule',
+    data: { title: 'Rubbish Statistics'}
+  }, 
+  {
+    path: '**',
+    redirectTo: '/'
   }
 ];
 
@@ -96,8 +104,7 @@ const routes: Routes = [
     MessageModeratorComponent,
     FlaggedGridComponent,
     DeleteImageGridComponent,
-    AccountStatsComponent
-
+    AccountStatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,10 +115,6 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    MatSelectModule,
-    MatCheckboxModule
-    
-    
   ],
   providers: [
     AuthService,

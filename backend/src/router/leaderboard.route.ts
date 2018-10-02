@@ -1,6 +1,5 @@
 import { RequestHandler } from 'express';
 import { User } from '../models';
-import { IsUserAdmin } from './users.route';
 
 export const GetLeaderboardHandler: RequestHandler = (req, res) => {
 

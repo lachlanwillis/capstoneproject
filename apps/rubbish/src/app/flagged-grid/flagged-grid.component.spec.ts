@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FlaggedGridComponent } from './flagged-grid.component';
+import { IMAGE_SERVICE_STUB_PROVIDER } from '../images/image.service.stub';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('FlaggedGridComponent', () => {
   let component: FlaggedGridComponent;
@@ -8,7 +10,9 @@ describe('FlaggedGridComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlaggedGridComponent ]
+      declarations: [ FlaggedGridComponent ],
+      providers: [ IMAGE_SERVICE_STUB_PROVIDER ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));

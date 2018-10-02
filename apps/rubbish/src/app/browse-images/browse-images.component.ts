@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, take } from 'rxjs/operators';
 import { ImageService } from '../images/image.service';
 import { Image } from '../image/image';
 import { MatDialog } from '@angular/material';

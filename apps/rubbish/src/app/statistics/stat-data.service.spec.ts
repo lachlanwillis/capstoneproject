@@ -1,17 +1,18 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { MessagesService } from './messages.service';
+import { StatDataService } from './stat-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('MessagesService', () => {
+describe('StatDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
-      providers: [MessagesService]
+      providers: [StatDataService]
     });
   });
 
-  it('should be created', inject([MessagesService], (service: MessagesService) => {
+  it('should be created', inject([StatDataService], (service: StatDataService) => {
     expect(service).toBeTruthy();
   }));
 });

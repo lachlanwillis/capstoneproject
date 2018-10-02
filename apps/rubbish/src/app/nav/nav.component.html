@@ -11,6 +11,9 @@
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/">Home</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/statistics">Stats</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/browse-public">Images</a>
       </li>
       <li class="nav-item">
@@ -34,8 +37,5 @@
         <a class="nav-link login-btns" *ngIf="loggedIn" (click)="logout(); isNavbarCollapsed = !isNavbarCollapsed"><i class="fas fa-user mobile-hide"></i> Logout</a>
       </li>
     </ul>
-
   </div>
-  
 </nav>
-

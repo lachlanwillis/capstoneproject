@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild, Input, TemplateRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
-
-import { HttpClient } from '@angular/common/http';
-import { map, take } from 'rxjs/operators';
 import { MessagesService } from '../messages/messages.service';
 import { MessageElement } from './message';
 
@@ -25,8 +22,7 @@ export class MessageHubComponent implements OnInit {
   messages: MessageElement[] = [];
 
   constructor(
-    private readonly message: MessagesService,
-    private readonly dialog: MatDialog
+    private readonly message: MessagesService
   ) { }
 
   ngOnInit() {
