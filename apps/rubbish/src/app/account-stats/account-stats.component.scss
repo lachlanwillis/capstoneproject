@@ -10,3 +10,13 @@
   text-align: center;
   border-radius: 5px;
 }
+
+.stats-overlay {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -57.5%);
+  font-size: 175px;
+  font-weight: 600;
+}
