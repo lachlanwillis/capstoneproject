@@ -97,3 +97,23 @@ nav {
     margin-right: 22px;
   }
 }
+
+.rank-info {
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 400 !important;
+
+  padding: 0px;
+  padding-left: 1rem !important;
+  line-height: 40px;
+}
+
+.rank-info:hover {
+  background-color: #007bff!important;
+}
+
+.nav-divider {
+  border-right: 3px solid #0068d8;
+  height: 40px;
+  padding-left: 0.5rem;
+}

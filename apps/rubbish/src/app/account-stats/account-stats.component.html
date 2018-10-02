@@ -2,7 +2,28 @@
   This is your account stats page. Below you can see your account rank, total number of images uploaded, the total number of rubbish detected, and ranking information.
 </p>
 
-<p class="account-stats-info">Current Points: {{user?.points}}</p>
-<p class="account-stats-info">Current Rank: {{currentRank}}</p>
-<p class="account-stats-info">Total images uploaded: {{totalImages}}</p>
-<p class="account-stats-info">Total rubbish detected: {{totalDetections}}</p>
+<ul>
+  <li>Your <strong>Current Rank</strong> is calculated based upon the number of points you have collected.</li>
+  <li>Your <strong>Total Points</strong> is the total sum of all your collected points.</li>
+  <li>Your <strong>Total Images</strong> is the total sum of all your uploaded images (flagged orm otherwise).</li>
+  <li>Your <strong>Total Rubbish</strong> is the caluclation of all rubbish detected by our systems.</li>
+</ul>
+
+<div class="row">
+  <div class="col-sm-6 col-lg-3">
+    <img src="/assets/images/current-rank.jpg" width="100%" />
+    <div class="stats-overlay">{{currentRank}}</div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <img src="/assets/images/total-points.jpg" width="100%" />
+    <div class="stats-overlay">{{user?.points}}</div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <img src="/assets/images/total-photos.jpg" width="100%" />
+    <div class="stats-overlay">{{totalImages}}</div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <img src="/assets/images/total-rubbish.jpg" width="100%" />
+    <div class="stats-overlay">{{totalDetections}}</div>
+  </div>
+</div>

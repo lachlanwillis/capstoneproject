@@ -26,11 +26,9 @@
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/moderatorportal">Admin Portal</a>
       </li>
 
-      <!--This displays the rank and points to next level-->
-      <li class="nav-item" *ngIf="loggedIn">
-        <a>Rank: {{currentRank}}</a>
-        <p>Points to next rank: {{xpNext}}</p>
-      </li>
+      <span class="nav-divider"></span>
+
+      <span class="nav-link rank-info" *ngIf="loggedIn">Rank: {{currentRank}} | Points to next rank: {{xpNext}}</span>
 
       <li class="nav-item pull-right">
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" *ngIf="!loggedIn" routerLink="/login"><i class="fas fa-user mobile-hide"></i> Login</a>
