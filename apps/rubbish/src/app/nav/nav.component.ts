@@ -10,11 +10,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
+
+
 export class NavComponent implements OnDestroy {
 
   loggedIn = false;
   admin = false;
   currentRank: number;
+  username: string;
   xpNext: number;
 
   isNavbarCollapsed = true;
@@ -52,6 +55,7 @@ export class NavComponent implements OnDestroy {
     getCurrentLevel() {
       if (this.loggedIn == false) {
         this.auth.getCurrentUser().subscribe(user => {
+          this.username = user.name;
           if (user.points < 10) {
             this.currentRank = 1
           } else {
@@ -78,5 +82,9 @@ export class NavComponent implements OnDestroy {
     ngOnInit() {
       this.getCurrentLevel();
     }
+
+}
+
+export class NgdbDropdownManual {
 
 }
