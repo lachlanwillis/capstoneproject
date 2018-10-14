@@ -11,19 +11,13 @@
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/statistics">Stats</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/browse-public">Latest Submissons</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/leaderboard">Leaderboard</a>
       </li>
-      <li class="nav-item" *ngIf="loggedIn">
-        <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/userportal">User Portal</a>
-      </li>
-      <li class="nav-item" *ngIf="admin">
-        <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/moderatorportal">Admin Portal</a>
+      <li class="nav-item">
+        <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/statistics">Statistics</a>
       </li>
 
       <span class="nav-divider"></span>
@@ -32,15 +26,18 @@
 
       <li class="nav-item pull-right">
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" *ngIf="!loggedIn" routerLink="/login"><i class="fas fa-user mobile-hide"></i> Login</a>
+      </li>
 
+      <li *ngIf="loggedIn" class="nav-item pull-right">
         <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
           <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">{{username}}</button>
           <div ngbDropdownMenu aria-labelledby="dropdownManual" class="nav-dropdown">
-            <a class="nav-link login-btns" *ngIf="loggedIn" (click)="logout(); isNavbarCollapsed = !isNavbarCollapsed"><i class="fas fa-user mobile-hide"></i>Logout</a>
+            <a class="nav-link login-btns" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/userportal" ><i class="fas fa-user mobile-hide"></i> My Profile</a>
+            <a class="nav-link login-btns" (click)="isNavbarCollapsed = !isNavbarCollapsed" *ngIf="admin" routerLink="/moderatorportal" ><i class="fas fa-toolbox mobile-hide"></i> Admin Portal</a>
+            <a class="nav-link login-btns" (click)="logout(); isNavbarCollapsed = !isNavbarCollapsed"><i class="fas fa-sign-out-alt mobile-hide"></i> Logout</a>
           </div>
-          </div>
-        
-</li>
+        </div>
+      </li>
     </ul>
   </div>
 </nav>
