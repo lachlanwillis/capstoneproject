@@ -14,7 +14,7 @@
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/statistics">Stats</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/browse-public">Images</a>
+        <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/browse-public">Latest Submissons</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" routerLink="/leaderboard">Leaderboard</a>
@@ -32,8 +32,15 @@
 
       <li class="nav-item pull-right">
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" *ngIf="!loggedIn" routerLink="/login"><i class="fas fa-user mobile-hide"></i> Login</a>
-        <a class="nav-link login-btns" *ngIf="loggedIn" (click)="logout(); isNavbarCollapsed = !isNavbarCollapsed"><i class="fas fa-user mobile-hide"></i> Logout</a>
-      </li>
+
+        <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+          <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">{{username}}</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownManual" class="nav-dropdown">
+            <a class="nav-link login-btns" *ngIf="loggedIn" (click)="logout(); isNavbarCollapsed = !isNavbarCollapsed"><i class="fas fa-user mobile-hide"></i>Logout</a>
+          </div>
+          </div>
+        
+</li>
     </ul>
   </div>
 </nav>
