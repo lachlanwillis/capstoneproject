@@ -35,9 +35,9 @@ export const GetLeaderboardHandler: RequestHandler = (req, res) => {
         }
     ) 
     .then(users => {
-        res.json((users || []).map(({ google, facebook, points, email }) => ({
+        res.json((users || []).map(({ google, facebook, points, email, name }) => ({
             points,
-            name: email || (google ? google.name : '') || (facebook ? facebook.name : '')
+            name: name || email.split('@')[0] || (google ? google.name : '') || (facebook ? facebook.name : '')
         })));
     })
     .catch(err => res.status(500).json(err));
