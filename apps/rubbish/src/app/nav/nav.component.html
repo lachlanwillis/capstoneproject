@@ -22,7 +22,7 @@
 
       <span class="nav-divider"></span>
 
-      <span class="nav-link rank-info" *ngIf="loggedIn">Rank: {{currentRank}} | Points to next rank: {{xpNext}}</span>
+      <span class="nav-link rank-info" *ngIf="loggedIn">Level: {{currentRank}} | Points to next level: {{xpNext}}</span>
 
       <li class="nav-item pull-right">
         <a class="nav-link" (click)="isNavbarCollapsed = !isNavbarCollapsed" *ngIf="!loggedIn" routerLink="/login"><i class="fas fa-user mobile-hide"></i> Login</a>
