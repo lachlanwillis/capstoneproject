@@ -1,4 +1,14 @@
 # capstoneproject
+
+## Deploying the App
+
+1. Run the `create-build.sh` script. This will create a directory called `build`. 
+
+2. Navigate to the build directory and issue the command `docker-compose up`
+
+3. That's it!
+
+
 ## Requirements
 
 - Node
@@ -60,4 +70,3 @@ const routes: Route = [
 
 4. Edit the HTML and CSS inside of your component folder and prosper.
 
-THENKS!

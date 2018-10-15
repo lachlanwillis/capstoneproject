@@ -66,6 +66,8 @@ export class ModeratorportalComponent implements OnInit, AfterViewInit {
       .subscribe(users => (this.userAccountSource = new MatTableDataSource(users.map(user => ({ userid: user._id, ...user })))));
   }
 
+  applyFilter(event: any): void {}
+
   fetchFlaggedImages() {
 
     console.log('fetching')

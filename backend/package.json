@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "start": "tsc && node ./bin/www",
+    "start:prod": "node ./bin/www",
     "start:watch": "tsc --watch & nodemon ./bin/www"
   },
   "author": "",
@@ -34,7 +35,8 @@
     "passport-strategy": "^1.0.0",
     "path": "^0.12.7",
     "request": "^2.88.0",
-    "rxjs": "^6.2.0"
+    "rxjs": "^6.2.0",
+    "typescript": "2.6.2"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
