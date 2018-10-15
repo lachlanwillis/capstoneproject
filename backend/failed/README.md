@@ -1,0 +1,1 @@
+# Folder of failed images
