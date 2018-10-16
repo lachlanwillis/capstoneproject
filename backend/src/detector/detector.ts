@@ -2,6 +2,9 @@ import { Darknet, Detection } from 'darknet';
 import { Subject, Observable, zip } from 'rxjs';
 import { names } from './names';
 
+import * as fs from 'fs';
+import { join } from 'path';
+
 const config = {
     weights: 'bin/rubbish.weights',
     config: "bin/rubbish.cfg",
@@ -41,6 +44,12 @@ export class Detector {
             .subscribe(x => {
                 this.darknet.detectAsync(x[0].image)
                     .then(dets => {
+
+                        if (dets.length <= 0) {
+                            fs.createReadStream(x[0].image).pipe(fs.createWriteStream(join(__dirname, '../../', 'failed', x[0].image.split('/').pop() )));
+                        }
+
+
                         this.completion$.next();
                         this.detection$.next({
                             id: x[0].id,
