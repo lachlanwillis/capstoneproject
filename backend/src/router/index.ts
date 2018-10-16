@@ -35,7 +35,7 @@ import {
 import { GetLeaderboardHandler } from "./leaderboard.route";
 import { authentication as auth } from "../authentication";
 import { ensureAdmin, ensureLoggedIn } from "../middleware/ensureLogin";
-import { RubbishDistributionHandler } from './stats.route';
+import { RubbishDistributionHandler, ContributersStats } from './stats.route';
 
 // This is just a work in progress. We need to decide where we will be
 // storing all the image files that get uploaded.
@@ -136,5 +136,6 @@ Router
 
   // STATS ROUTES //
   .get('/api/stats/dist', RubbishDistributionHandler)
+  .get('/api/stats/users', ContributersStats)
 
   ;

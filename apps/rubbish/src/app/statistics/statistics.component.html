@@ -1,3 +1,7 @@
+<div class="numbers">
+  <div class="heading">Number of contributors</div> 
+  {{ users$ | async }}
+</div>
 
 <div class="numbers">
   <div class="heading">Pieces of rubbish seen</div> 
@@ -17,6 +21,8 @@
 <div class="heading">
   Highest Ranked State
 </div>
+
 <div class="numbers">
   {{ findBestRankedState(stateStats$ | async).name }} with {{ findBestRankedState(stateStats$ | async).points }} points
 </div>
+

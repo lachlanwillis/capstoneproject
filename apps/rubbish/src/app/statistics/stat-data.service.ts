@@ -9,6 +9,10 @@ export class StatDataService {
     return this.http.get<any>("/api/stats/dist");
   }
 
+  getUserStats(): Observable<{ users: number }> {
+    return this.http.get<any>('/api/stats/users');
+  }
+
   getStateRankings(): Observable<{ [key: string]: number }> {
     return of(["NSW", "TAS", "SA", "WA", "VIC", "QLD", "ACT", "NT"]).pipe(
       mergeMap(q =>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StatDataService } from './stat-data.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-statistics',
@@ -14,6 +15,9 @@ export class StatisticsComponent implements OnInit {
 
   stateStats$ = new BehaviorSubject<{ [key: string]: number }>({});
 
+  users$: Observable<number>;
+
+
   constructor(
     private readonly stats: StatDataService
   ) { }
@@ -26,6 +30,8 @@ export class StatisticsComponent implements OnInit {
         this.pieChartData$.next(Object.keys(x).map(a => x[a]));
         console.log(Object.keys(x));
       });
+
+    this.users$ = this.stats.getUserStats().pipe(map(x => x.users));
 
 
     this.stats.getStateRankings().subscribe(this.stateStats$);
