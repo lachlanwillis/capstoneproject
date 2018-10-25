@@ -2,9 +2,9 @@ import { Strategy } from 'passport-google-oauth20';
 import { User } from '../models';
 
 export const GoogleAuth = new Strategy({
-    clientID: '255201340078-cedvii5bjtgmde1ofh8u6pfvfmms0k6m.apps.googleusercontent.com',
-    clientSecret: 'gzIWvq_pNG2fim8K-2qvXNz0',
-    callbackURL: 'http://localhost:4200/api/auth/google/callback'
+    clientID: process.env.GOOGLE_ID || '255201340078-cedvii5bjtgmde1ofh8u6pfvfmms0k6m.apps.googleusercontent.com',
+    clientSecret: process.env.GOOGLE_SECRET || 'gzIWvq_pNG2fim8K-2qvXNz0',
+    callbackURL: 'https://' + (process.env.DOMAIN || 'localhost:4200') + '/api/auth/google/callback'
 }, (accessToken, refreshToken, profile, callback) => {
    User.findOne({ 'google.id' : profile.id })
         .then(user => {

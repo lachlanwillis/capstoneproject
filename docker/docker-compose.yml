@@ -2,8 +2,28 @@ version: "2"
 services:
   app:
     environment:
+
+      # Fill in the following information for your domain
+
+      ## START 
+
+      - DOMAIN=
+
+      - GOOGLE_ID=
+      - GOOGLE_SECRET=
+
+      - FACEBOOK_ID=
+      - FACEBOOK_SECRET=
+
+      - EMAIL=
+      - EMAIL_PASSWORD=
+      - EMAIL_SERVICE=Gmail
+
+      ## END
+
       - PORT=8080
       - MONGO_URL=mongodb://mongo:27017/rubbish
+
     container_name: capstone
     restart: always
     build: .

@@ -19,8 +19,6 @@ export const GetLeaderboardHandler: RequestHandler = (req, res) => {
         }
     }
 
-    console.log(search);
-
     User.find(
         {
             ...search,
