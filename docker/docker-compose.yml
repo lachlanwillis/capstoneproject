@@ -3,7 +3,7 @@ services:
   app:
     environment:
       - PORT=8080
-      - MONGO_URL=mongodb://mongodb:27017/rubbish
+      - MONGO_URL=mongodb://mongo:27017/rubbish
     container_name: capstone
     restart: always
     build: .
