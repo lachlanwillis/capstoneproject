@@ -11,13 +11,15 @@ export const GetLeaderboardHandler: RequestHandler = (req, res) => {
     if (req.params.location && req.params.location !== 'all') {
         if (isQueryState(req.params.location)) {
             search = {
-                ...search,
-                ...postCodeQueryFromState(req.params.location)
+                ...postCodeQueryFromState(req.params.location),
+                ...search
             }
-        } else {
+        } else if (!isNaN(req.params.location)) {
             search['postcode'] = Number(req.params.location);
         }
     }
+
+    console.log(search);
 
     User.find(
         {
@@ -25,7 +27,7 @@ export const GetLeaderboardHandler: RequestHandler = (req, res) => {
             'leaderboardVisible': { $ne: false }
         },
         
-        ['google', 'facebook', 'points', 'email'],
+        ['google', 'facebook', 'points', 'email', 'name'],
         { 
             
             limit: Number(req.params.limit) || 20, 
@@ -37,20 +39,23 @@ export const GetLeaderboardHandler: RequestHandler = (req, res) => {
     .then(users => {
         res.json((users || []).map(({ google, facebook, points, email, name }) => ({
             points,
-            name: name || email.split('@')[0] || (google ? google.name : '') || (facebook ? facebook.name : '')
+            name: name || (email ? email.split('@')[0] : undefined) || (google ? google.name : '') || (facebook ? facebook.name : '')
         })));
     })
-    .catch(err => res.status(500).json(err));
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err)
+    });
 };
 
 function isQueryState(state: string): boolean {
     switch (state.toUpperCase()) {
-        case 'NSW':
         case 'TAS':
         case 'SA':
         case 'WA':
         case 'VIC':
         case 'QLD':
+        case 'NSW':
         case 'ACT':
         case 'NT':
         return true;

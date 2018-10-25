@@ -20,10 +20,3 @@ cp -r ./dist/rubbish2/* ../../build/assets
 cd ../..
 
 cp ./docker/* ./build/
-
-cd ./build
-npm install
-
-sed -i -e 's/mongodb:\/\/localhost\/rubbish/mongodb:\/\/mongodb\/rubbish/g' ./build/src/index.ts
-
-tsc

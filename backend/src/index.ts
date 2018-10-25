@@ -14,7 +14,7 @@ import { authentication } from './authentication';
 // Connect to the database. This shouldn't be here. 
 // In future when we deploy we should get rid of this,
 // but it just makes things so much easier.
-connect('mongodb://localhost/rubbish');
+connect(process.env.MONGO_URL || 'mongodb://localhost/rubbish');
 
 export const app: Application = express();
 export const detector = detectorGenerator();
