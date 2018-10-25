@@ -2,12 +2,24 @@
 
 ## Deploying the App
 
-1. Run the `create-build.sh` script. This will create a directory called `build`. 
+0. Ensure you have all the requirements installed and the build prepared. If you're deploying to a service like DigitalOcean, they have one click installs for docker. You will need `docker` and `docker-compose` installed on your computer.
 
-2. Navigate to the build directory and issue the command `docker-compose up`
+If you're running the build locally, jump straight to step 2.
 
-3. That's it!
+After `docker` and `docker-compose` have installed, open the `docker/docker-compose.yml` file in your favourite text editor and fill in the required details.
 
+These details are the domain that you're deploying to, the details for the facebook and google applications, as well as the details for the email used to send verification emails.
+
+
+If you've decided to change the `docker-compose.yml` file, you'll need to ensure that you have the latest LTS version of Node.js installed. This can be found [here](https://nodejs.org/en/)
+
+1. If you've changed the `docker-compose.yml` file, run the `create-build.sh` script. This will create a directory called `build`. 
+
+2. Run the `start-build.sh` script. This will navigate to the build directory and issue the command `docker-compose up`
+
+3. That's it! The application is now running on the port specified in the `docker-compose.yml` file, probably `8080`.
+
+4. (Optional) Set up a reverse proxy and enable https.
 
 ## Requirements
 
