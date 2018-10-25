@@ -1,0 +1,20 @@
+version: "2"
+services:
+  app:
+    environment:
+      - PORT=8080
+      - MONGO_URL=mongodb://mongodb:27017/rubbish
+    container_name: capstone
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
