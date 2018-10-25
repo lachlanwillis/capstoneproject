@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:8
 
 # Create app directory
 WORKDIR /usr/share/capstone
@@ -13,7 +13,10 @@ RUN npm install
 # RUN npm install --only=production
 
 # Bundle app source
+
 COPY . .
 
-EXPOSE 3000
+RUN npm run build
+
+EXPOSE 8080
 CMD [ "npm", "run", "start:prod" ]
